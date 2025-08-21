@@ -46,8 +46,8 @@ const fallbackData: PortfolioData = {
       keyResearch: 'Multi-Agent CoT',
     },
     {
-      title: 'Hydro Nexus – Agentic IoT Data Governance',
-      description: 'Created multi-agent system for autonomous data pipeline management, quality monitoring, and predictive analytics using CrewAI orchestration.',
+      title: 'Hydro Nexus (IoT + AI Smart Farming Platform)',
+      description: 'IoT Layer: Smart sensors and actuators for automated water and nutrient control.\n\nAI/ML Layer: Machine learning models for crop health prediction and resource optimization, with predictive analytics for yield forecasting.\n\nConversational Layer: Chatbots for farmers to query farm conditions and receive recommendations.\n\nVisualization Layer: Dashboards with sensor data, AI predictions, and decision support.',
       impact: 'Advanced to EDII-TN finals; autonomous agents reduced manual intervention by 70%.',
       tags: ['CrewAI', 'IoT', 'Data Governance', 'Autonomous Agents'],
       threeSceneType: 'octahedron',
