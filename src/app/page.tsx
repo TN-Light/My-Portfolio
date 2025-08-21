@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -152,9 +153,10 @@ export default function Home() {
 
 
   return (
-    <ClientOnly>
       <div className="flex flex-col min-h-screen bg-background">
-        <Header />
+        <ClientOnly>
+          <Header />
+        </ClientOnly>
         <main className="flex-grow">
           <Hero />
           {loading && !portfolioData ? (
@@ -172,8 +174,9 @@ export default function Home() {
           )}
           <Contact />
         </main>
-        <Footer />
+        <ClientOnly>
+          <Footer />
+        </ClientOnly>
       </div>
-    </ClientOnly>
   );
 }
