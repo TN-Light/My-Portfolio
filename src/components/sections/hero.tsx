@@ -3,7 +3,6 @@
 
 import { motion } from 'framer-motion';
 import { ArrowDown } from 'lucide-react';
-import Image from 'next/image';
 import ThreeScene from '../three-scene';
 
 export default function Hero() {
@@ -72,7 +71,7 @@ export default function Hero() {
                         variants={FADE_UP_ANIMATION_VARIANTS}
                         className="md:col-span-1 flex justify-center md:justify-end"
                     >
-                        <Image
+                        <img
                             src="/profile.png"
                             width={300}
                             height={450}
