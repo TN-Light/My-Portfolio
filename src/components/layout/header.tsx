@@ -7,6 +7,7 @@ import { useScrollSpy } from '@/hooks/use-scroll-spy';
 import { cn } from '@/lib/utils';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { LogoIcon } from '../icons';
 
 const navLinks = [
   { name: 'About', href: '#about' },
@@ -15,38 +16,6 @@ const navLinks = [
   { name: 'Experience', href: '#experience' },
   { name: 'Achievements', href: '#achievements' },
 ];
-
-const LogoIcon = () => (
-    <svg 
-        xmlns="http://www.w3.org/2000/svg" 
-        viewBox="0 0 100 100" 
-        className="w-8 h-8"
-    >
-        <path
-            d="M50 15 L85 85 H15 Z"
-            strokeWidth="5"
-            stroke="hsl(var(--primary))"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            fill="transparent"
-        />
-        <path
-            d="M50 15 L50 60"
-            strokeWidth="4"
-            stroke="hsl(var(--primary))"
-            strokeLinecap="round"
-            fill="transparent"
-        />
-        <path
-            d="M35 60 L65 60"
-            strokeWidth="4"
-            stroke="hsl(var(--primary))"
-            strokeLinecap="round"
-            fill="transparent"
-        />
-    </svg>
-);
-
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -79,7 +48,7 @@ export default function Header() {
         <div className="container mx-auto px-6 h-20 flex justify-between items-center">
           <Link href="/" className="flex items-center gap-2 text-xl font-headline font-bold">
             <motion.div whileHover={{ rotate: 15, scale: 1.1 }} transition={{ duration: 0.3 }}>
-              <LogoIcon />
+              <LogoIcon className="w-8 h-8" />
             </motion.div>
           </Link>
           <nav className="hidden md:flex items-center gap-8">
