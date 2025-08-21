@@ -2,29 +2,35 @@ import type { SVGProps } from 'react';
 
 export const LogoIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
+    viewBox="0 0 120 140"
     xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
     {...props}
   >
     <defs>
-        <linearGradient id="logo-gradient" x1="50%" y1="0%" x2="50%" y2="100%">
-            <stop offset="0%" stopColor="hsl(var(--primary))" />
-            <stop offset="100%" stopColor="hsl(var(--primary-foreground))" stopOpacity="0.5" />
-        </linearGradient>
+      <linearGradient id="logo-gradient" x1="50%" y1="0%" x2="50%" y2="100%">
+        <stop offset="0%" stopColor="hsl(var(--primary))" />
+        <stop offset="100%" stopColor="hsl(var(--accent))" />
+      </linearGradient>
     </defs>
-    <path 
-      d="M12 2L2 22h20L12 2z" 
-      fill="hsl(var(--background))" 
-      stroke="hsl(var(--border))" 
-      strokeWidth="1.5"
-    />
-    <path 
-      d="M12 2L2 22h20L12 2z" 
-      fill="url(#logo-gradient)" 
-      stroke="hsl(var(--primary))" 
-      strokeWidth="1.5"
-      style={{mixBlendMode: "multiply"}}
-    />
+    <g transform="translate(10, 5)">
+      <path
+        d="M50 0L100 86.6H0L50 0Z"
+        fill="url(#logo-gradient)"
+        transform="translate(0, 0)"
+      />
+    </g>
+    <text
+      x="50%"
+      y="125"
+      dominantBaseline="middle"
+      textAnchor="middle"
+      fill="hsl(var(--foreground))"
+      fontSize="24"
+      fontFamily="Space Grotesk, sans-serif"
+      fontWeight="bold"
+    >
+      ABHILASH
+    </text>
   </svg>
 );
 

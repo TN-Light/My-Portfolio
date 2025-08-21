@@ -48,10 +48,10 @@ export default function LoadingScreen() {
         animate={{ 
             opacity: 1, 
             scale: 1,
-            transition: { duration: 0.8, ease: "easeOut" }
+            transition: { duration: 0.8, ease: "easeOut", repeat: Infinity, repeatType: 'reverse', repeatDelay: 0.5 }
         }}
       >
-        <LogoIcon className="w-24 h-24" />
+        <LogoIcon className="w-40 h-auto" />
       </motion.div>
       <motion.p 
         variants={textVariants}

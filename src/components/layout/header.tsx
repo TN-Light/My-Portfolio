@@ -47,8 +47,8 @@ export default function Header() {
       >
         <div className="container mx-auto px-6 h-20 flex justify-between items-center">
           <Link href="/" className="flex items-center gap-2 text-xl font-headline font-bold">
-            <motion.div whileHover={{ rotate: 15, scale: 1.1 }} transition={{ duration: 0.3 }}>
-              <LogoIcon className="w-8 h-8" />
+            <motion.div whileHover={{ scale: 1.05 }} transition={{ duration: 0.3 }}>
+              <LogoIcon className="w-28 h-auto" />
             </motion.div>
           </Link>
           <nav className="hidden md:flex items-center gap-8">
