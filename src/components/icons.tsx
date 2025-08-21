@@ -2,35 +2,26 @@ import type { SVGProps } from 'react';
 
 export const LogoIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
-    viewBox="0 0 120 140"
+    viewBox="0 0 100 120"
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
     <defs>
-      <linearGradient id="logo-gradient" x1="50%" y1="0%" x2="50%" y2="100%">
-        <stop offset="0%" stopColor="hsl(var(--primary))" />
-        <stop offset="100%" stopColor="hsl(var(--accent))" />
+      <linearGradient id="fire-gradient" x1="50%" y1="0%" x2="50%" y2="100%">
+        <stop offset="0%" stopColor="#34D1C8" />
+        <stop offset="100%" stopColor="#A729F0" />
       </linearGradient>
     </defs>
-    <g transform="translate(10, 5)">
-      <path
-        d="M50 0L100 86.6H0L50 0Z"
-        fill="url(#logo-gradient)"
-        transform="translate(0, 0)"
-      />
-    </g>
-    <text
-      x="50%"
-      y="125"
-      dominantBaseline="middle"
-      textAnchor="middle"
-      fill="hsl(var(--foreground))"
-      fontSize="24"
-      fontFamily="Space Grotesk, sans-serif"
-      fontWeight="bold"
-    >
-      ABHI
-    </text>
+    <path
+      fill="url(#fire-gradient)"
+      d="M50 0C50 0 50 24.33 37.5 36.05C25 47.77 12.5 50.12 12.5 62.1C12.5 74.08 25 84.89 31.25 93.95C37.5 103.01 50 120 50 120C50 120 62.5 103.01 68.75 93.95C75 84.89 87.5 74.08 87.5 62.1C87.5 50.12 75 47.77 62.5 36.05C50 24.33 50 0 50 0Z"
+    />
+    <path
+      fill="url(#fire-gradient)"
+      opacity="0.7"
+      d="M50 36.05C43.75 43.23 37.5 47.77 37.5 62.1C37.5 76.43 50 87.96 50 87.96V36.05Z"
+      transform="scale(0.8) translate(12.5, 15)"
+    />
   </svg>
 );
 

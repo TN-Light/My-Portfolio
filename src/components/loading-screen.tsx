@@ -2,7 +2,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { LogoIcon } from './icons';
+import { LogoIcon } from '@/components/icons';
 
 export default function LoadingScreen() {
   const containerVariants = {
@@ -51,7 +51,7 @@ export default function LoadingScreen() {
             transition: { duration: 0.8, ease: "easeOut", repeat: Infinity, repeatType: 'reverse', repeatDelay: 0.5 }
         }}
       >
-        <LogoIcon className="w-32 h-auto" />
+        <LogoIcon className="w-24 h-auto" />
       </motion.div>
       <motion.p 
         variants={textVariants}
