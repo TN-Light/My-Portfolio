@@ -48,7 +48,7 @@ const fallbackData: PortfolioData = {
     {
       title: 'Hydro Nexus (IoT + AI Smart Farming Platform)',
       description: 'IoT Layer: Smart sensors and actuators for automated water and nutrient control.\n\nAI/ML Layer: Machine learning models for crop health prediction and resource optimization, with predictive analytics for yield forecasting.\n\nConversational Layer: Chatbots for farmers to query farm conditions and receive recommendations.\n\nVisualization Layer: Dashboards with sensor data, AI predictions, and decision support.',
-      impact: 'Advanced to EDII-TN finals; autonomous agents reduced manual intervention by 70%.',
+      impact: 'Integrated IoT, AI/ML, and conversational agents to create a comprehensive smart farming solution.',
       tags: ['CrewAI', 'IoT', 'Data Governance', 'Autonomous Agents'],
       threeSceneType: 'octahedron',
       keyResearch: 'Agentic Workflows',
@@ -59,13 +59,13 @@ const fallbackData: PortfolioData = {
       role: 'Project Manager Intern',
       company: 'WoowLocal Retail Tech Pvt. Ltd.',
       date: 'April 2025 - June 2025',
-      description: 'Facilitated sprint planning, daily stand-ups, and retrospectives for a 7-member cross-functional team. Maintained project documentation, supported Agile implementation, and led communication with stakeholders.'
+      description: 'Facilitate sprint planning, daily stand-ups, and retrospectives for development team. Led 7-member cross-functional team including developers, designers, and business analysts. Maintain project documentation and stakeholder communication. Support Agile implementation and process improvements.'
     },
     {
       role: 'Founder & Project Lead',
       company: 'Shrink (MSME Registered, University Incubator)',
       date: 'Oct 2023 - Jan 2025',
-      description: 'Developed a retractable water bottle prototype, advancing to the EDII-TN Voucher A final round. Managed a ₹10,000 budget, coordinated design and manufacturing, and directed multi-department stand-ups. Discontinued post-Jan 2025 to focus on AI.'
+      description: 'Developed a retractable water bottle prototype; advanced to EDII-TN Voucher A final round. Managed ₹10,000 budget and coordinated 3D design, manufacturing, and testing teams. Directed multi-department daily stand-ups and prepared technical documentation. Gained hands-on experience in product lifecycle management and cross-functional teamwork. Note: Undertaken for skill-building; discontinued post-Jan 2025'
     }
   ],
   certifications: [
