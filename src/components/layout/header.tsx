@@ -7,14 +7,13 @@ import { useScrollSpy } from '@/hooks/use-scroll-spy';
 import { cn } from '@/lib/utils';
 import { LogoIcon } from '@/components/icons';
 import { Button } from '@/components/ui/button';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ArrowUpRight } from 'lucide-react';
 
 const navLinks = [
   { name: 'About', href: '#about' },
   { name: 'Projects', href: '#projects' },
   { name: 'Research', href: '#research'},
   { name: 'Experience', href: '#experience' },
-  { name: 'Contact', href: '#contact' },
 ];
 
 export default function Header() {
@@ -40,24 +39,23 @@ export default function Header() {
       transition={{ type: 'spring', stiffness: 100, damping: 20 }}
       className={cn(
         'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
-        isScrolled || isMenuOpen ? 'bg-background/80 backdrop-blur-lg border-b border-white/10' : 'bg-transparent'
+        isScrolled || isMenuOpen ? 'bg-background/80 backdrop-blur-sm border-b' : 'bg-transparent'
       )}
     >
       <div className="container mx-auto px-6 h-20 flex justify-between items-center">
         <Link href="/" className="flex items-center gap-2 text-xl font-headline font-bold">
           <motion.div whileHover={{ rotate: 360, scale: 1.1 }} transition={{ duration: 0.5 }}>
-            <LogoIcon className="w-8 h-8 text-primary drop-shadow-neon-primary" />
+            <LogoIcon className="w-8 h-8 text-primary" />
           </motion.div>
-          <span>Abhilash</span>
         </Link>
-        <nav className="hidden md:flex items-center gap-6">
+        <nav className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
             <a
               key={link.name}
               href={link.href}
               className={cn(
                 'font-medium transition-colors hover:text-primary relative',
-                activeId === link.href.substring(1) ? 'text-primary' : 'text-foreground'
+                activeId === link.href.substring(1) ? 'text-primary' : 'text-foreground/60'
               )}
             >
               {link.name}
@@ -72,9 +70,9 @@ export default function Header() {
           ))}
         </nav>
         <div className="hidden md:flex">
-          <Button asChild variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:drop-shadow-neon-primary">
+          <Button asChild>
             <a href="#contact">
-                Get in Touch
+                Book a Call <ArrowUpRight className="ml-2 h-4 w-4" />
             </a>
           </Button>
         </div>
@@ -89,7 +87,7 @@ export default function Header() {
         <motion.div 
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="md:hidden absolute top-20 left-0 right-0 bg-background/90 backdrop-blur-lg border-b border-white/10"
+            className="md:hidden absolute top-20 left-0 right-0 bg-background/90 backdrop-blur-lg border-b"
         >
           <nav className="flex flex-col items-center gap-6 py-8">
             {navLinks.map((link) => (
@@ -98,16 +96,16 @@ export default function Header() {
                 href={link.href}
                 className={cn(
                   'font-medium transition-colors hover:text-primary text-lg',
-                  activeId === link.href.substring(1) ? 'text-primary' : 'text-foreground'
+                  activeId === link.href.substring(1) ? 'text-primary' : 'text-foreground/60'
                 )}
                 onClick={() => setIsMenuOpen(false)}
               >
                 {link.name}
               </a>
             ))}
-            <Button asChild variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:drop-shadow-neon-primary" onClick={() => setIsMenuOpen(false)}>
+            <Button asChild onClick={() => setIsMenuOpen(false)}>
                 <a href="#contact">
-                    Get in Touch
+                    Book a Call <ArrowUpRight className="ml-2 h-4 w-4" />
                 </a>
             </Button>
           </nav>

@@ -46,7 +46,7 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="py-24 bg-secondary/20">
+    <section id="contact" className="py-24 bg-background">
       <div className="container mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -54,11 +54,11 @@ export default function Contact() {
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-4xl md:text-6xl font-headline font-bold text-center mb-4">
-            Get In <span className="text-primary">Touch</span>
+          <h2 className="text-3xl md:text-4xl font-headline font-bold text-center mb-4">
+            Get In Touch
           </h2>
           <p className="text-center max-w-3xl mx-auto text-muted-foreground mb-12 text-lg">
-            Have a project in mind or just want to say hello? Drop me a line at <a href="mailto:venkatabhilash432004@gmail.com" className="text-primary hover:underline">venkatabhilash432004@gmail.com</a> or use the form below.
+            Have a project in mind or just want to say hello? Drop me a line at <a href="mailto:venkatabhilash432004@gmail.com" className="text-primary underline">venkatabhilash432004@gmail.com</a> or use the form below.
           </p>
         </motion.div>
 
@@ -70,16 +70,15 @@ export default function Contact() {
           className="max-w-2xl mx-auto"
         >
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                 <FormField
                   control={form.control}
                   name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-lg">Name</FormLabel>
+                      <FormLabel>Name</FormLabel>
                       <FormControl>
-                        <Input placeholder="Your Name" {...field} className="h-12 text-base" />
+                        <Input placeholder="Your Name" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -90,30 +89,29 @@ export default function Contact() {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-lg">Email</FormLabel>
+                      <FormLabel>Email</FormLabel>
                       <FormControl>
-                        <Input placeholder="your.email@example.com" {...field} className="h-12 text-base" />
+                        <Input placeholder="your.email@example.com" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
-              </div>
               <FormField
                 control={form.control}
                 name="message"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-lg">Message</FormLabel>
+                    <FormLabel>Message</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="Tell me about your project..." {...field} className="min-h-[150px] text-base" />
+                      <Textarea placeholder="Tell me about your project..." {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
               <div className="text-center">
-                <Button type="submit" size="lg" className="w-full md:w-auto text-lg px-12 py-6 bg-primary hover:bg-primary/90 text-primary-foreground drop-shadow-neon-primary" disabled={isSubmitting}>
+                <Button type="submit" size="lg" className="w-full md:w-auto" disabled={isSubmitting}>
                   {isSubmitting ? <Loader className="mr-2 h-5 w-5 animate-spin" /> : 'Send Message'}
                 </Button>
               </div>
