@@ -13,6 +13,7 @@ import { getPortfolioData } from './actions';
 import type { portfolioSchema } from '@/lib/schemas';
 import type { z } from 'zod';
 import { Skeleton } from '@/components/ui/skeleton';
+import ClientOnly from '@/components/client-only';
 
 type PortfolioData = z.infer<typeof portfolioSchema>;
 
@@ -151,6 +152,7 @@ export default function Home() {
 
 
   return (
+    <ClientOnly>
     <div className="flex flex-col min-h-screen bg-background">
       <Header />
       <main className="flex-grow">
@@ -172,5 +174,6 @@ export default function Home() {
       </main>
       <Footer />
     </div>
+    </ClientOnly>
   );
 }
