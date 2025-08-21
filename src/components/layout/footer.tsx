@@ -1,7 +1,6 @@
 'use client';
 
 import { GithubIcon, LinkedinIcon } from '@/components/icons';
-import { useEffect, useState } from 'react';
 
 const socialLinks = [
   { name: 'GitHub', icon: GithubIcon, url: 'https://github.com/TN-Light' },
@@ -9,18 +8,14 @@ const socialLinks = [
 ];
 
 export default function Footer() {
-  const [copyrightText, setCopyrightText] = useState('');
-
-  useEffect(() => {
-    setCopyrightText(`© ${new Date().getFullYear()} Abhilash. All rights reserved.`);
-  }, []);
+  const currentYear = new Date().getFullYear();
 
   return (
     <footer className="bg-background border-t border-white/10">
       <div className="container mx-auto px-6 py-8">
         <div className="flex flex-col items-center sm:flex-row sm:justify-between">
-          <p className="text-sm text-muted-foreground h-5 flex items-center">
-            {copyrightText || `\u00A0`}
+          <p className="text-sm text-muted-foreground">
+            {`© ${currentYear} Abhilash. All rights reserved.`}
           </p>
           <div className="flex -mx-2 mt-4 sm:mt-0">
             {socialLinks.map((social) => (
