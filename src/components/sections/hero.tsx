@@ -30,16 +30,12 @@ export default function Hero() {
                             },
                         },
                     }}
-                    className="grid grid-cols-1 md:grid-cols-5 gap-8 items-center"
+                    className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center"
                 >
-                    <div className="md:col-span-1 hidden md:flex flex-col items-center gap-16">
-                        <motion.div variants={FADE_UP_ANIMATION_VARIANTS} className="[writing-mode:vertical-rl] text-sm text-muted-foreground tracking-widest uppercase">
+                    <div className="text-center md:text-left">
+                         <motion.div variants={FADE_UP_ANIMATION_VARIANTS} className="md:absolute md:top-1/2 md:-translate-y-1/2 md:[writing-mode:vertical-rl] text-sm text-muted-foreground tracking-widest uppercase md:-translate-x-20">
                             AI-Native Developer
                         </motion.div>
-                        <motion.div variants={FADE_UP_ANIMATION_VARIANTS} className="w-px h-24 bg-border" />
-                    </div>
-
-                    <div className="md:col-span-3 text-center md:text-left">
                         <motion.h1
                             className="text-6xl md:text-8xl lg:text-9xl font-headline font-bold tracking-tighter"
                             variants={FADE_UP_ANIMATION_VARIANTS}
@@ -69,17 +65,14 @@ export default function Hero() {
 
                     <motion.div
                         variants={FADE_UP_ANIMATION_VARIANTS}
-                        className="relative hidden md:block md:col-span-1"
+                        className="relative hidden md:flex justify-center items-center"
                     >
-                        <div className="relative w-full h-auto aspect-[3/4] rounded-lg overflow-hidden shadow-2xl group">
-                            <img
-                                src="/profile.png.png"
-                                alt="Profile picture of Abhilash"
-                                data-ai-hint="profile photo"
-                                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-50"></div>
-                        </div>
+                         <img
+                            src="https://storage.googleapis.com/gemini-studio-assets/ce9e3a32-6a75-48f4-b25b-381d58203d98/ce9e3a32-6a75-48f4-b25b-381d58203d98.png"
+                            alt="Profile picture of Abhilash"
+                            data-ai-hint="profile photo"
+                            className="max-w-full h-auto object-contain"
+                        />
                     </motion.div>
                 </motion.div>
             </div>
