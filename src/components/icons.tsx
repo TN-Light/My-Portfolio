@@ -6,13 +6,24 @@ export const LogoIcon = (props: SVGProps<SVGSVGElement>) => (
     viewBox="0 0 24 24"
     {...props}
   >
-    <path
-      d="M13.4,2.09C12.87,1.6,12,1.88,11.9,2.46C10.79,9.08,6.24,12.44,2.9,14.54C2.33,14.88,2.58,15.71,3.22,15.71C8.04,15.71,11.05,13.16,13,10.6C14.24,12.83,17.07,15.71,20.78,15.71C21.42,15.71,21.67,14.88,21.1,14.54C17.76,12.44,13.21,9.08,12.1,2.46C12.04,1.88,11.13,1.6,10.6,2.09"
-      fill="#424242"
+    <defs>
+        <linearGradient id="logo-gradient" x1="50%" y1="0%" x2="50%" y2="100%">
+            <stop offset="0%" stopColor="hsl(var(--primary))" />
+            <stop offset="100%" stopColor="hsl(var(--primary-foreground))" stopOpacity="0.5" />
+        </linearGradient>
+    </defs>
+    <path 
+      d="M12 2L2 22h20L12 2z" 
+      fill="hsl(var(--background))" 
+      stroke="hsl(var(--border))" 
+      strokeWidth="1.5"
     />
-    <path
-      d="M12.15,6.62C11.35,11.41,8.45,13.86,6.23,15.12C7.52,14.3,9.53,12.94,10.6,10.66C11.72,12.59,13.88,15.12,16.77,15.12C18.17,15.12,19.3,14.47,19.68,14.23C17.3,12.63,13.26,9.63,12.15,6.62Z"
-      fill="#000000"
+    <path 
+      d="M12 2L2 22h20L12 2z" 
+      fill="url(#logo-gradient)" 
+      stroke="hsl(var(--primary))" 
+      strokeWidth="1.5"
+      style={{mixBlendMode: "multiply"}}
     />
   </svg>
 );
