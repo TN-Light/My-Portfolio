@@ -32,7 +32,7 @@ export default function Hero() {
                     }}
                     className="grid grid-cols-12 items-center"
                 >
-                    <div className="col-span-12 md:col-start-2 md:col-span-10">
+                    <div className="col-span-12">
                         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
                             <div className="md:col-span-7 text-left">
                                 <div className="flex items-center gap-8">
@@ -74,7 +74,7 @@ export default function Hero() {
                                 variants={FADE_UP_ANIMATION_VARIANTS}
                                 className="md:col-span-5 relative flex justify-center items-center h-full group"
                             >
-                                <div className="absolute inset-0 bg-radial-gradient-hero z-0"></div>
+                                <div className="absolute -inset-8 bg-radial-gradient-hero z-0"></div>
                                 <img
                                     src="/profile.png.png"
                                     alt="Profile picture of Abhilash"
