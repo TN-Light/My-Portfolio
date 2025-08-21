@@ -13,7 +13,7 @@ const skills = [
 
 export default function About() {
   return (
-    <section id="about" className="py-24 bg-background">
+    <section id="about" className="bg-background">
       <div className="container mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -21,10 +21,10 @@ export default function About() {
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.8 }}
         >
-          <h2 className="text-4xl md:text-6xl font-headline font-bold text-center mb-4">
-            About <span className="text-primary">Me</span>
+          <h2 className="text-4xl md:text-6xl font-headline font-bold text-center mb-4 tracking-tighter">
+            About <span className="text-primary drop-shadow-neon-primary">Me</span>
           </h2>
-          <p className="text-center max-w-3xl mx-auto text-muted-foreground mb-12 text-lg">
+          <p className="text-center max-w-3xl mx-auto text-muted-foreground mb-16 text-lg">
             AI-native Computer Science student with deep expertise in multi-agent orchestration, advanced RAG systems, and LLM application development. Daily user of AI tools for coding, debugging, and rapid prototyping.
           </p>
         </motion.div>
@@ -39,8 +39,8 @@ export default function About() {
           >
             <h3 className="text-3xl font-headline font-semibold mb-6 text-primary">Education</h3>
             <div className="flex items-start gap-4 mb-8">
-              <div className="mt-1">
-                <GraduationCap className="w-8 h-8 text-accent"/>
+              <div className="mt-1 p-2 bg-primary/10 rounded-full">
+                <GraduationCap className="w-6 h-6 text-primary"/>
               </div>
               <div>
                 <h4 className="font-bold text-xl">B.Tech. in Computer Science (AI/ML Specialization)</h4>
@@ -54,8 +54,8 @@ export default function About() {
               {skills.map((skill) => (
                 <motion.div 
                   key={skill} 
-                  className="px-3 py-1.5 bg-secondary rounded-full text-sm font-medium text-secondary-foreground"
-                  whileHover={{ scale: 1.05, backgroundColor: 'hsl(var(--primary))', color: 'hsl(var(--primary-foreground))' }}
+                  className="px-3 py-1.5 bg-secondary rounded-full text-sm font-medium text-foreground/80"
+                  whileHover={{ scale: 1.05, backgroundColor: 'hsl(var(--primary))', color: 'hsl(var(--primary-foreground))', y: -2 }}
                   transition={{ type: 'spring', stiffness: 400, damping: 10 }}
                 >
                   {skill}
@@ -71,7 +71,7 @@ export default function About() {
             className="w-full h-80 md:h-96"
           >
              <div 
-              className="w-full h-full rounded-full overflow-hidden border-4 border-primary/50 shadow-2xl shadow-primary/20 flex items-center justify-center bg-secondary"
+              className="w-full h-full rounded-2xl overflow-hidden border-2 border-primary/20 shadow-2xl shadow-primary/20 flex items-center justify-center bg-secondary"
               data-ai-hint="futuristic avatar"
             >
               <ThreeScene type="avatar" />

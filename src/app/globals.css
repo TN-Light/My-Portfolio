@@ -37,9 +37,13 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-feature-settings: "cv11", "ss01";
   }
   ::selection {
     background-color: hsl(var(--primary));
     color: hsl(var(--primary-foreground));
+  }
+  section {
+    @apply w-full py-20 md:py-32;
   }
 }

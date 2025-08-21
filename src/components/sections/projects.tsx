@@ -4,6 +4,8 @@ import { motion } from 'framer-motion';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import ThreeScene from '@/components/three-scene';
+import { Button } from '../ui/button';
+import { ArrowRight } from 'lucide-react';
 
 const projects = [
   {
@@ -36,7 +38,7 @@ export default function Projects() {
   };
 
   return (
-    <section id="projects" className="min-h-screen py-24 bg-secondary/20">
+    <section id="projects" className="bg-secondary/20">
       <div className="container mx-auto px-6">
         <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -44,8 +46,8 @@ export default function Projects() {
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.8 }}
         >
-          <h2 className="text-4xl md:text-6xl font-headline font-bold text-center mb-4">
-            AI Project <span className="text-primary">Highlights</span>
+          <h2 className="text-4xl md:text-6xl font-headline font-bold text-center mb-4 tracking-tighter">
+            AI Project <span className="text-primary drop-shadow-neon-primary">Highlights</span>
           </h2>
           <p className="text-center max-w-3xl mx-auto text-muted-foreground mb-16 text-lg">
             A selection of projects where I've translated cutting-edge AI research into production-ready systems.
@@ -61,16 +63,16 @@ export default function Projects() {
               viewport={{ once: true, amount: 0.2 }}
               transition={{ delay: index * 0.1 }}
             >
-              <Card className="h-full flex flex-col bg-card/50 backdrop-blur-sm border-border overflow-hidden group transition-all duration-300 hover:border-primary hover:shadow-2xl hover:shadow-primary/20">
-                <div className="h-48 w-full relative overflow-hidden bg-secondary/30">
+              <Card className="h-full flex flex-col bg-card/50 backdrop-blur-sm border-border overflow-hidden group transition-all duration-300 hover:border-primary hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-2">
+                <div className="h-56 w-full relative overflow-hidden bg-secondary/30">
                   <ThreeScene type={project.threeSceneType} />
                   <div className="absolute inset-0 bg-gradient-to-t from-card/80 to-transparent"></div>
                 </div>
                 <CardHeader>
-                  <CardTitle className="font-headline text-2xl">{project.title}</CardTitle>
-                  <CardDescription>{project.description}</CardDescription>
+                  <CardTitle className="font-headline text-2xl tracking-tight">{project.title}</CardTitle>
                 </CardHeader>
                 <CardContent className="flex-grow flex flex-col justify-between space-y-4">
+                  <CardDescription>{project.description}</CardDescription>
                   <div>
                     <h4 className="font-semibold text-primary mb-2">Impact:</h4>
                     <p className="text-sm text-muted-foreground">{project.impact}</p>
@@ -82,6 +84,12 @@ export default function Projects() {
               </Card>
             </motion.div>
           ))}
+        </div>
+        <div className="text-center mt-16">
+            <Button variant="outline" size="lg" className="border-accent text-accent hover:bg-accent hover:text-accent-foreground transition-all duration-300 hover:drop-shadow-neon-accent group">
+                View All Projects on GitHub
+                <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+            </Button>
         </div>
       </div>
     </section>

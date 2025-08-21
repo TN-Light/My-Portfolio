@@ -7,6 +7,7 @@ import { useScrollSpy } from '@/hooks/use-scroll-spy';
 import { cn } from '@/lib/utils';
 import { LogoIcon } from '@/components/icons';
 import { Button } from '@/components/ui/button';
+import { Menu, X } from 'lucide-react';
 
 const navLinks = [
   { name: 'About', href: '#about' },
@@ -17,6 +18,7 @@ const navLinks = [
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const activeId = useScrollSpy(
     navLinks.map((link) => link.href.substring(1)),
     { rootMargin: '-50% 0px -50% 0px' }
@@ -37,7 +39,7 @@ export default function Header() {
       transition={{ type: 'spring', stiffness: 100, damping: 20 }}
       className={cn(
         'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
-        isScrolled ? 'bg-background/80 backdrop-blur-lg border-b border-white/10' : 'bg-transparent'
+        isScrolled || isMenuOpen ? 'bg-background/80 backdrop-blur-lg border-b border-white/10' : 'bg-transparent'
       )}
     >
       <div className="container mx-auto px-6 h-20 flex justify-between items-center">
@@ -68,12 +70,48 @@ export default function Header() {
             </a>
           ))}
         </nav>
-        <a href="#contact">
-            <Button variant="outline" className="hidden md:flex border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:drop-shadow-neon-primary">
+        <div className="hidden md:flex">
+          <Button asChild variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:drop-shadow-neon-primary">
+            <a href="#contact">
                 Get in Touch
+            </a>
+          </Button>
+        </div>
+        <div className="md:hidden">
+            <Button variant="ghost" size="icon" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                {isMenuOpen ? <X/> : <Menu />}
+                <span className="sr-only">Toggle menu</span>
             </Button>
-        </a>
+        </div>
       </div>
+      {isMenuOpen && (
+        <motion.div 
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="md:hidden absolute top-20 left-0 right-0 bg-background/90 backdrop-blur-lg border-b border-white/10"
+        >
+          <nav className="flex flex-col items-center gap-6 py-8">
+            {navLinks.map((link) => (
+              <a
+                key={link.name}
+                href={link.href}
+                className={cn(
+                  'font-medium transition-colors hover:text-primary text-lg',
+                  activeId === link.href.substring(1) ? 'text-primary' : 'text-foreground'
+                )}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {link.name}
+              </a>
+            ))}
+            <Button asChild variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:drop-shadow-neon-primary" onClick={() => setIsMenuOpen(false)}>
+                <a href="#contact">
+                    Get in Touch
+                </a>
+            </Button>
+          </nav>
+        </motion.div>
+      )}
     </motion.header>
   );
 }
