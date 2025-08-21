@@ -86,9 +86,11 @@ export default function Projects() {
           ))}
         </div>
         <div className="text-center mt-16">
-            <Button variant="outline" size="lg" className="border-accent text-accent hover:bg-accent hover:text-accent-foreground transition-all duration-300 hover:drop-shadow-neon-accent group">
-                View All Projects on GitHub
-                <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+            <Button asChild variant="outline" size="lg" className="border-accent text-accent hover:bg-accent hover:text-accent-foreground transition-all duration-300 hover:drop-shadow-neon-accent group">
+                <a href="https://github.com/TN-Light" target="_blank" rel="noopener noreferrer">
+                    View All Projects on GitHub
+                    <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+                </a>
             </Button>
         </div>
       </div>
