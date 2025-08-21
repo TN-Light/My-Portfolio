@@ -8,7 +8,6 @@ import { cn } from '@/lib/utils';
 import { LogoIcon } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
-import ClientOnly from '../client-only';
 
 const navLinks = [
   { name: 'About', href: '#about' },
@@ -36,7 +35,6 @@ export default function Header() {
   }, []);
 
   return (
-    <ClientOnly>
       <motion.header
         initial={{ y: -100 }}
         animate={{ y: 0 }}
@@ -138,6 +136,5 @@ export default function Header() {
           </motion.div>
         )}
       </motion.header>
-    </ClientOnly>
   );
 }

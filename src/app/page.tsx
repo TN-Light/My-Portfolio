@@ -153,27 +153,27 @@ export default function Home() {
 
   return (
     <ClientOnly>
-    <div className="flex flex-col min-h-screen bg-background">
-      <Header />
-      <main className="flex-grow">
-        <Hero />
-        {loading && !portfolioData ? (
-          <LoadingSkeleton />
-        ) : (
-          <>
-            <About skills={displayData.skills} />
-            <Projects projects={displayData.projects} />
-            <ResearchToReality implementations={displayData.researchImplementations || []} />
-            <Experience 
-              experiences={displayData.experiences}
-              certifications={displayData.certifications}
-            />
-          </>
-        )}
-        <Contact />
-      </main>
-      <Footer />
-    </div>
+      <div className="flex flex-col min-h-screen bg-background">
+        <Header />
+        <main className="flex-grow">
+          <Hero />
+          {loading && !portfolioData ? (
+            <LoadingSkeleton />
+          ) : (
+            <>
+              <About skills={displayData.skills} />
+              <Projects projects={displayData.projects} />
+              <ResearchToReality implementations={displayData.researchImplementations || []} />
+              <Experience 
+                experiences={displayData.experiences}
+                certifications={displayData.certifications}
+              />
+            </>
+          )}
+          <Contact />
+        </main>
+        <Footer />
+      </div>
     </ClientOnly>
   );
 }

@@ -2,7 +2,6 @@
 
 import { GithubIcon, LinkedinIcon } from '@/components/icons';
 import { useEffect, useState } from 'react';
-import ClientOnly from '../client-only';
 
 const socialLinks = [
   { name: 'GitHub', icon: GithubIcon, url: 'https://github.com/TN-Light' },
@@ -17,7 +16,6 @@ export default function Footer() {
     }, []);
 
   return (
-    <ClientOnly>
       <footer className="bg-background border-t border-white/10">
         <div className="container mx-auto px-6 py-8">
           <div className="flex flex-col items-center sm:flex-row sm:justify-between">
@@ -41,6 +39,5 @@ export default function Footer() {
           </div>
         </div>
       </footer>
-    </ClientOnly>
   );
 }
