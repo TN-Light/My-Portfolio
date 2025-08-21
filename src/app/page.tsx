@@ -14,7 +14,8 @@ import Chatbot from '@/components/chatbot';
 import type { portfolioSchema } from '@/lib/schemas';
 import type { z } from 'zod';
 import { getPortfolioData } from './actions';
-import { Skeleton } from '@/components/ui/skeleton';
+import LoadingScreen from '@/components/loading-screen';
+import { AnimatePresence } from 'framer-motion';
 
 type PortfolioData = z.infer<typeof portfolioSchema>;
 
@@ -46,12 +47,12 @@ const fallbackData: PortfolioData = {
       keyResearch: 'Multi-Agent CoT',
     },
     {
-      title: 'Hydro Nexus (IoT + AI Smart Farming Platform)',
-      description: 'IoT Layer: Smart sensors and actuators for automated water and nutrient control.\n\nAI/ML Layer: Machine learning models for crop health prediction and resource optimization, with predictive analytics for yield forecasting.\n\nConversational Layer: Chatbots for farmers to query farm conditions and receive recommendations.\n\nVisualization Layer: Dashboards with sensor data, AI predictions, and decision support.',
-      impact: 'Integrated IoT, AI/ML, and conversational agents to create a comprehensive smart farming solution.',
-      tags: ['CrewAI', 'IoT', 'Data Governance', 'Autonomous Agents'],
-      threeSceneType: 'octahedron',
-      keyResearch: 'Agentic Workflows',
+        title: 'Hydro Nexus (IoT + AI Smart Farming Platform)',
+        description: 'IoT Layer: Smart sensors and actuators for automated water and nutrient control.\n\nAI/ML Layer: Machine learning models for crop health prediction and resource optimization, with predictive analytics for yield forecasting.\n\nConversational Layer: Chatbots for farmers to query farm conditions and receive recommendations.\n\nVisualization Layer: Dashboards with sensor data, AI predictions, and decision support.',
+        impact: 'Integrated IoT, AI/ML, and conversational agents to create a comprehensive smart farming solution.',
+        tags: ['CrewAI', 'IoT', 'Data Governance', 'Autonomous Agents'],
+        threeSceneType: 'octahedron',
+        keyResearch: 'Agentic Workflows',
     },
   ],
   experiences: [
@@ -117,7 +118,9 @@ export default function Home() {
   useEffect(() => {
     async function loadData() {
       try {
-        setLoading(true);
+        // Keep the loading screen for at least a moment
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        
         const result = await getPortfolioData();
         if (result.success) {
           setPortfolioData(result.data);
@@ -136,18 +139,6 @@ export default function Home() {
     loadData();
   }, []);
 
-  if (loading) {
-    return <div className="space-y-4 p-6">
-      <Skeleton className="h-24 w-full" />
-      <div className="flex gap-4">
-        <Skeleton className="h-64 w-1/3" />
-        <Skeleton className="h-64 w-1/3" />
-        <Skeleton className="h-64 w-1/3" />
-      </div>
-      <Skeleton className="h-48 w-full" />
-    </div>;
-  }
-  
   if (error && !portfolioData) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen text-center">
@@ -158,31 +149,30 @@ export default function Home() {
     )
   }
 
-  if (!portfolioData) {
-     return (
-        <div className="flex flex-col items-center justify-center min-h-screen text-center">
-            <h2 className="text-2xl font-bold mb-2">Error Loading Portfolio</h2>
-            <p className="mt-4 text-muted-foreground">Portfolio data could not be loaded.</p>
-        </div>
-      )
-  }
-
   return (
       <div className="flex flex-col min-h-screen bg-background">
-        <Header />
-        <main className="flex-grow">
-          <Hero />
-          <About skills={portfolioData.skills} />
-          <Projects projects={portfolioData.projects} />
-          <ResearchToReality implementations={portfolioData.researchImplementations || []} />
-          <Experience 
-            experiences={portfolioData.experiences}
-            certifications={portfolioData.certifications}
-          />
-          <Contact />
-        </main>
-        <Footer />
-        <Chatbot portfolioData={portfolioData} />
+        <AnimatePresence>
+            {loading && <LoadingScreen />}
+        </AnimatePresence>
+
+        {!loading && portfolioData && (
+          <>
+            <Header />
+            <main className="flex-grow">
+              <Hero />
+              <About skills={portfolioData.skills} />
+              <Projects projects={portfolioData.projects} />
+              <ResearchToReality implementations={portfolioData.researchImplementations || []} />
+              <Experience 
+                experiences={portfolioData.experiences}
+                certifications={portfolioData.certifications}
+              />
+              <Contact />
+            </main>
+            <Footer />
+            <Chatbot portfolioData={portfolioData} />
+          </>
+        )}
       </div>
   );
 }
