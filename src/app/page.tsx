@@ -142,7 +142,11 @@ export default function Home() {
     async function fetchData() {
       try {
         const data = await getPortfolioData();
-        setPortfolioData(data);
+        if (data) {
+          setPortfolioData(data);
+        } else {
+          setPortfolioData(fallbackData);
+        }
       } catch (error) {
         console.error("Failed to fetch portfolio data, using fallback.", error);
         setPortfolioData(fallbackData);
