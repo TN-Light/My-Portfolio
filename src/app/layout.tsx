@@ -3,8 +3,8 @@ import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
-  title: 'NeonDepth Portfolio',
-  description: 'A modern and interactive 3D portfolio.',
+  title: 'D Venkat Abhilash - AI-Native Developer',
+  description: 'Portfolio of D Venkat Abhilash, an AI-Native Developer and Multi-Agent Systems Engineer.',
 };
 
 export default function RootLayout({

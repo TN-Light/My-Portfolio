@@ -46,7 +46,7 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="min-h-screen py-24 bg-background flex items-center">
+    <section id="contact" className="py-24 bg-secondary/20">
       <div className="container mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -58,7 +58,7 @@ export default function Contact() {
             Get In <span className="text-primary">Touch</span>
           </h2>
           <p className="text-center max-w-3xl mx-auto text-muted-foreground mb-12 text-lg">
-            Have a project in mind or just want to say hello? Drop me a line.
+            Have a project in mind or just want to say hello? Drop me a line at <a href="mailto:venkatabhilash432004@gmail.com" className="text-primary hover:underline">venkatabhilash432004@gmail.com</a> or use the form below.
           </p>
         </motion.div>
 

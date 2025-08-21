@@ -9,8 +9,9 @@ import { LogoIcon } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 
 const navLinks = [
-  { name: 'Projects', href: '#projects' },
   { name: 'About', href: '#about' },
+  { name: 'Projects', href: '#projects' },
+  { name: 'Experience', href: '#experience' },
   { name: 'Contact', href: '#contact' },
 ];
 
@@ -42,7 +43,7 @@ export default function Header() {
       <div className="container mx-auto px-6 h-20 flex justify-between items-center">
         <Link href="/" className="flex items-center gap-2 text-xl font-headline font-bold">
           <LogoIcon className="w-8 h-8 text-primary drop-shadow-neon-primary" />
-          <span>NeonDepth</span>
+          <span>D.V.A</span>
         </Link>
         <nav className="hidden md:flex items-center gap-6">
           {navLinks.map((link) => (

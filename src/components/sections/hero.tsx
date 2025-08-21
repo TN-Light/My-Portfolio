@@ -35,13 +35,13 @@ export default function Hero() {
             className="text-5xl md:text-7xl lg:text-8xl font-headline font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400"
             variants={FADE_DOWN_ANIMATION_VARIANTS}
           >
-            NeonDepth Portfolio
+            D Venkat Abhilash
           </motion.h1>
           <motion.p
             className="mt-6 max-w-2xl text-lg md:text-xl text-muted-foreground"
             variants={FADE_DOWN_ANIMATION_VARIANTS}
           >
-            Crafting immersive digital experiences with cutting-edge 3D visuals and fluid interactivity.
+            AI-Native Developer & Multi-Agent Systems Engineer
           </motion.p>
           <motion.div variants={FADE_DOWN_ANIMATION_VARIANTS} className="mt-12">
             <a href="#projects">

@@ -1,19 +1,18 @@
 'use client';
 
-import { GithubIcon, TwitterIcon, LinkedinIcon } from '@/components/icons';
+import { GithubIcon, LinkedinIcon } from '@/components/icons';
 import { useEffect, useState } from 'react';
 
 const socialLinks = [
-  { name: 'GitHub', icon: GithubIcon, url: '#' },
-  { name: 'Twitter', icon: TwitterIcon, url: '#' },
-  { name: 'LinkedIn', icon: LinkedinIcon, url: '#' },
+  { name: 'GitHub', icon: GithubIcon, url: 'https://github.com/TN-Light' },
+  { name: 'LinkedIn', icon: LinkedinIcon, url: 'https://linkedin.com/in/venkat-abhilash' },
 ];
 
 export default function Footer() {
   const [copyrightText, setCopyrightText] = useState('');
 
   useEffect(() => {
-    setCopyrightText(`© ${new Date().getFullYear()} NeonDepth Portfolio. All rights reserved.`);
+    setCopyrightText(`© ${new Date().getFullYear()} D Venkat Abhilash. All rights reserved.`);
   }, []);
 
   return (

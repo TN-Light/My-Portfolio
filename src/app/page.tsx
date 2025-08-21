@@ -7,6 +7,7 @@ import Hero from '@/components/sections/hero';
 import About from '@/components/sections/about';
 import Projects from '@/components/sections/projects';
 import Contact from '@/components/sections/contact';
+import Experience from '@/components/sections/experience';
 import PaletteSuggester from '@/components/palette-suggester';
 
 export default function Home() {
@@ -15,8 +16,9 @@ export default function Home() {
       <Header />
       <main className="flex-grow">
         <Hero />
-        <Projects />
         <About />
+        <Projects />
+        <Experience />
         <Contact />
       </main>
       <Footer />
