@@ -9,7 +9,6 @@ import Projects from '@/components/sections/projects';
 import Contact from '@/components/sections/contact';
 import Experience from '@/components/sections/experience';
 import ResearchToReality from '@/components/sections/research-to-reality';
-import PaletteSuggester from '@/components/palette-suggester';
 import { getPortfolioData } from './actions';
 import type { portfolioSchema } from '@/lib/schemas';
 import type { z } from 'zod';
@@ -172,7 +171,6 @@ export default function Home() {
         <Contact />
       </main>
       <Footer />
-      <PaletteSuggester />
     </div>
   );
 }
