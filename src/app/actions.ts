@@ -1,8 +1,9 @@
 'use server';
 
 import { suggestPalette as suggestPaletteFlow, type SuggestPaletteInput, type SuggestPaletteOutput } from '@/ai/flows/suggest-palette';
+import { portfolioChat as portfolioChatFlow } from '@/ai/flows/portfolio-chat';
 import { z } from 'zod';
-import { contactFormSchema, portfolioSchema } from '@/lib/schemas';
+import { contactFormSchema, portfolioSchema, type PortfolioChatInput, type PortfolioChatOutput } from '@/lib/schemas';
 import { db } from '@/lib/firebase';
 import { collection, addDoc, serverTimestamp, getDoc, doc } from 'firebase/firestore';
 import nodemailer from 'nodemailer';
@@ -71,4 +72,8 @@ export async function getPortfolioData(): Promise<z.infer<typeof portfolioSchema
     console.error("Error fetching portfolio data:", error);
     return null;
   }
+}
+
+export async function getChatbotResponse(input: PortfolioChatInput): Promise<PortfolioChatOutput> {
+  return await portfolioChatFlow(input);
 }

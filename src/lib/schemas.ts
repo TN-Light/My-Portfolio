@@ -41,3 +41,21 @@ export const portfolioSchema = z.object({
   certifications: z.array(certificationSchema),
   researchImplementations: z.array(researchImplementationSchema).optional(),
 });
+
+
+// Chatbot Schemas
+const MessageSchema = z.object({
+    role: z.enum(['user', 'model']),
+    content: z.string(),
+});
+
+export const PortfolioChatInputSchema = z.object({
+  portfolioData: portfolioSchema.describe("JSON object containing all the portfolio data for Abhilash."),
+  messages: z.array(MessageSchema).describe("The history of the conversation so far."),
+});
+export type PortfolioChatInput = z.infer<typeof PortfolioChatInputSchema>;
+
+export const PortfolioChatOutputSchema = z.object({
+  content: z.string().describe("The AI's response to the user."),
+});
+export type PortfolioChatOutput = z.infer<typeof PortfolioChatOutputSchema>;
