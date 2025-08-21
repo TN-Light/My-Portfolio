@@ -67,6 +67,19 @@ export default function Hero() {
                         </motion.div>
                     </div>
 
+                    <motion.div
+                        variants={FADE_UP_ANIMATION_VARIANTS}
+                        className="relative hidden md:block md:col-span-1"
+                    >
+                        <div className="relative w-full h-auto aspect-[3/4] rounded-lg overflow-hidden shadow-2xl group">
+                            <img
+                                src="/profile.png"
+                                alt="Profile picture of Abhilash"
+                                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-50"></div>
+                        </div>
+                    </motion.div>
                 </motion.div>
             </div>
             <motion.div
