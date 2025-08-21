@@ -78,8 +78,7 @@ export default function Hero() {
                                 width={400}
                                 height={600}
                                 alt="Profile picture of Abhilash"
-                                className="rounded-sm object-cover grayscale"
-                                data-ai-hint="man portrait"
+                                className="rounded-sm object-cover"
                                 priority
                             />
                         </motion.div>
