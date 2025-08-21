@@ -4,7 +4,7 @@ import React, { useRef, useEffect } from 'react';
 import * as THREE from 'three';
 
 interface ThreeSceneProps {
-  type: 'particles' | 'cube' | 'sphere' | 'torus' | 'avatar';
+  type: 'particles' | 'cube' | 'sphere' | 'torus' | 'avatar' | 'torusKnot' | 'octahedron';
 }
 
 const ThreeScene: React.FC<ThreeSceneProps> = ({ type }) => {
@@ -21,20 +21,31 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ type }) => {
     renderer.setPixelRatio(window.devicePixelRatio);
     currentMount.appendChild(renderer.domElement);
 
-    let object: THREE.Mesh | THREE.Points | null = null;
+    let object: THREE.Object3D | null = null;
     const mouse = new THREE.Vector2();
     let handleMouseMove: ((event: MouseEvent) => void) | null = null;
+    const group = new THREE.Group();
+    scene.add(group);
 
-    // Convert HSL strings from CSS to something THREE can use
     function getThreeColor(cssVar: string) {
         const colorStr = getComputedStyle(document.documentElement).getPropertyValue(cssVar).trim();
-        // This is a simplified parser for HSL string like "283 86% 56%"
         const [h, s, l] = colorStr.split(" ").map(v => parseFloat(v) / (v.endsWith('%') ? 100 : 1));
         return new THREE.Color().setHSL(h/360, s, l);
     }
 
     const primaryThreeColor = getThreeColor('--primary');
     const accentThreeColor = getThreeColor('--accent');
+    
+    const material = new THREE.MeshStandardMaterial({
+      color: primaryThreeColor,
+      wireframe: true,
+    });
+    
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+    scene.add(ambientLight);
+    const pointLight = new THREE.PointLight(accentThreeColor, 5, 10);
+    pointLight.position.set(2, 3, 4);
+    scene.add(pointLight);
 
     if (type === 'particles') {
       const particlesCount = 5000;
@@ -62,25 +73,34 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ type }) => {
         let geometry: THREE.BufferGeometry;
         switch(type) {
             case 'cube': geometry = new THREE.BoxGeometry(1.5, 1.5, 1.5); break;
-            case 'sphere': geometry = new THREE.SphereGeometry(1, 32, 32); break;
+            case 'sphere':
+              const sphereGeom = new THREE.SphereGeometry(1, 32, 32);
+              const mainSphere = new THREE.Mesh(sphereGeom, material);
+              group.add(mainSphere);
+
+              const agentMaterial = new THREE.MeshStandardMaterial({ color: accentThreeColor, wireframe: true });
+              for (let i = 0; i < 5; i++) {
+                const agent = new THREE.Mesh(new THREE.SphereGeometry(0.2, 16, 16), agentMaterial);
+                const angle = (i / 5) * Math.PI * 2;
+                const radius = 1.8;
+                agent.position.set(Math.cos(angle) * radius, 0, Math.sin(angle) * radius);
+                group.add(agent);
+              }
+              object = group;
+              geometry = sphereGeom; // for type check, not used
+              break;
             case 'torus': geometry = new THREE.TorusGeometry(0.8, 0.3, 16, 100); break;
             case 'avatar': geometry = new THREE.IcosahedronGeometry(1.2, 0); break;
+            case 'torusKnot': geometry = new THREE.TorusKnotGeometry(0.8, 0.25, 100, 16); break;
+            case 'octahedron': geometry = new THREE.OctahedronGeometry(1.2, 0); break;
             default: geometry = new THREE.BoxGeometry(1, 1, 1);
         }
-      const material = new THREE.MeshStandardMaterial({
-        color: primaryThreeColor,
-        wireframe: true,
-      });
-      object = new THREE.Mesh(geometry, material);
-      scene.add(object);
 
-      const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
-      scene.add(ambientLight);
-      const pointLight = new THREE.PointLight(accentThreeColor, 5, 10);
-      pointLight.position.set(2, 3, 4);
-      scene.add(pointLight);
-
-      camera.position.z = 3;
+      if (type !== 'sphere') {
+        object = new THREE.Mesh(geometry, material);
+        group.add(object);
+      }
+      camera.position.z = 4;
     }
 
     const clock = new THREE.Clock();
@@ -94,11 +114,20 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ type }) => {
         if(type === 'particles' && object instanceof THREE.Points) {
             object.rotation.y = -mouse.x * 0.2;
             object.rotation.x = mouse.y * 0.2;
-        } else if (object instanceof THREE.Mesh) {
-            object.rotation.x += 0.005;
-            object.rotation.y += 0.005;
+        } else {
+            group.rotation.x += 0.005;
+            group.rotation.y += 0.005;
             if (type === 'avatar') {
-                object.scale.setScalar(Math.sin(elapsedTime) * 0.1 + 0.95);
+                group.scale.setScalar(Math.sin(elapsedTime) * 0.1 + 0.95);
+            }
+            if (type === 'sphere') {
+              group.children.forEach((child, index) => {
+                if (index > 0) { // agents
+                  const angle = (index-1 / 5) * Math.PI * 2 + elapsedTime * 0.5;
+                  const radius = 1.8;
+                  child.position.set(Math.cos(angle) * radius, Math.sin(elapsedTime * index) * 0.5, Math.sin(angle) * radius);
+                }
+              })
             }
         }
       }
@@ -125,6 +154,16 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ type }) => {
       if (currentMount) {
         currentMount.removeChild(renderer.domElement);
       }
+      scene.traverse(obj => {
+        if (obj instanceof THREE.Mesh) {
+            obj.geometry.dispose();
+            if (Array.isArray(obj.material)) {
+              obj.material.forEach(mat => mat.dispose());
+            } else {
+              obj.material.dispose();
+            }
+        }
+      })
       scene.clear();
       renderer.dispose();
     };

@@ -18,14 +18,14 @@ const projects = [
     description: 'Developed specialized AI agents and MCP servers for automated code generation, context-aware debugging, and intelligent documentation using AutoGen framework.',
     tags: ['AutoGen', 'MCP', 'Code Generation', 'AI Agents'],
     impact: '50% reduction in development time, automated 80% of testing workflows.',
-    threeSceneType: 'torus' as const,
+    threeSceneType: 'torusKnot' as const,
   },
   {
     title: 'Hydro Nexus – Agentic IoT Data Governance',
     description: 'Created multi-agent system for autonomous data pipeline management, quality monitoring, and predictive analytics using CrewAI orchestration.',
     tags: ['CrewAI', 'IoT', 'Data Governance', 'Multi-agent'],
     impact: 'Advanced to EDII-TN finals; autonomous agents reduced manual intervention by 70%.',
-    threeSceneType: 'cube' as const,
+    threeSceneType: 'octahedron' as const,
   },
 ];
 
