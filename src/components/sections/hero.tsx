@@ -68,21 +68,18 @@ export default function Hero() {
                         </motion.div>
                     </div>
 
-                    <div className="md:col-span-1 flex justify-center md:justify-end">
-                        <motion.div
-                            variants={FADE_UP_ANIMATION_VARIANTS}
-                            className="relative"
-                        >
-                            <Image
-                                src="/profile.png"
-                                width={300}
-                                height={450}
-                                alt="Profile picture of Abhilash"
-                                className="rounded-sm object-cover"
-                                priority
-                            />
-                        </motion.div>
-                    </div>
+                    <motion.div
+                        variants={FADE_UP_ANIMATION_VARIANTS}
+                        className="md:col-span-1 flex justify-center md:justify-end"
+                    >
+                        <Image
+                            src="/profile.png"
+                            width={300}
+                            height={450}
+                            alt="Profile picture of Abhilash"
+                            className="rounded-sm object-cover"
+                        />
+                    </motion.div>
                 </motion.div>
             </div>
             <motion.div
