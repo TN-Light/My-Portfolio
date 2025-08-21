@@ -41,7 +41,7 @@ export default function Hero() {
                                     </motion.div>
                                     <div>
                                         <motion.h1
-                                            className="text-6xl md:text-8xl lg:text-9xl font-headline font-bold tracking-tighter"
+                                            className="text-5xl md:text-6xl lg:text-7xl font-headline font-bold tracking-tighter"
                                             variants={FADE_UP_ANIMATION_VARIANTS}
                                         >
                                             Hello
