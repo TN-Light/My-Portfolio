@@ -8,6 +8,7 @@ import About from '@/components/sections/about';
 import Projects from '@/components/sections/projects';
 import Contact from '@/components/sections/contact';
 import Experience from '@/components/sections/experience';
+import ResearchToReality from '@/components/sections/research-to-reality';
 import PaletteSuggester from '@/components/palette-suggester';
 import { getPortfolioData } from './actions';
 import type { portfolioSchema } from '@/lib/schemas';
@@ -33,6 +34,7 @@ const fallbackData: PortfolioData = {
       impact: '65% improvement in search relevance, 40% faster query resolution.',
       tags: ['LangGraph', 'CrewAI', 'Advanced RAG', 'Orchestration'],
       threeSceneType: 'sphere',
+      keyResearch: 'HyDE, Self-RAG',
     },
     {
       title: 'AI-Native Developer Experience Platform',
@@ -40,6 +42,7 @@ const fallbackData: PortfolioData = {
       impact: '50% reduction in development time, automated 80% of testing workflows.',
       tags: ['AutoGen', 'MCP', 'Developer Tools', 'Code Generation'],
       threeSceneType: 'torusKnot',
+      keyResearch: 'Multi-Agent CoT',
     },
     {
       title: 'Hydro Nexus – Agentic IoT Data Governance',
@@ -47,6 +50,7 @@ const fallbackData: PortfolioData = {
       impact: 'Advanced to EDII-TN finals; autonomous agents reduced manual intervention by 70%.',
       tags: ['CrewAI', 'IoT', 'Data Governance', 'Autonomous Agents'],
       threeSceneType: 'octahedron',
+      keyResearch: 'Agentic Workflows',
     },
   ],
   experiences: [
@@ -80,7 +84,27 @@ const fallbackData: PortfolioData = {
       title: 'Advanced Algorithms & DBMS – CodeChef',
       description: ''
     }
-  ]
+  ],
+  researchImplementations: [
+    {
+      title: 'Self-RAG: Learning to Retrieve, Generate, and Critique',
+      description: 'Implementation of a system where the model learns to retrieve passages and critique its own generations, improving factual accuracy and relevance. Key for enterprise-grade RAG.',
+      githubUrl: 'https://github.com/TN-Light/awesome-agent-and-cog',
+      tags: ['Self-Correction', 'RAG', 'Factual Accuracy']
+    },
+    {
+      title: 'Chain-of-Thought for Multi-Agent Collaboration',
+      description: 'Developed agents that use step-by-step reasoning to coordinate tasks, significantly improving complex problem-solving capabilities in a team of AI agents.',
+      githubUrl: 'https://github.com/TN-Light/awesome-agent-and-cog',
+      tags: ['Multi-Agent', 'Reasoning', 'Orchestration']
+    },
+    {
+      title: 'HyDE: Precise Zero-shot Dense Retrieval without Relevance Labels',
+      description: 'Built a system that generates a hypothetical document to create a more effective vector for semantic search, boosting retrieval performance without needing training data.',
+      githubUrl: 'https://github.com/TN-Light/awesome-agent-and-cog',
+      tags: ['Zero-shot Learning', 'Dense Retrieval', 'Search']
+    }
+  ],
 };
 
 
@@ -115,7 +139,9 @@ export default function Home() {
 
   useEffect(() => {
     async function fetchData() {
-      const data = await getPortfolioData();
+      // Forcing fallback data for now.
+      // const data = await getPortfolioData();
+      const data = fallbackData;
       setPortfolioData(data);
       setLoading(false);
     }
@@ -136,6 +162,7 @@ export default function Home() {
           <>
             <About skills={displayData.skills} />
             <Projects projects={displayData.projects} />
+            <ResearchToReality implementations={displayData.researchImplementations || []} />
             <Experience 
               experiences={displayData.experiences}
               certifications={displayData.certifications}

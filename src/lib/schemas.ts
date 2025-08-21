@@ -12,6 +12,7 @@ export const projectSchema = z.object({
   tags: z.array(z.string()),
   impact: z.string(),
   threeSceneType: z.enum(['sphere', 'torusKnot', 'octahedron']),
+  keyResearch: z.string().optional(),
 });
 
 export const experienceSchema = z.object({
@@ -26,9 +27,17 @@ export const certificationSchema = z.object({
   description: z.string(),
 });
 
+export const researchImplementationSchema = z.object({
+  title: z.string(),
+  description: z.string(),
+  githubUrl: z.string().url(),
+  tags: z.array(z.string()),
+});
+
 export const portfolioSchema = z.object({
   skills: z.array(z.string()),
   projects: z.array(projectSchema),
   experiences: z.array(experienceSchema),
   certifications: z.array(certificationSchema),
+  researchImplementations: z.array(researchImplementationSchema).optional(),
 });

@@ -5,7 +5,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/com
 import { Badge } from '@/components/ui/badge';
 import ThreeScene from '@/components/three-scene';
 import { Button } from '../ui/button';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, BookCheck } from 'lucide-react';
 import type { projectSchema } from '@/lib/schemas';
 import type { z } from 'zod';
 
@@ -61,6 +61,12 @@ export default function Projects({ projects = [] }: ProjectsProps) {
                     <h4 className="font-semibold text-primary mb-2">Impact:</h4>
                     <p className="text-sm text-muted-foreground">{project.impact}</p>
                   </div>
+                   {project.keyResearch && (
+                    <div>
+                        <h4 className="font-semibold text-primary mb-2 flex items-center gap-2"><BookCheck size={18}/> Key Research:</h4>
+                        <p className="text-sm text-muted-foreground">{project.keyResearch}</p>
+                    </div>
+                  )}
                   <div className="flex flex-wrap gap-2 pt-4">
                     {project.tags.map(tag => <Badge key={tag} variant="secondary">{tag}</Badge>)}
                   </div>
@@ -71,8 +77,8 @@ export default function Projects({ projects = [] }: ProjectsProps) {
         </div>
         <div className="text-center mt-16">
             <Button asChild variant="outline" size="lg" className="border-accent text-accent hover:bg-accent hover:text-accent-foreground transition-all duration-300 hover:drop-shadow-neon-accent group">
-                <a href="https://github.com/TN-Light" target="_blank" rel="noopener noreferrer">
-                    View All Projects on GitHub
+                <a href="https://github.com/TN-Light?tab=repositories&q=awesome" target="_blank" rel="noopener noreferrer">
+                    View AI Research on GitHub
                     <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
                 </a>
             </Button>
