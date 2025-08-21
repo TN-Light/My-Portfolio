@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { ArrowDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import ThreeScene from '@/components/three-scene';
+import Image from 'next/image';
 
 export default function Hero() {
   const FADE_DOWN_ANIMATION_VARIANTS = {
@@ -26,12 +27,23 @@ export default function Hero() {
             hidden: {},
             show: {
               transition: {
-                staggerChildren: 0.25,
+                staggerChildren: 0.15,
               },
             },
           }}
           className="flex flex-col items-center"
         >
+          <motion.div variants={FADE_DOWN_ANIMATION_VARIANTS}>
+            <Image
+                src="https://placehold.co/128x128.png"
+                width={128}
+                height={128}
+                alt="Profile picture of Abhilash"
+                className="rounded-full border-4 border-primary/30 object-cover shadow-2xl shadow-primary/20 mb-6"
+                data-ai-hint="man portrait"
+                priority
+            />
+          </motion.div>
           <motion.h1
             className="text-5xl md:text-7xl lg:text-8xl font-headline font-bold tracking-tighter bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 py-2"
             variants={FADE_DOWN_ANIMATION_VARIANTS}
