@@ -31,13 +31,15 @@ export default function Header() {
   );
 
   useEffect(() => {
+    if (!hasMounted) return;
+
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
     };
     window.addEventListener('scroll', handleScroll);
     handleScroll(); 
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [hasMounted]);
 
   if (!hasMounted) {
     return null;
