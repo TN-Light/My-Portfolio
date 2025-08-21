@@ -35,7 +35,7 @@ export default function Hero() {
                     <div className="col-span-12 md:col-start-2 md:col-span-10">
                         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
                             <div className="md:col-span-7 text-left">
-                                <div className="flex items-center gap-4">
+                                <div className="flex items-center gap-8">
                                     <motion.div variants={FADE_UP_ANIMATION_VARIANTS} className="[writing-mode:vertical-rl] text-sm text-muted-foreground tracking-widest uppercase self-center rotate-180">
                                         AI-Native Developer
                                     </motion.div>
