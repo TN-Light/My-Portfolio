@@ -68,7 +68,7 @@ export default function Hero() {
                         className="relative hidden md:flex justify-center items-center"
                     >
                          <img
-                            src="https://storage.googleapis.com/gemini-studio-assets/ce9e3a32-6a75-48f4-b25b-381d58203d98/ce9e3a32-6a75-48f4-b25b-381d58203d98.png"
+                            src="/profile.png.png"
                             alt="Profile picture of Abhilash"
                             data-ai-hint="profile photo"
                             className="max-w-full h-auto object-contain"
