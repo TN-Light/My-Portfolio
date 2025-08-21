@@ -8,8 +8,8 @@ export const LogoIcon = (props: SVGProps<SVGSVGElement>) => (
   >
     <defs>
       <linearGradient id="fire-gradient" x1="50%" y1="0%" x2="50%" y2="100%">
-        <stop offset="0%" stopColor="#34D1C8" />
-        <stop offset="100%" stopColor="#A729F0" />
+        <stop offset="0%" stopColor="#888888" />
+        <stop offset="100%" stopColor="#000000" />
       </linearGradient>
     </defs>
     <path
