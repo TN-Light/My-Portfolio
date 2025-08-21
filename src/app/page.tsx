@@ -16,6 +16,74 @@ import { Skeleton } from '@/components/ui/skeleton';
 
 type PortfolioData = z.infer<typeof portfolioSchema>;
 
+// Hardcoded fallback data
+const fallbackData: PortfolioData = {
+  skills: [
+    'LangChain', 'LangGraph', 'CrewAI', 'AutoGen', 'OpenAI API', 'Hugging Face', 'RAG', 'HyDE', 'Query Decomposition',
+    'Multi-agent orchestration', 'Tool-calling patterns', 'Self-reflective RAG', 'Chain-of-thought reasoning',
+    'Model Context Protocol (MCP)', 'LLM observability', 'Evaluation frameworks', 'Prompt optimization',
+    'Python (AI-enhanced)', 'Java', 'C++', 'SQL', 'JavaScript',
+    'GitHub Copilot', 'ChatGPT', 'Claude', 'Cursor IDE',
+    'React', 'AWS', 'Azure', 'MySQL', 'Git', 'Docker'
+  ],
+  projects: [
+    {
+      title: 'Multi-Agent Conversational Search System',
+      description: 'Built production-ready conversational search using LangGraph + CrewAI orchestration with hybrid retrieval, graph RAG, and self-reflective query decomposition.',
+      impact: '65% improvement in search relevance, 40% faster query resolution.',
+      tags: ['LangGraph', 'CrewAI', 'Advanced RAG', 'Orchestration'],
+      threeSceneType: 'sphere',
+    },
+    {
+      title: 'AI-Native Developer Experience Platform',
+      description: 'Developed specialized AI agents and MCP servers for automated code generation, context-aware debugging, and intelligent documentation using AutoGen framework.',
+      impact: '50% reduction in development time, automated 80% of testing workflows.',
+      tags: ['AutoGen', 'MCP', 'Developer Tools', 'Code Generation'],
+      threeSceneType: 'torusKnot',
+    },
+    {
+      title: 'Hydro Nexus – Agentic IoT Data Governance',
+      description: 'Created multi-agent system for autonomous data pipeline management, quality monitoring, and predictive analytics using CrewAI orchestration.',
+      impact: 'Advanced to EDII-TN finals; autonomous agents reduced manual intervention by 70%.',
+      tags: ['CrewAI', 'IoT', 'Data Governance', 'Autonomous Agents'],
+      threeSceneType: 'octahedron',
+    },
+  ],
+  experiences: [
+    {
+      role: 'AI Engineering Lead',
+      company: 'WoowLocal Retail Tech',
+      date: 'Apr–Jun 2025',
+      description: 'Led cross-functional team building agentic workflows for automated project management. Implemented LLM observability and evaluation frameworks, achieving 25% faster delivery cycles.'
+    },
+    {
+      role: 'Founder & AI Systems Architect',
+      company: 'Shrink (MSME Registered)',
+      date: 'Oct 2023–Jan 2025',
+      description: 'Designed multi-agent prototyping system for automated 3D design and simulation workflows. Advanced to national finals using novel AI agent orchestration for creative processes.'
+    }
+  ],
+  certifications: [
+    {
+      title: 'Generative AI Professional – Oracle',
+      description: 'Multi-agent systems & LLM orchestration'
+    },
+    {
+      title: 'NLP Specialist – Microsoft Azure',
+      description: 'Production RAG implementation'
+    },
+    {
+      title: 'Google Project Management',
+      description: 'Cross-functional AI team leadership'
+    },
+    {
+      title: 'Advanced Algorithms & DBMS – CodeChef',
+      description: ''
+    }
+  ]
+};
+
+
 function LoadingSkeleton() {
   return (
     <div className="space-y-16">
@@ -54,25 +122,25 @@ export default function Home() {
     fetchData();
   }, []);
 
+  const displayData = portfolioData || fallbackData;
+
 
   return (
     <div className="flex flex-col min-h-screen bg-background">
       <Header />
       <main className="flex-grow">
         <Hero />
-        {loading ? (
+        {loading && !portfolioData ? (
           <LoadingSkeleton />
-        ) : portfolioData ? (
+        ) : (
           <>
-            <About skills={portfolioData.skills} />
-            <Projects projects={portfolioData.projects} />
+            <About skills={displayData.skills} />
+            <Projects projects={displayData.projects} />
             <Experience 
-              experiences={portfolioData.experiences}
-              certifications={portfolioData.certifications}
+              experiences={displayData.experiences}
+              certifications={displayData.certifications}
             />
           </>
-        ) : (
-          <div className='text-center py-20'>Failed to load portfolio data.</div>
         )}
         <Contact />
       </main>
