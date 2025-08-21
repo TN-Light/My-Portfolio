@@ -78,7 +78,7 @@ export default function Hero() {
                                     src="/profile.png.png"
                                     alt="Profile picture of Abhilash"
                                     data-ai-hint="profile photo"
-                                    className="max-h-[80vh] h-auto object-contain relative z-10"
+                                    className="max-h-[70vh] h-auto object-contain relative z-10"
                                 />
                             </motion.div>
                         </div>
