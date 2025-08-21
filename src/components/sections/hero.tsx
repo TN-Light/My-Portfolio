@@ -71,13 +71,15 @@ export default function Hero() {
                     <div className="md:col-span-1 flex justify-center md:justify-end">
                         <motion.div
                             variants={FADE_UP_ANIMATION_VARIANTS}
-                            className="w-48 h-64 md:w-full md:h-auto md:max-w-xs aspect-[2/3] relative"
+                            className="relative"
                         >
                             <Image
                                 src="/profile.png"
-                                fill
+                                width={300}
+                                height={450}
                                 alt="Profile picture of Abhilash"
                                 className="rounded-sm object-cover"
+                                priority
                             />
                         </motion.div>
                     </div>
