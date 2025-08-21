@@ -29,10 +29,10 @@ export default function Hero() {
                             },
                         },
                     }}
-                    className="grid grid-cols-1 md:grid-cols-5 gap-8 items-center"
+                    className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center"
                 >
-                    <div className="md:col-span-3 text-center md:text-left">
-                         <motion.div variants={FADE_UP_ANIMATION_VARIANTS} className="md:absolute md:top-1/2 md:-translate-y-1/2 md:[writing-mode:vertical-rl] text-sm text-muted-foreground tracking-widest uppercase md:-translate-x-20">
+                    <div className="relative text-left">
+                         <motion.div variants={FADE_UP_ANIMATION_VARIANTS} className="absolute top-1/2 -translate-y-1/2 [writing-mode:vertical-rl] text-sm text-muted-foreground tracking-widest uppercase -translate-x-12 md:-translate-x-20">
                             AI-Native Developer
                         </motion.div>
                         <motion.h1
@@ -49,7 +49,7 @@ export default function Hero() {
                         </motion.p>
                         <motion.div
                             variants={FADE_UP_ANIMATION_VARIANTS}
-                            className="mt-8 flex gap-8 justify-center md:justify-start"
+                            className="mt-8 flex gap-8 justify-start"
                         >
                             <div>
                                 <p className="text-3xl font-bold">+30</p>
@@ -64,13 +64,13 @@ export default function Hero() {
 
                     <motion.div
                         variants={FADE_UP_ANIMATION_VARIANTS}
-                        className="md:col-span-2 relative hidden md:flex justify-center items-center"
+                        className="relative flex justify-center items-center h-full"
                     >
                          <img
                             src="/profile.png.png"
                             alt="Profile picture of Abhilash"
                             data-ai-hint="profile photo"
-                            className="max-h-[80vh] h-auto object-contain"
+                            className="max-h-[70vh] h-auto object-contain"
                         />
                     </motion.div>
                 </motion.div>
