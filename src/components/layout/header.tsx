@@ -19,6 +19,12 @@ const navLinks = [
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [hasMounted, setHasMounted] = useState(false);
+
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
   const activeId = useScrollSpy(
     navLinks.map((link) => link.href.substring(1)),
     { rootMargin: '-50% 0px -50% 0px' }
@@ -29,8 +35,13 @@ export default function Header() {
       setIsScrolled(window.scrollY > 10);
     };
     window.addEventListener('scroll', handleScroll);
+    handleScroll(); 
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  if (!hasMounted) {
+    return null;
+  }
 
   return (
     <motion.header
@@ -71,7 +82,12 @@ export default function Header() {
         </nav>
         <div className="hidden md:flex">
           <Button asChild>
-            <a href="#contact">
+            <motion.a 
+                href="#contact"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="flex items-center"
+            >
                 Book a Call 
                 <motion.div 
                   whileHover={{ x: 4, y: -4 }}
@@ -79,7 +95,7 @@ export default function Header() {
                 >
                   <ArrowUpRight className="ml-2 h-4 w-4" />
                 </motion.div>
-            </a>
+            </motion.a>
           </Button>
         </div>
         <div className="md:hidden">
@@ -110,7 +126,12 @@ export default function Header() {
               </a>
             ))}
             <Button asChild onClick={() => setIsMenuOpen(false)}>
-                <a href="#contact">
+                <motion.a 
+                    href="#contact"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="flex items-center"
+                >
                     Book a Call 
                     <motion.div 
                       whileHover={{ x: 4, y: -4 }}
@@ -118,7 +139,7 @@ export default function Header() {
                     >
                       <ArrowUpRight className="ml-2 h-4 w-4" />
                     </motion.div>
-                </a>
+                </motion.a>
             </Button>
           </nav>
         </motion.div>
