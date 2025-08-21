@@ -14,7 +14,6 @@ import { getPortfolioData } from './actions';
 import type { portfolioSchema } from '@/lib/schemas';
 import type { z } from 'zod';
 import { Skeleton } from '@/components/ui/skeleton';
-import ClientOnly from '@/components/client-only';
 
 type PortfolioData = z.infer<typeof portfolioSchema>;
 
@@ -154,9 +153,7 @@ export default function Home() {
 
   return (
       <div className="flex flex-col min-h-screen bg-background">
-        <ClientOnly>
-          <Header />
-        </ClientOnly>
+        <Header />
         <main className="flex-grow">
           <Hero />
           {loading && !portfolioData ? (
@@ -174,9 +171,7 @@ export default function Home() {
           )}
           <Contact />
         </main>
-        <ClientOnly>
-          <Footer />
-        </ClientOnly>
+        <Footer />
       </div>
   );
 }
