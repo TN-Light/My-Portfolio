@@ -34,12 +34,19 @@ export const researchImplementationSchema = z.object({
   tags: z.array(z.string()),
 });
 
+export const achievementSchema = z.object({
+  title: z.string(),
+  description: z.string(),
+  icon: z.string(),
+});
+
 export const portfolioSchema = z.object({
   skills: z.array(z.string()),
   projects: z.array(projectSchema),
   experiences: z.array(experienceSchema),
   certifications: z.array(certificationSchema),
   researchImplementations: z.array(researchImplementationSchema).optional(),
+  achievements: z.array(achievementSchema).optional(),
 });
 
 

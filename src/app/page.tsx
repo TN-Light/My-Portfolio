@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -10,6 +11,7 @@ import Projects from '@/components/sections/projects';
 import Contact from '@/components/sections/contact';
 import Experience from '@/components/sections/experience';
 import ResearchToReality from '@/components/sections/research-to-reality';
+import Achievements from '@/components/sections/achievements';
 import Chatbot from '@/components/chatbot';
 import type { portfolioSchema } from '@/lib/schemas';
 import type { z } from 'zod';
@@ -107,6 +109,23 @@ const fallbackData: PortfolioData = {
       tags: ['Zero-shot Learning', 'Dense Retrieval', 'Search']
     }
   ],
+  achievements: [
+    { 
+      title: '1st Place - National-Level Hackathon 2024',
+      description: 'Led a team to victory in a 48-hour coding competition, developing an AI-powered solution for sustainable urban planning.',
+      icon: 'Trophy'
+    },
+    {
+      title: 'Top 5% - Kaggle Data Science Challenge',
+      description: 'Achieved a top-tier ranking in a global competition by building a predictive model for financial market analysis.',
+      icon: 'TrendingUp'
+    },
+    {
+      title: 'University Innovation Grant Recipient',
+      description: 'Awarded grant funding for proposing a novel multi-agent system for decentralized logistics management (Project Shrink).',
+      icon: 'Rocket'
+    }
+  ],
 };
 
 
@@ -167,6 +186,7 @@ export default function Home() {
                 experiences={portfolioData.experiences}
                 certifications={portfolioData.certifications}
               />
+              <Achievements achievements={portfolioData.achievements || []} />
               <Contact />
             </main>
             <Footer />
