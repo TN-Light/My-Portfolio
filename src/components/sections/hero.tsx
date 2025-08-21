@@ -1,4 +1,3 @@
-
 'use client';
 
 import { motion } from 'framer-motion';
@@ -30,9 +29,9 @@ export default function Hero() {
                             },
                         },
                     }}
-                    className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center"
+                    className="grid grid-cols-1 md:grid-cols-5 gap-8 items-center"
                 >
-                    <div className="text-center md:text-left">
+                    <div className="md:col-span-3 text-center md:text-left">
                          <motion.div variants={FADE_UP_ANIMATION_VARIANTS} className="md:absolute md:top-1/2 md:-translate-y-1/2 md:[writing-mode:vertical-rl] text-sm text-muted-foreground tracking-widest uppercase md:-translate-x-20">
                             AI-Native Developer
                         </motion.div>
@@ -65,13 +64,13 @@ export default function Hero() {
 
                     <motion.div
                         variants={FADE_UP_ANIMATION_VARIANTS}
-                        className="relative hidden md:flex justify-center items-center"
+                        className="md:col-span-2 relative hidden md:flex justify-center items-center"
                     >
                          <img
                             src="/profile.png.png"
                             alt="Profile picture of Abhilash"
                             data-ai-hint="profile photo"
-                            className="max-w-full h-auto object-contain"
+                            className="max-h-[80vh] h-auto object-contain"
                         />
                     </motion.div>
                 </motion.div>
