@@ -3,9 +3,9 @@
 import { suggestPalette as suggestPaletteFlow, type SuggestPaletteInput, type SuggestPaletteOutput } from '@/ai/flows/suggest-palette';
 import { portfolioChat as portfolioChatFlow } from '@/ai/flows/portfolio-chat';
 import { z } from 'zod';
-import { contactFormSchema, portfolioSchema, type PortfolioChatInput, type PortfolioChatOutput } from '@/lib/schemas';
+import { contactFormSchema, type PortfolioChatInput, type PortfolioChatOutput } from '@/lib/schemas';
 import { db } from '@/lib/firebase';
-import { collection, addDoc, serverTimestamp, getDoc, doc } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import nodemailer from 'nodemailer';
 
 export async function submitContactForm(data: z.infer<typeof contactFormSchema>) {
@@ -54,24 +54,6 @@ export async function submitContactForm(data: z.infer<typeof contactFormSchema>)
 
 export async function getPaletteSuggestions(input: SuggestPaletteInput): Promise<SuggestPaletteOutput> {
   return await suggestPaletteFlow(input);
-}
-
-export async function getPortfolioData(): Promise<z.infer<typeof portfolioSchema> | null> {
-  try {
-    const docRef = doc(db, "portfolio", "content");
-    const docSnap = await getDoc(docRef);
-
-    if (docSnap.exists()) {
-      const data = portfolioSchema.parse(docSnap.data());
-      return data;
-    } else {
-      console.log("No such document!");
-      return null;
-    }
-  } catch (error) {
-    console.error("Error fetching portfolio data:", error);
-    return null;
-  }
 }
 
 export async function getChatbotResponse(input: PortfolioChatInput): Promise<PortfolioChatOutput> {
