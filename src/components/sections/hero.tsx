@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { ArrowDown } from 'lucide-react';
 import Image from 'next/image';
+import ThreeScene from '../three-scene';
 
 export default function Hero() {
     const FADE_UP_ANIMATION_VARIANTS = {
@@ -11,8 +12,11 @@ export default function Hero() {
     };
 
     return (
-        <section id="hero" className="relative min-h-screen flex items-center bg-background">
-            <div className="container mx-auto px-6">
+        <section id="hero" className="relative min-h-screen flex items-center bg-background overflow-hidden">
+            <div className="absolute inset-0 z-0">
+                 <ThreeScene type='particles' />
+            </div>
+            <div className="container mx-auto px-6 relative z-10">
                 <motion.div
                     initial="hidden"
                     animate="show"
@@ -85,7 +89,7 @@ export default function Hero() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1, duration: 1 }}
-                className="absolute bottom-10 left-1/2 -translate-x-1/2"
+                className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10"
             >
                 <a href="#about" className="flex flex-col items-center gap-1 text-sm text-muted-foreground hover:text-primary transition-colors">
                     Scroll down

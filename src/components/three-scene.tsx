@@ -22,13 +22,14 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ type }) => {
     currentMount.appendChild(renderer.domElement);
 
     let object: THREE.Object3D | null = null;
-    const mouse = new THREE.Vector2();
+    const mouse = new THREE.Vector2(-10, -10); // Initialize off-screen
     let handleMouseMove: ((event: MouseEvent) => void) | null = null;
     const group = new THREE.Group();
     scene.add(group);
 
     function getThreeColor(cssVar: string) {
         const colorStr = getComputedStyle(document.documentElement).getPropertyValue(cssVar).trim();
+        if (!colorStr) return new THREE.Color(0xffffff);
         const [h, s, l] = colorStr.split(" ").map(v => parseFloat(v) / (v.endsWith('%') ? 100 : 1));
         return new THREE.Color().setHSL(h/360, s, l);
     }
@@ -36,30 +37,44 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ type }) => {
     const primaryThreeColor = getThreeColor('--primary');
     const accentThreeColor = getThreeColor('--accent');
     
-    const material = new THREE.MeshStandardMaterial({
-      color: primaryThreeColor,
-      wireframe: true,
-    });
-    
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
-    scene.add(ambientLight);
-    const pointLight = new THREE.PointLight(accentThreeColor, 5, 10);
-    pointLight.position.set(2, 3, 4);
-    scene.add(pointLight);
-
     if (type === 'particles') {
       const particlesCount = 5000;
       const positions = new Float32Array(particlesCount * 3);
-      for (let i = 0; i < particlesCount * 3; i++) {
-        positions[i] = (Math.random() - 0.5) * 10;
+      const originalPositions = new Float32Array(particlesCount * 3);
+      const colors = new Float32Array(particlesCount * 3);
+
+      const particleColor = primaryThreeColor;
+
+      for (let i = 0; i < particlesCount; i++) {
+        const i3 = i * 3;
+        const x = (Math.random() - 0.5) * 15;
+        const y = (Math.random() - 0.5) * 15;
+        const z = (Math.random() - 0.5) * 15;
+        positions[i3] = x;
+        positions[i3 + 1] = y;
+        positions[i3 + 2] = z;
+
+        originalPositions[i3] = x;
+        originalPositions[i3 + 1] = y;
+        originalPositions[i3 + 2] = z;
+
+        colors[i3] = particleColor.r;
+        colors[i3 + 1] = particleColor.g;
+        colors[i3 + 2] = particleColor.b;
       }
+
       const particlesGeometry = new THREE.BufferGeometry();
       particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+      
       const particlesMaterial = new THREE.PointsMaterial({
-        color: primaryThreeColor,
-        size: 0.02,
+        size: 0.025,
         blending: THREE.AdditiveBlending,
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.8
       });
+
       object = new THREE.Points(particlesGeometry, particlesMaterial);
       scene.add(object);
       camera.position.z = 5;
@@ -70,6 +85,17 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ type }) => {
       };
       window.addEventListener('mousemove', handleMouseMove);
     } else {
+        const material = new THREE.MeshStandardMaterial({
+          color: primaryThreeColor,
+          wireframe: true,
+        });
+        
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+        scene.add(ambientLight);
+        const pointLight = new THREE.PointLight(accentThreeColor, 5, 10);
+        pointLight.position.set(2, 3, 4);
+        scene.add(pointLight);
+
         let geometry: THREE.BufferGeometry;
         switch(type) {
             case 'cube': geometry = new THREE.BoxGeometry(1.5, 1.5, 1.5); break;
@@ -87,7 +113,7 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ type }) => {
                 group.add(agent);
               }
               object = group;
-              geometry = sphereGeom; // for type check, not used
+              geometry = sphereGeom; 
               break;
             case 'torus': geometry = new THREE.TorusGeometry(0.8, 0.3, 16, 100); break;
             case 'avatar': geometry = new THREE.IcosahedronGeometry(1.2, 0); break;
@@ -105,34 +131,58 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ type }) => {
 
     const clock = new THREE.Clock();
     let animationFrameId: number;
+    const raycaster = new THREE.Raycaster();
 
     const animate = () => {
       animationFrameId = requestAnimationFrame(animate);
       const elapsedTime = clock.getElapsedTime();
 
-      if (object) {
-        if(type === 'particles' && object instanceof THREE.Points) {
-            object.rotation.y = -mouse.x * 0.2;
-            object.rotation.x = mouse.y * 0.2;
-        } else {
-            group.rotation.x += 0.005;
-            group.rotation.y += 0.005;
-            if (type === 'avatar') {
-                group.scale.setScalar(Math.sin(elapsedTime) * 0.1 + 0.95);
-            }
-            if (type === 'sphere') {
-              group.children.forEach((child, index) => {
-                if (index > 0) { // agents
-                  const angle = (index-1 / 5) * Math.PI * 2 + elapsedTime * 0.5;
-                  const radius = 1.8;
-                  child.position.set(Math.cos(angle) * radius, Math.sin(elapsedTime * index) * 0.5, Math.sin(angle) * radius);
-                }
-              })
-            }
+      if (object && type === 'particles' && object instanceof THREE.Points) {
+        object.rotation.y = elapsedTime * 0.05;
+
+        // Raycasting for mouse interaction
+        raycaster.setFromCamera(mouse, camera);
+
+        const positionAttribute = object.geometry.getAttribute('position');
+        const originalPositionAttribute = object.geometry.getAttribute('originalPosition') || positionAttribute; // Fallback
+        
+        for (let i = 0; i < positionAttribute.count; i++) {
+            const i3 = i * 3;
+            const x = positionAttribute.getX(i);
+            const y = positionAttribute.getY(i);
+            const z = positionAttribute.getZ(i);
+
+            const ox = originalPositionAttribute.getX(i);
+            const oy = originalPositionAttribute.getY(i);
+            const oz = originalPositionAttribute.getZ(i);
+
+            const mouseDistance = new THREE.Vector3(x,y,z).distanceTo(new THREE.Vector3(mouse.x*7, mouse.y*7, 0));
+
+            const maxDist = 2;
+            const forceFactor = Math.max(0, 1 - mouseDistance / maxDist);
+            const dx = (mouse.x * 7 - x) * forceFactor * 0.1;
+            const dy = (mouse.y * 7 - y) * forceFactor * 0.1;
+
+            // Ease back to original position
+            const newX = x + (ox + dx - x) * 0.1;
+            const newY = y + (oy + dy - y) * 0.1;
+            const newZ = z + (oz - z) * 0.1;
+
+            positionAttribute.setXYZ(i, newX, newY, newZ);
         }
+
+        positionAttribute.needsUpdate = true;
+
+      } else if(object) {
+          group.rotation.x += 0.005;
+          group.rotation.y += 0.005;
       }
       renderer.render(scene, camera);
     };
+
+    if (type === 'particles' && object instanceof THREE.Points) {
+        object.geometry.setAttribute('originalPosition', new THREE.BufferAttribute((object.geometry.getAttribute('position') as THREE.BufferAttribute).array.slice(), 3));
+    }
 
     animate();
 
@@ -155,7 +205,7 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ type }) => {
         currentMount.removeChild(renderer.domElement);
       }
       scene.traverse(obj => {
-        if (obj instanceof THREE.Mesh) {
+        if (obj instanceof THREE.Mesh || obj instanceof THREE.Points) {
             obj.geometry.dispose();
             if (Array.isArray(obj.material)) {
               obj.material.forEach(mat => mat.dispose());
