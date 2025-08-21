@@ -77,7 +77,7 @@ export default function LoadingScreen() {
         variants={textVariants}
         className="mt-6 text-lg font-medium text-muted-foreground"
       >
-        Initializing AI Abhilash...
+        Initializing Portfolio...
       </motion.p>
     </motion.div>
   );
