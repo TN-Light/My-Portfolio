@@ -74,7 +74,6 @@ export default function Hero() {
                                 variants={FADE_UP_ANIMATION_VARIANTS}
                                 className="md:col-span-5 relative flex justify-center items-center h-full group"
                             >
-                                <div className="absolute -inset-8 bg-radial-gradient-hero z-0"></div>
                                 <img
                                     src="/profile.png.png"
                                     alt="Profile picture of Abhilash"
