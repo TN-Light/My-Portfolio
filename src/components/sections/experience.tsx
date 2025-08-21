@@ -2,42 +2,18 @@
 
 import { motion } from 'framer-motion';
 import { Briefcase, Award } from 'lucide-react';
+import type { experienceSchema, certificationSchema } from '@/lib/schemas';
+import type { z } from 'zod';
 
-const experiences = [
-  {
-    role: 'AI Engineering Lead',
-    company: 'WoowLocal Retail Tech',
-    date: 'Apr–Jun 2025',
-    description: 'Led cross-functional team building agentic workflows for automated project management. Implemented LLM observability and evaluation frameworks, achieving 25% faster delivery cycles.'
-  },
-  {
-    role: 'Founder & AI Systems Architect',
-    company: 'Shrink (MSME Registered)',
-    date: 'Oct 2023–Jan 2025',
-    description: 'Designed multi-agent prototyping system for automated 3D design and simulation workflows. Advanced to national finals using novel AI agent orchestration for creative processes.'
-  }
-];
+type Experience = z.infer<typeof experienceSchema>;
+type Certification = z.infer<typeof certificationSchema>;
 
-const certifications = [
-  {
-    title: 'Generative AI Professional – Oracle',
-    description: 'Multi-agent systems & LLM orchestration'
-  },
-  {
-    title: 'NLP Specialist – Microsoft Azure',
-    description: 'Production RAG implementation'
-  },
-  {
-    title: 'Google Project Management',
-    description: 'Cross-functional AI team leadership'
-  },
-  {
-    title: 'Advanced Algorithms & DBMS – CodeChef',
-    description: ''
-  }
-];
+interface ExperienceProps {
+  experiences: Experience[];
+  certifications: Certification[];
+}
 
-export default function Experience() {
+export default function Experience({ experiences = [], certifications = [] }: ExperienceProps) {
   return (
     <section id="experience" className="py-24 bg-background">
       <div className="container mx-auto px-6">

@@ -4,14 +4,11 @@ import { motion } from 'framer-motion';
 import { GraduationCap } from 'lucide-react';
 import ThreeScene from '@/components/three-scene';
 
-const skills = [
-  'LangChain', 'LangGraph', 'CrewAI', 'AutoGen', 'OpenAI API', 'Hugging Face', 'RAG', 'HyDE', 'Query Decomposition',
-  'Multi-agent orchestration', 'Tool-calling patterns', 'Self-reflective RAG', 'Chain-of-thought reasoning',
-  'Model Context Protocol (MCP)', 'LLM observability', 'Evaluation frameworks', 'Prompt optimization',
-  'Python (AI-enhanced)', 'Java', 'C++', 'SQL', 'JavaScript', 'React', 'AWS', 'Azure', 'MySQL', 'Git', 'Docker'
-];
+interface AboutProps {
+  skills: string[];
+}
 
-export default function About() {
+export default function About({ skills = [] }: AboutProps) {
   return (
     <section id="about" className="bg-background">
       <div className="container mx-auto px-6">

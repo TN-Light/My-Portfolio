@@ -6,32 +6,16 @@ import { Badge } from '@/components/ui/badge';
 import ThreeScene from '@/components/three-scene';
 import { Button } from '../ui/button';
 import { ArrowRight } from 'lucide-react';
+import type { projectSchema } from '@/lib/schemas';
+import type { z } from 'zod';
 
-const projects = [
-  {
-    title: 'Multi-Agent Conversational Search System',
-    description: 'Built production-ready conversational search using LangGraph + CrewAI orchestration with hybrid retrieval, graph RAG, and self-reflective query decomposition.',
-    tags: ['LangGraph', 'CrewAI', 'RAG', 'Orchestration'],
-    impact: '65% improvement in search relevance, 40% faster query resolution.',
-    threeSceneType: 'sphere' as const,
-  },
-  {
-    title: 'AI-Native Developer Experience Platform',
-    description: 'Developed specialized AI agents and MCP servers for automated code generation, context-aware debugging, and intelligent documentation using AutoGen framework.',
-    tags: ['AutoGen', 'MCP', 'Code Generation', 'AI Agents'],
-    impact: '50% reduction in development time, automated 80% of testing workflows.',
-    threeSceneType: 'torusKnot' as const,
-  },
-  {
-    title: 'Hydro Nexus – Agentic IoT Data Governance',
-    description: 'Created multi-agent system for autonomous data pipeline management, quality monitoring, and predictive analytics using CrewAI orchestration.',
-    tags: ['CrewAI', 'IoT', 'Data Governance', 'Multi-agent'],
-    impact: 'Advanced to EDII-TN finals; autonomous agents reduced manual intervention by 70%.',
-    threeSceneType: 'octahedron' as const,
-  },
-];
+type Project = z.infer<typeof projectSchema>;
 
-export default function Projects() {
+interface ProjectsProps {
+  projects: Project[];
+}
+
+export default function Projects({ projects = [] }: ProjectsProps) {
   const cardVariants = {
     hidden: { opacity: 0, y: 50 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
