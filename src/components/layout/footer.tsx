@@ -12,7 +12,7 @@ export default function Footer() {
   const [copyrightText, setCopyrightText] = useState('');
 
   useEffect(() => {
-    setCopyrightText(`© ${new Date().getFullYear()} D Venkat Abhilash. All rights reserved.`);
+    setCopyrightText(`© ${new Date().getFullYear()} Abhilash. All rights reserved.`);
   }, []);
 
   return (

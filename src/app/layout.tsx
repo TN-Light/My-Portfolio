@@ -3,8 +3,8 @@ import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
-  title: 'D Venkat Abhilash - AI-Native Developer',
-  description: 'Portfolio of D Venkat Abhilash, an AI-Native Developer and Multi-Agent Systems Engineer.',
+  title: 'Abhilash - AI-Native Developer',
+  description: 'Portfolio of Abhilash, an AI-Native Developer and Multi-Agent Systems Engineer.',
 };
 
 export default function RootLayout({

@@ -34,7 +34,7 @@ export default function Header() {
     <motion.header
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
+      transition={{ type: 'spring', stiffness: 100, damping: 20 }}
       className={cn(
         'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
         isScrolled ? 'bg-background/80 backdrop-blur-lg border-b border-white/10' : 'bg-transparent'
@@ -42,8 +42,10 @@ export default function Header() {
     >
       <div className="container mx-auto px-6 h-20 flex justify-between items-center">
         <Link href="/" className="flex items-center gap-2 text-xl font-headline font-bold">
-          <LogoIcon className="w-8 h-8 text-primary drop-shadow-neon-primary" />
-          <span>D.V.A</span>
+          <motion.div whileHover={{ rotate: 360, scale: 1.1 }} transition={{ duration: 0.5 }}>
+            <LogoIcon className="w-8 h-8 text-primary drop-shadow-neon-primary" />
+          </motion.div>
+          <span>Abhilash</span>
         </Link>
         <nav className="hidden md:flex items-center gap-6">
           {navLinks.map((link) => (

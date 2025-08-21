@@ -1,9 +1,9 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import ThreeScene from '@/components/three-scene';
 
 const projects = [
   {
@@ -11,21 +11,24 @@ const projects = [
     description: 'Built production-ready conversational search using LangGraph + CrewAI orchestration with hybrid retrieval, graph RAG, and self-reflective query decomposition.',
     tags: ['LangGraph', 'CrewAI', 'RAG', 'Orchestration'],
     impact: '65% improvement in search relevance, 40% faster query resolution.',
-    threeType: 'cube'
+    image: 'https://placehold.co/600x400.png',
+    aiHint: 'abstract network'
   },
   {
     title: 'AI-Native Developer Experience Platform',
     description: 'Developed specialized AI agents and MCP servers for automated code generation, context-aware debugging, and intelligent documentation using AutoGen framework.',
     tags: ['AutoGen', 'MCP', 'Code Generation', 'AI Agents'],
     impact: '50% reduction in development time, automated 80% of testing workflows.',
-    threeType: 'sphere'
+    image: 'https://placehold.co/600x400.png',
+    aiHint: 'code generation'
   },
   {
     title: 'Hydro Nexus – Agentic IoT Data Governance',
     description: 'Created multi-agent system for autonomous data pipeline management, quality monitoring, and predictive analytics using CrewAI orchestration.',
     tags: ['CrewAI', 'IoT', 'Data Governance', 'Multi-agent'],
     impact: 'Advanced to EDII-TN finals; autonomous agents reduced manual intervention by 70%.',
-    threeType: 'torus'
+    image: 'https://placehold.co/600x400.png',
+    aiHint: 'iot data'
   },
 ];
 
@@ -62,22 +65,26 @@ export default function Projects() {
               transition={{ delay: index * 0.1 }}
             >
               <Card className="h-full flex flex-col bg-card/50 backdrop-blur-sm border-border overflow-hidden group transition-all duration-300 hover:border-primary hover:shadow-2xl hover:shadow-primary/20">
-                <div className="h-64 w-full relative">
-                  <div className="absolute inset-0 z-10 bg-gradient-to-t from-card/80 to-transparent"></div>
-                  <div className="h-full w-full opacity-70 group-hover:opacity-100 transition-opacity duration-300">
-                    <ThreeScene type={project.threeType as "cube" | "sphere" | "torus"} />
-                  </div>
+                <div className="h-48 w-full relative overflow-hidden">
+                  <Image 
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    data-ai-hint={project.aiHint}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-card/80 to-transparent"></div>
                 </div>
                 <CardHeader>
                   <CardTitle className="font-headline text-2xl">{project.title}</CardTitle>
                   <CardDescription>{project.description}</CardDescription>
                 </CardHeader>
-                <CardContent className="flex-grow space-y-4">
+                <CardContent className="flex-grow flex flex-col justify-between space-y-4">
                   <div>
                     <h4 className="font-semibold text-primary mb-2">Impact:</h4>
                     <p className="text-sm text-muted-foreground">{project.impact}</p>
                   </div>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-2 pt-4">
                     {project.tags.map(tag => <Badge key={tag} variant="secondary">{tag}</Badge>)}
                   </div>
                 </CardContent>
