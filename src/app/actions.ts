@@ -3,9 +3,9 @@
 import { suggestPalette as suggestPaletteFlow, type SuggestPaletteInput, type SuggestPaletteOutput } from '@/ai/flows/suggest-palette';
 import { portfolioChat as portfolioChatFlow } from '@/ai/flows/portfolio-chat';
 import { z } from 'zod';
-import { contactFormSchema, type PortfolioChatInput, type PortfolioChatOutput } from '@/lib/schemas';
+import { contactFormSchema, portfolioSchema, type PortfolioChatInput, type PortfolioChatOutput } from '@/lib/schemas';
 import { db } from '@/lib/firebase';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp, doc, getDoc } from 'firebase/firestore';
 import nodemailer from 'nodemailer';
 
 export async function submitContactForm(data: z.infer<typeof contactFormSchema>) {
@@ -58,4 +58,25 @@ export async function getPaletteSuggestions(input: SuggestPaletteInput): Promise
 
 export async function getChatbotResponse(input: PortfolioChatInput): Promise<PortfolioChatOutput> {
   return await portfolioChatFlow(input);
+}
+
+export async function getPortfolioData() {
+    try {
+      const portfolioDocRef = doc(db, 'portfolio', 'data');
+      const portfolioDoc = await getDoc(portfolioDocRef);
+  
+      if (!portfolioDoc.exists()) {
+        console.error("Portfolio document not found!");
+        return { success: false, error: "Portfolio data not found in database." };
+      }
+      
+      const data = portfolioSchema.parse(portfolioDoc.data());
+      return { success: true, data };
+    } catch (error) {
+      console.error("Error fetching portfolio data:", error);
+      if (error instanceof z.ZodError) {
+        return { success: false, error: "Data in database is malformed.", details: error.issues };
+      }
+      return { success: false, error: "Could not fetch portfolio data from database." };
+    }
 }

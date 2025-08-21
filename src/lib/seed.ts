@@ -1,25 +1,11 @@
+// This script is used to seed the Firestore database with the portfolio data.
+// To run this script, use the command: npm run seed:db
 
-'use client';
+import { db } from './firebase';
+import { doc, setDoc } from 'firebase/firestore';
+import { portfolioSchema } from './schemas';
 
-import React, { useState, useEffect } from 'react';
-import Header from '@/components/layout/header';
-import Footer from '@/components/layout/footer';
-import Hero from '@/components/sections/hero';
-import About from '@/components/sections/about';
-import Projects from '@/components/sections/projects';
-import Contact from '@/components/sections/contact';
-import Experience from '@/components/sections/experience';
-import ResearchToReality from '@/components/sections/research-to-reality';
-import Chatbot from '@/components/chatbot';
-import type { portfolioSchema } from '@/lib/schemas';
-import type { z } from 'zod';
-import { getPortfolioData } from './actions';
-import { Skeleton } from '@/components/ui/skeleton';
-
-type PortfolioData = z.infer<typeof portfolioSchema>;
-
-// Hardcoded fallback data in case database fails
-const fallbackData: PortfolioData = {
+const portfolioData = {
   skills: [
     'LangChain', 'LangGraph', 'CrewAI', 'AutoGen', 'OpenAI API', 'Hugging Face', 'RAG', 'HyDE', 'Query Decomposition',
     'Multi-agent orchestration', 'Tool-calling patterns', 'Self-reflective RAG', 'Chain-of-thought reasoning',
@@ -108,81 +94,25 @@ const fallbackData: PortfolioData = {
   ],
 };
 
-
-export default function Home() {
-  const [portfolioData, setPortfolioData] = useState<PortfolioData | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    async function loadData() {
-      try {
-        setLoading(true);
-        const result = await getPortfolioData();
-        if (result.success) {
-          setPortfolioData(result.data);
-        } else {
-          setError(result.error || "An unknown error occurred.");
-          setPortfolioData(fallbackData); // Use fallback data on error
-        }
-      } catch (e) {
-        console.error(e);
-        setError("An unexpected error occurred while fetching data.");
-        setPortfolioData(fallbackData); // Use fallback data on error
-      } finally {
-        setLoading(false);
-      }
+async function seedDatabase() {
+  console.log('Starting to seed database...');
+  try {
+    // Validate data with Zod schema
+    const validatedData = portfolioSchema.parse(portfolioData);
+    
+    // The document will be stored in the 'portfolio' collection with a specific ID 'data'
+    const portfolioDocRef = doc(db, 'portfolio', 'data');
+    
+    await setDoc(portfolioDocRef, validatedData);
+    
+    console.log('✅ Database seeded successfully!');
+    console.log('Your portfolio data is now stored in Firestore under the document: /portfolio/data');
+  } catch (error) {
+    console.error('❌ Error seeding database:', error);
+    if (error instanceof Error && 'code' in error && error.code === 'permission-denied') {
+        console.error('Firestore security rules might be denying write access. Please check your rules in the Firebase console.');
     }
-    loadData();
-  }, []);
-
-  if (loading) {
-    return <div className="space-y-4 p-6">
-      <Skeleton className="h-24 w-full" />
-      <div className="flex gap-4">
-        <Skeleton className="h-64 w-1/3" />
-        <Skeleton className="h-64 w-1/3" />
-        <Skeleton className="h-64 w-1/3" />
-      </div>
-      <Skeleton className="h-48 w-full" />
-    </div>;
   }
-  
-  if (error && !portfolioData) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-screen text-center">
-          <h2 className="text-2xl font-bold mb-2">Error Loading Portfolio</h2>
-          <p className="text-red-500">{error}</p>
-          <p className="mt-4 text-muted-foreground">Could not fetch portfolio data. Please try again later.</p>
-      </div>
-    )
-  }
-
-  if (!portfolioData) {
-     return (
-        <div className="flex flex-col items-center justify-center min-h-screen text-center">
-            <h2 className="text-2xl font-bold mb-2">Error Loading Portfolio</h2>
-            <p className="mt-4 text-muted-foreground">Portfolio data could not be loaded.</p>
-        </div>
-      )
-  }
-
-  return (
-      <div className="flex flex-col min-h-screen bg-background">
-        <Header />
-        <main className="flex-grow">
-          <Hero />
-          <About skills={portfolioData.skills} />
-          <Projects projects={portfolioData.projects} />
-          <ResearchToReality implementations={portfolioData.researchImplementations || []} />
-          <Experience 
-            experiences={portfolioData.experiences}
-            certifications={portfolioData.certifications}
-          />
-          <Contact />
-        </main>
-        <Footer />
-        <Chatbot portfolioData={portfolioData} />
-      </div>
-  );
 }
+
+seedDatabase();
