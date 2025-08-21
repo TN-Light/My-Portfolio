@@ -73,10 +73,8 @@ export default function Hero() {
                     >
                         <img
                             src="/profile.png"
-                            width={300}
-                            height={450}
                             alt="Profile picture of Abhilash"
-                            className="rounded-sm object-cover"
+                            className="rounded-sm object-cover w-[300px] h-[450px]"
                         />
                     </motion.div>
                 </motion.div>
