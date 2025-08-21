@@ -17,7 +17,7 @@ export default {
     },
     extend: {
       backgroundImage: {
-        'radial-gradient-hero': 'radial-gradient(circle, transparent 60%, hsl(var(--background)) 85%)',
+        'radial-gradient-hero': 'radial-gradient(circle, hsl(var(--secondary) / 0.3) 0%, hsl(var(--background)) 70%)',
       },
       fontFamily: {
         body: ['Inter', 'sans-serif'],
