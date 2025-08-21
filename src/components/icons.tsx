@@ -29,7 +29,7 @@ export const LogoIcon = (props: SVGProps<SVGSVGElement>) => (
       fontFamily="Space Grotesk, sans-serif"
       fontWeight="bold"
     >
-      ABHILASH
+      ABHI
     </text>
   </svg>
 );
