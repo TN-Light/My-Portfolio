@@ -36,18 +36,18 @@ export default function Hero() {
                         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
                             <div className="md:col-span-7 text-left">
                                 <div className="flex items-center gap-8">
-                                    <motion.div variants={FADE_UP_ANIMATION_VARIANTS} className="[writing-mode:vertical-rl] text-sm text-muted-foreground tracking-widest uppercase self-center rotate-180">
+                                    <motion.div variants={FADE_UP_ANIMATION_VARIANTS} className="[writing-mode:vertical-rl] text-base text-muted-foreground tracking-widest uppercase self-center rotate-180">
                                         AI-Native Developer
                                     </motion.div>
                                     <div>
                                         <motion.h1
-                                            className="text-5xl md:text-6xl lg:text-7xl font-headline font-bold tracking-tighter"
+                                            className="text-6xl md:text-7xl lg:text-8xl font-headline font-bold tracking-tighter"
                                             variants={FADE_UP_ANIMATION_VARIANTS}
                                         >
                                             Hello
                                         </motion.h1>
                                         <motion.p
-                                            className="mt-2 text-xl md:text-2xl text-muted-foreground"
+                                            className="mt-2 text-2xl md:text-3xl text-muted-foreground"
                                             variants={FADE_UP_ANIMATION_VARIANTS}
                                         >
                                             — I'm Abhilash.
@@ -60,12 +60,12 @@ export default function Hero() {
                                     className="mt-8 flex gap-8 justify-start"
                                 >
                                     <div>
-                                        <p className="text-3xl font-bold">+30</p>
-                                        <p className="text-sm text-muted-foreground">Open-Source AI Projects</p>
+                                        <p className="text-4xl font-bold">+30</p>
+                                        <p className="text-base text-muted-foreground">Open-Source AI Projects</p>
                                     </div>
                                     <div>
-                                        <p className="text-3xl font-bold">+15</p>
-                                        <p className="text-sm text-muted-foreground">Research Papers Implemented</p>
+                                        <p className="text-4xl font-bold">+15</p>
+                                        <p className="text-base text-muted-foreground">Research Papers Implemented</p>
                                     </div>
                                 </motion.div>
                             </div>
