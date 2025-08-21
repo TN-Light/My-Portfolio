@@ -46,8 +46,9 @@ export default function Projects({ projects = [] }: ProjectsProps) {
               whileInView="visible"
               viewport={{ once: true, amount: 0.2 }}
               transition={{ delay: index * 0.1 }}
+              whileHover={{ y: -8, transition: { type: 'spring', stiffness: 300 } }}
             >
-              <Card className="h-full flex flex-col bg-card border overflow-hidden group transition-all duration-300 hover:border-primary hover:shadow-lg hover:-translate-y-1">
+              <Card className="h-full flex flex-col bg-card border overflow-hidden group transition-all duration-300 hover:border-primary hover:shadow-lg">
                 <CardHeader>
                   <CardTitle className="font-headline text-xl tracking-tight">{project.title}</CardTitle>
                 </CardHeader>
@@ -77,7 +78,12 @@ export default function Projects({ projects = [] }: ProjectsProps) {
             <Button asChild variant="outline" size="lg" className="group">
                 <a href="https://github.com/TN-Light?tab=repositories&q=awesome" target="_blank" rel="noopener noreferrer">
                     View AI Research on GitHub
-                    <ArrowUpRight className="ml-2 h-5 w-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                    <motion.div
+                      whileHover={{ x: 4, y: -4 }}
+                      transition={{ type: 'spring', stiffness: 300 }}
+                    >
+                      <ArrowUpRight className="ml-2 h-5 w-5" />
+                    </motion.div>
                 </a>
             </Button>
         </div>

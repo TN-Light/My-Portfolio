@@ -72,7 +72,13 @@ export default function Header() {
         <div className="hidden md:flex">
           <Button asChild>
             <a href="#contact">
-                Book a Call <ArrowUpRight className="ml-2 h-4 w-4" />
+                Book a Call 
+                <motion.div 
+                  whileHover={{ x: 4, y: -4 }}
+                  transition={{ type: 'spring', stiffness: 300 }}
+                >
+                  <ArrowUpRight className="ml-2 h-4 w-4" />
+                </motion.div>
             </a>
           </Button>
         </div>
@@ -105,7 +111,13 @@ export default function Header() {
             ))}
             <Button asChild onClick={() => setIsMenuOpen(false)}>
                 <a href="#contact">
-                    Book a Call <ArrowUpRight className="ml-2 h-4 w-4" />
+                    Book a Call 
+                    <motion.div 
+                      whileHover={{ x: 4, y: -4 }}
+                      transition={{ type: 'spring', stiffness: 300 }}
+                    >
+                      <ArrowUpRight className="ml-2 h-4 w-4" />
+                    </motion.div>
                 </a>
             </Button>
           </nav>

@@ -44,8 +44,13 @@ export default function About({ skills = [] }: AboutProps) {
               <motion.div 
                 key={skill} 
                 className="px-3 py-1.5 bg-background border rounded-full text-sm font-medium"
-                whileHover={{ scale: 1.05, backgroundColor: 'hsl(var(--primary))', color: 'hsl(var(--primary-foreground))', y: -2 }}
-                transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+                whileHover={{ 
+                  scale: 1.08, 
+                  backgroundColor: 'hsl(var(--primary))', 
+                  color: 'hsl(var(--primary-foreground))', 
+                  y: -4,
+                  transition: { type: 'spring', stiffness: 400, damping: 10 }
+                }}
               >
                 {skill}
               </motion.div>

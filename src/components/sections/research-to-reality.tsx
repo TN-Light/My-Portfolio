@@ -54,8 +54,9 @@ export default function ResearchToReality({ implementations = [] }: ResearchToRe
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ delay: index * 0.1 }}
+                whileHover={{ y: -8, transition: { type: 'spring', stiffness: 300 } }}
                 >
-                <Card className="h-full flex flex-col bg-card border overflow-hidden group transition-all duration-300 hover:border-primary hover:shadow-lg hover:-translate-y-1">
+                <Card className="h-full flex flex-col bg-card border overflow-hidden group transition-all duration-300 hover:border-primary hover:shadow-lg">
                     <CardHeader className="flex-row gap-4 items-center">
                         <div className="p-3 bg-secondary rounded-lg">
                             <Icon className="w-6 h-6 text-primary"/>
@@ -73,7 +74,12 @@ export default function ResearchToReality({ implementations = [] }: ResearchToRe
                             <a href={item.githubUrl} target="_blank" rel="noopener noreferrer">
                                 <Github className="mr-2 h-4 w-4" />
                                 View on GitHub
-                                <ArrowUpRight className="ml-1 h-4 w-4 transition-transform duration-300 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
+                                <motion.div 
+                                  whileHover={{ x: 2, y: -2 }}
+                                  transition={{ type: 'spring', stiffness: 300 }}
+                                >
+                                  <ArrowUpRight className="ml-1 h-4 w-4" />
+                                </motion.div>
                             </a>
                         </Button>
                     </CardFooter>
