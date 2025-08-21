@@ -29,24 +29,29 @@ export default function Hero() {
                             },
                         },
                     }}
-                    className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center"
+                    className="grid grid-cols-1 md:grid-cols-5 gap-8 items-center"
                 >
-                    <div className="relative text-left">
-                         <motion.div variants={FADE_UP_ANIMATION_VARIANTS} className="absolute top-1/2 -translate-y-1/2 [writing-mode:vertical-rl] text-sm text-muted-foreground tracking-widest uppercase -translate-x-12 md:-translate-x-20">
-                            AI-Native Developer
-                        </motion.div>
-                        <motion.h1
-                            className="text-6xl md:text-8xl lg:text-9xl font-headline font-bold tracking-tighter"
-                            variants={FADE_UP_ANIMATION_VARIANTS}
-                        >
-                            Hello
-                        </motion.h1>
-                        <motion.p
-                            className="mt-2 text-xl md:text-2xl text-muted-foreground"
-                            variants={FADE_UP_ANIMATION_VARIANTS}
-                        >
-                            — I'm Abhilash.
-                        </motion.p>
+                    <div className="md:col-span-3 text-left">
+                        <div className="flex items-center gap-4">
+                            <motion.div variants={FADE_UP_ANIMATION_VARIANTS} className="[writing-mode:vertical-rl] text-sm text-muted-foreground tracking-widest uppercase self-center rotate-180">
+                                AI-Native Developer
+                            </motion.div>
+                            <div>
+                                <motion.h1
+                                    className="text-6xl md:text-8xl lg:text-9xl font-headline font-bold tracking-tighter"
+                                    variants={FADE_UP_ANIMATION_VARIANTS}
+                                >
+                                    Hello
+                                </motion.h1>
+                                <motion.p
+                                    className="mt-2 text-xl md:text-2xl text-muted-foreground"
+                                    variants={FADE_UP_ANIMATION_VARIANTS}
+                                >
+                                    — I'm Abhilash.
+                                </motion.p>
+                            </div>
+                        </div>
+
                         <motion.div
                             variants={FADE_UP_ANIMATION_VARIANTS}
                             className="mt-8 flex gap-8 justify-start"
@@ -64,7 +69,7 @@ export default function Hero() {
 
                     <motion.div
                         variants={FADE_UP_ANIMATION_VARIANTS}
-                        className="relative flex justify-center items-center h-full"
+                        className="md:col-span-2 relative flex justify-center items-center h-full"
                     >
                          <img
                             src="/profile.png.png"
