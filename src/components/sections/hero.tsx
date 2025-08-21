@@ -75,7 +75,7 @@ export default function Hero() {
                                 className="md:col-span-5 relative flex justify-center items-center h-full group"
                             >
                                 <motion.div
-                                    className="relative overflow-hidden rounded-full w-[40vh] h-[40vh] md:w-[50vh] md:h-[50vh]"
+                                    className="relative overflow-hidden rounded-full w-[40vh] h-[40vh] md:w-[50vh] md:h-[50vh] bg-secondary"
                                     initial={{ clipPath: 'circle(0% at 50% 50%)' }}
                                     animate={{ clipPath: 'circle(75% at 50% 50%)' }}
                                     transition={{ duration: 1, ease: [0.76, 0, 0.24, 1], delay: 0.5 }}
@@ -84,7 +84,7 @@ export default function Hero() {
                                         src="/profile.png.png"
                                         alt="Profile picture of Abhilash"
                                         data-ai-hint="profile photo"
-                                        className="w-full h-full object-cover relative z-10"
+                                        className="w-full h-full object-contain relative z-10"
                                         initial={{ scale: 1.2, y: "10%" }}
                                         animate={{ scale: 1, y: "0%" }}
                                         transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1], delay: 0.6 }}
