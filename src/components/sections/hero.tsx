@@ -30,55 +30,59 @@ export default function Hero() {
                             },
                         },
                     }}
-                    className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center max-w-6xl mx-auto"
+                    className="grid grid-cols-12 items-center"
                 >
-                    <div className="md:col-span-7 text-left">
-                        <div className="flex items-center gap-4">
-                            <motion.div variants={FADE_UP_ANIMATION_VARIANTS} className="[writing-mode:vertical-rl] text-sm text-muted-foreground tracking-widest uppercase self-center rotate-180">
-                                AI-Native Developer
+                    <div className="col-span-12 md:col-start-2 md:col-span-10">
+                        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                            <div className="md:col-span-7 text-left">
+                                <div className="flex items-center gap-4">
+                                    <motion.div variants={FADE_UP_ANIMATION_VARIANTS} className="[writing-mode:vertical-rl] text-sm text-muted-foreground tracking-widest uppercase self-center rotate-180">
+                                        AI-Native Developer
+                                    </motion.div>
+                                    <div>
+                                        <motion.h1
+                                            className="text-6xl md:text-8xl lg:text-9xl font-headline font-bold tracking-tighter"
+                                            variants={FADE_UP_ANIMATION_VARIANTS}
+                                        >
+                                            Hello
+                                        </motion.h1>
+                                        <motion.p
+                                            className="mt-2 text-xl md:text-2xl text-muted-foreground"
+                                            variants={FADE_UP_ANIMATION_VARIANTS}
+                                        >
+                                            — I'm Abhilash.
+                                        </motion.p>
+                                    </div>
+                                </div>
+
+                                <motion.div
+                                    variants={FADE_UP_ANIMATION_VARIANTS}
+                                    className="mt-8 flex gap-8 justify-start"
+                                >
+                                    <div>
+                                        <p className="text-3xl font-bold">+30</p>
+                                        <p className="text-sm text-muted-foreground">Open-Source AI Projects</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-3xl font-bold">+15</p>
+                                        <p className="text-sm text-muted-foreground">Research Papers Implemented</p>
+                                    </div>
+                                </motion.div>
+                            </div>
+
+                            <motion.div
+                                variants={FADE_UP_ANIMATION_VARIANTS}
+                                className="md:col-span-5 relative flex justify-center items-center h-full"
+                            >
+                                <img
+                                    src="/profile.png.png"
+                                    alt="Profile picture of Abhilash"
+                                    data-ai-hint="profile photo"
+                                    className="max-h-[70vh] h-auto object-contain"
+                                />
                             </motion.div>
-                            <div>
-                                <motion.h1
-                                    className="text-6xl md:text-8xl lg:text-9xl font-headline font-bold tracking-tighter"
-                                    variants={FADE_UP_ANIMATION_VARIANTS}
-                                >
-                                    Hello
-                                </motion.h1>
-                                <motion.p
-                                    className="mt-2 text-xl md:text-2xl text-muted-foreground"
-                                    variants={FADE_UP_ANIMATION_VARIANTS}
-                                >
-                                    — I'm Abhilash.
-                                </motion.p>
-                            </div>
                         </div>
-
-                        <motion.div
-                            variants={FADE_UP_ANIMATION_VARIANTS}
-                            className="mt-8 flex gap-8 justify-start"
-                        >
-                            <div>
-                                <p className="text-3xl font-bold">+30</p>
-                                <p className="text-sm text-muted-foreground">Open-Source AI Projects</p>
-                            </div>
-                            <div>
-                                <p className="text-3xl font-bold">+15</p>
-                                <p className="text-sm text-muted-foreground">Research Papers Implemented</p>
-                            </div>
-                        </motion.div>
                     </div>
-
-                    <motion.div
-                        variants={FADE_UP_ANIMATION_VARIANTS}
-                        className="md:col-span-5 relative flex justify-center items-center h-full"
-                    >
-                         <img
-                            src="/profile.png.png"
-                            alt="Profile picture of Abhilash"
-                            data-ai-hint="profile photo"
-                            className="max-h-[70vh] h-auto object-contain"
-                        />
-                    </motion.div>
                 </motion.div>
             </div>
             <motion.div
