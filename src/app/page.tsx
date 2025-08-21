@@ -1,7 +1,7 @@
 
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
 import Hero from '@/components/sections/hero';
@@ -11,10 +11,8 @@ import Contact from '@/components/sections/contact';
 import Experience from '@/components/sections/experience';
 import ResearchToReality from '@/components/sections/research-to-reality';
 import Chatbot from '@/components/chatbot';
-import { getPortfolioData } from './actions';
 import type { portfolioSchema } from '@/lib/schemas';
 import type { z } from 'zod';
-import { Skeleton } from '@/components/ui/skeleton';
 
 type PortfolioData = z.infer<typeof portfolioSchema>;
 
@@ -109,98 +107,25 @@ const fallbackData: PortfolioData = {
 };
 
 
-function LoadingSkeleton() {
-  return (
-    <div className="space-y-16 py-16">
-      <div className="container mx-auto px-6">
-        <Skeleton className="h-8 w-1/2 mx-auto" />
-        <Skeleton className="h-4 w-3/4 mx-auto mt-4" />
-        <div className="grid md:grid-cols-3 gap-8 mt-16">
-          <Skeleton className="h-80 rounded-lg" />
-          <Skeleton className="h-80 rounded-lg" />
-          <Skeleton className="h-80 rounded-lg" />
-        </div>
-      </div>
-      <div className="container mx-auto px-6">
-        <Skeleton className="h-8 w-1/2 mx-auto" />
-        <Skeleton className="h-4 w-3/4 mx-auto mt-4" />
-        <div className="grid md:grid-cols-2 gap-16 mt-16">
-          <Skeleton className="h-64 rounded-lg" />
-          <Skeleton className="h-64 rounded-lg" />
-        </div>
-      </div>
-    </div>
-  )
-}
-
-
 export default function Home() {
-  const [portfolioData, setPortfolioData] = useState<PortfolioData | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const data = await getPortfolioData();
-        if (data) {
-          setPortfolioData(data);
-        } else {
-          setPortfolioData(fallbackData);
-        }
-      } catch (error) {
-        console.error("Failed to fetch portfolio data, using fallback.", error);
-        setPortfolioData(fallbackData);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchData();
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="flex flex-col min-h-screen bg-background">
-        <Header />
-        <main className="flex-grow">
-          <Hero />
-          <LoadingSkeleton />
-        </main>
-        <Footer />
-      </div>
-    )
-  }
-
-  if (!portfolioData) {
-     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-background text-foreground">
-        <div className="text-center p-8">
-          <h2 className="text-2xl font-bold text-destructive mb-4">Error Loading Portfolio</h2>
-          <p className="text-muted-foreground mb-6">
-            Could not fetch portfolio data. Please try again later.
-          </p>
-        </div>
-      </div>
-    )
-  }
+  const [portfolioData, setPortfolioData] = useState<PortfolioData>(fallbackData);
   
-  const displayData = portfolioData || fallbackData;
-
   return (
       <div className="flex flex-col min-h-screen bg-background">
         <Header />
         <main className="flex-grow">
           <Hero />
-          <About skills={displayData.skills} />
-          <Projects projects={displayData.projects} />
-          <ResearchToReality implementations={displayData.researchImplementations || []} />
+          <About skills={portfolioData.skills} />
+          <Projects projects={portfolioData.projects} />
+          <ResearchToReality implementations={portfolioData.researchImplementations || []} />
           <Experience 
-            experiences={displayData.experiences}
-            certifications={displayData.certifications}
+            experiences={portfolioData.experiences}
+            certifications={portfolioData.certifications}
           />
           <Contact />
         </main>
         <Footer />
-        {portfolioData && <Chatbot portfolioData={portfolioData} />}
+        <Chatbot portfolioData={portfolioData} />
       </div>
   );
 }
