@@ -1,3 +1,4 @@
+
 'use client';
 
 import { motion } from 'framer-motion';
@@ -73,7 +74,7 @@ export default function Hero() {
                             className="w-48 h-64 md:w-full md:h-auto md:max-w-xs relative"
                         >
                             <Image
-                                src="https://placehold.co/400x600.png"
+                                src="/profile.png"
                                 width={400}
                                 height={600}
                                 alt="Profile picture of Abhilash"

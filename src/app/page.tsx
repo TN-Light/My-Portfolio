@@ -18,7 +18,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 
 type PortfolioData = z.infer<typeof portfolioSchema>;
 
-// Hardcoded fallback data
+// Hardcoded fallback data in case database fails
 const fallbackData: PortfolioData = {
   skills: [
     'LangChain', 'LangGraph', 'CrewAI', 'AutoGen', 'OpenAI API', 'Hugging Face', 'RAG', 'HyDE', 'Query Decomposition',
@@ -111,7 +111,7 @@ const fallbackData: PortfolioData = {
 
 function LoadingSkeleton() {
   return (
-    <div className="space-y-16">
+    <div className="space-y-16 py-16">
       <div className="container mx-auto px-6">
         <Skeleton className="h-8 w-1/2 mx-auto" />
         <Skeleton className="h-4 w-3/4 mx-auto mt-4" />
@@ -140,36 +140,59 @@ export default function Home() {
 
   useEffect(() => {
     async function fetchData() {
-      // Forcing fallback data for now.
-      // const data = await getPortfolioData();
-      const data = fallbackData;
-      setPortfolioData(data);
-      setLoading(false);
+      try {
+        const data = await getPortfolioData();
+        setPortfolioData(data);
+      } catch (error) {
+        console.error("Failed to fetch portfolio data, using fallback.", error);
+        setPortfolioData(fallbackData);
+      } finally {
+        setLoading(false);
+      }
     }
     fetchData();
   }, []);
 
-  const displayData = portfolioData || fallbackData;
+  if (loading) {
+    return (
+      <div className="flex flex-col min-h-screen bg-background">
+        <Header />
+        <main className="flex-grow">
+          <Hero />
+          <LoadingSkeleton />
+        </main>
+        <Footer />
+      </div>
+    )
+  }
 
+  if (!portfolioData) {
+     return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-background text-foreground">
+        <div className="text-center p-8">
+          <h2 className="text-2xl font-bold text-destructive mb-4">Error Loading Portfolio</h2>
+          <p className="text-muted-foreground mb-6">
+            Could not fetch portfolio data. Please try again later.
+          </p>
+        </div>
+      </div>
+    )
+  }
+  
+  const displayData = portfolioData || fallbackData;
 
   return (
       <div className="flex flex-col min-h-screen bg-background">
         <Header />
         <main className="flex-grow">
           <Hero />
-          {loading && !portfolioData ? (
-            <LoadingSkeleton />
-          ) : (
-            <>
-              <About skills={displayData.skills} />
-              <Projects projects={displayData.projects} />
-              <ResearchToReality implementations={displayData.researchImplementations || []} />
-              <Experience 
-                experiences={displayData.experiences}
-                certifications={displayData.certifications}
-              />
-            </>
-          )}
+          <About skills={displayData.skills} />
+          <Projects projects={displayData.projects} />
+          <ResearchToReality implementations={displayData.researchImplementations || []} />
+          <Experience 
+            experiences={displayData.experiences}
+            certifications={displayData.certifications}
+          />
           <Contact />
         </main>
         <Footer />
