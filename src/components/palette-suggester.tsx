@@ -1,6 +1,7 @@
+
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Wand2, Loader, Palette } from 'lucide-react';
 import { getPaletteSuggestions } from '@/app/actions';
 import { Button } from '@/components/ui/button';
@@ -9,11 +10,31 @@ import { Card } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import type { SuggestPaletteOutput } from '@/ai/flows/suggest-palette';
 
-const initialColors = {
-  primaryColor: '#000000',
-  backgroundColor: '#ffffff',
-  accentColor: '#f2f2f2',
-};
+function hslToHex(h: number, s: number, l: number): string {
+  l /= 100;
+  const a = (s * Math.min(l, 1 - l)) / 100;
+  const f = (n: number) => {
+    const k = (n + h / 30) % 12;
+    const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+    return Math.round(255 * color)
+      .toString(16)
+      .padStart(2, '0');
+  };
+  return `#${f(0)}${f(8)}${f(4)}`;
+}
+
+function getHexColorFromCssVar(varName: string): string {
+  if (typeof window === 'undefined') return '#000000';
+  const hslString = getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
+  if (!hslString) {
+    if (varName === '--background') return '#ffffff';
+    if (varName === '--primary') return '#000000';
+    if (varName === '--accent') return '#f1f5f9';
+    return '#000000';
+  }
+  const [h, s, l] = hslString.split(' ').map(val => parseFloat(val));
+  return hslToHex(h, parseFloat(s), parseFloat(l));
+}
 
 function hexToHsl(hex: string): string {
   hex = hex.replace('#', '');
@@ -41,7 +62,24 @@ function hexToHsl(hex: string): string {
 export default function PaletteSuggester() {
   const [isLoading, setIsLoading] = useState(false);
   const [suggestions, setSuggestions] = useState<SuggestPaletteOutput | null>(null);
+  const [initialColors, setInitialColors] = useState({ primaryColor: '#000000', backgroundColor: '#ffffff', accentColor: '#f1f5f9' });
+  const [savedPalette, setSavedPalette] = useState<any>(null);
   const { toast } = useToast();
+
+  const captureInitialPalette = () => {
+    const background = getHexColorFromCssVar('--background');
+    const primary = getHexColorFromCssVar('--primary');
+    const accent = getHexColorFromCssVar('--accent');
+    
+    const currentPalette = {
+        primaryColor: primary,
+        backgroundColor: background,
+        accentColor: accent
+    };
+    
+    setInitialColors(currentPalette);
+    setSavedPalette(currentPalette);
+  }
 
   const handleSuggestPalettes = async () => {
     setIsLoading(true);
@@ -68,13 +106,25 @@ export default function PaletteSuggester() {
   };
   
   const resetPalette = () => {
-    document.documentElement.style.removeProperty('--background');
-    document.documentElement.style.removeProperty('--primary');
-    document.documentElement.style.removeProperty('--accent');
+    if (savedPalette) {
+        applyPalette(savedPalette);
+    } else {
+        document.documentElement.style.removeProperty('--background');
+        document.documentElement.style.removeProperty('--primary');
+        document.documentElement.style.removeProperty('--accent');
+    }
+  }
+
+  const handleOpenChange = (open: boolean) => {
+    if (open) {
+      captureInitialPalette();
+    } else {
+      resetPalette();
+    }
   }
 
   return (
-    <Dialog onOpenChange={(open) => !open && resetPalette()}>
+    <Dialog onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
         <Button
           variant="ghost"
@@ -91,7 +141,7 @@ export default function PaletteSuggester() {
             <Wand2 className="text-primary" /> AI Palette Suggester
           </DialogTitle>
           <DialogDescription>
-            Let AI suggest some alternative color palettes. Click to preview.
+            Let AI suggest some alternative color palettes based on the current theme. Click to preview.
           </DialogDescription>
         </DialogHeader>
         <div className="mt-4">
@@ -129,3 +179,5 @@ export default function PaletteSuggester() {
     </Dialog>
   );
 }
+
+    
