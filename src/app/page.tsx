@@ -56,16 +56,16 @@ const fallbackData: PortfolioData = {
   ],
   experiences: [
     {
-      role: 'AI Engineering Lead',
-      company: 'WoowLocal Retail Tech',
-      date: 'Apr–Jun 2025',
-      description: 'Led cross-functional team building agentic workflows for automated project management. Implemented LLM observability and evaluation frameworks, achieving 25% faster delivery cycles.'
+      role: 'Project Manager Intern',
+      company: 'WoowLocal Retail Tech Pvt. Ltd.',
+      date: 'April 2025 - June 2025',
+      description: 'Facilitated sprint planning, daily stand-ups, and retrospectives for a 7-member cross-functional team. Maintained project documentation, supported Agile implementation, and led communication with stakeholders.'
     },
     {
-      role: 'Founder & AI Systems Architect',
-      company: 'Shrink (MSME Registered)',
-      date: 'Oct 2023–Jan 2025',
-      description: 'Designed multi-agent prototyping system for automated 3D design and simulation workflows. Advanced to national finals using novel AI agent orchestration for creative processes.'
+      role: 'Founder & Project Lead',
+      company: 'Shrink (MSME Registered, University Incubator)',
+      date: 'Oct 2023 - Jan 2025',
+      description: 'Developed a retractable water bottle prototype, advancing to the EDII-TN Voucher A final round. Managed a ₹10,000 budget, coordinated design and manufacturing, and directed multi-department stand-ups. Discontinued post-Jan 2025 to focus on AI.'
     }
   ],
   certifications: [
