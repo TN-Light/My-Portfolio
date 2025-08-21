@@ -10,9 +10,9 @@ import { useToast } from '@/hooks/use-toast';
 import type { SuggestPaletteOutput } from '@/ai/flows/suggest-palette';
 
 const initialColors = {
-  primaryColor: '#a729f0',
-  backgroundColor: '#222222',
-  accentColor: '#34d1c8',
+  primaryColor: '#000000',
+  backgroundColor: '#ffffff',
+  accentColor: '#f2f2f2',
 };
 
 function hexToHsl(hex: string): string {
@@ -68,9 +68,9 @@ export default function PaletteSuggester() {
   };
   
   const resetPalette = () => {
-    document.documentElement.style.setProperty('--background', hexToHsl(initialColors.backgroundColor));
-    document.documentElement.style.setProperty('--primary', hexToHsl(initialColors.primaryColor));
-    document.documentElement.style.setProperty('--accent', hexToHsl(initialColors.accentColor));
+    document.documentElement.style.removeProperty('--background');
+    document.documentElement.style.removeProperty('--primary');
+    document.documentElement.style.removeProperty('--accent');
   }
 
   return (
