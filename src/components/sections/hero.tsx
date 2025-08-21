@@ -74,12 +74,11 @@ export default function Hero() {
                                 variants={FADE_UP_ANIMATION_VARIANTS}
                                 className="md:col-span-5 relative flex justify-center items-center h-full group"
                             >
-                                <div className="absolute inset-0 bg-radial-gradient-hero z-10"></div>
                                 <img
                                     src="/profile.png.png"
                                     alt="Profile picture of Abhilash"
                                     data-ai-hint="profile photo"
-                                    className="max-h-[70vh] h-auto object-contain relative z-0"
+                                    className="max-h-[70vh] h-auto object-contain relative z-0 mix-blend-lighten"
                                 />
                             </motion.div>
                         </div>
