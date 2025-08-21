@@ -73,7 +73,7 @@ export default function Hero() {
                     >
                         <div className="relative w-full h-auto aspect-[3/4] rounded-lg overflow-hidden shadow-2xl group">
                             <img
-                                src="https://placehold.co/300x400.png"
+                                src="/profile.png.png"
                                 alt="Profile picture of Abhilash"
                                 data-ai-hint="profile photo"
                                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
