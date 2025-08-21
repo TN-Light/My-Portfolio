@@ -7,7 +7,7 @@ import { Button } from '../ui/button';
 import { ArrowUpRight, BookCheck } from 'lucide-react';
 import type { projectSchema } from '@/lib/schemas';
 import type { z } from 'zod';
-import Image from 'next/image';
+import ThreeScene from '../three-scene';
 
 type Project = z.infer<typeof projectSchema>;
 
@@ -46,9 +46,11 @@ export default function Projects({ projects = [] }: ProjectsProps) {
               whileInView="visible"
               viewport={{ once: true, amount: 0.2 }}
               transition={{ delay: index * 0.1 }}
-              whileHover={{ y: -8, transition: { type: 'spring', stiffness: 300 } }}
             >
-              <Card className="h-full flex flex-col bg-card border overflow-hidden group transition-all duration-300 hover:border-primary hover:shadow-lg">
+              <Card className="h-full flex flex-col bg-card border overflow-hidden group transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10">
+                 <CardContent className="pt-6 h-48">
+                   <ThreeScene type={project.threeSceneType} />
+                 </CardContent>
                 <CardHeader>
                   <CardTitle className="font-headline text-xl tracking-tight">{project.title}</CardTitle>
                 </CardHeader>
@@ -65,8 +67,8 @@ export default function Projects({ projects = [] }: ProjectsProps) {
                     </div>
                   )}
                   </CardContent>
-                  <CardFooter>
-                    <div className="flex flex-wrap gap-2">
+                  <CardFooter className="flex-col items-start gap-4">
+                     <div className="flex flex-wrap gap-2">
                       {project.tags.map(tag => <Badge key={tag} variant="secondary">{tag}</Badge>)}
                     </div>
                   </CardFooter>
@@ -78,7 +80,8 @@ export default function Projects({ projects = [] }: ProjectsProps) {
             <Button asChild variant="outline" size="lg" className="group">
                 <a href="https://github.com/TN-Light?tab=repositories&q=awesome" target="_blank" rel="noopener noreferrer">
                     View AI Research on GitHub
-                    <motion.div
+                    <motion.div 
+                      className="inline-block"
                       whileHover={{ x: 4, y: -4 }}
                       transition={{ type: 'spring', stiffness: 300 }}
                     >

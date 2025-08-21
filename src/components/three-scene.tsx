@@ -30,8 +30,13 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ type }) => {
     function getThreeColor(cssVar: string) {
         const colorStr = getComputedStyle(document.documentElement).getPropertyValue(cssVar).trim();
         if (!colorStr) return new THREE.Color(0xffffff);
-        const [h, s, l] = colorStr.split(" ").map(v => parseFloat(v) / (v.endsWith('%') ? 100 : 1));
-        return new THREE.Color().setHSL(h/360, s, l);
+        // Assuming HSL format like "278 81% 59%"
+        const parts = colorStr.split(" ");
+        if (parts.length < 3) return new THREE.Color(0xffffff);
+        const h = parseFloat(parts[0]) / 360;
+        const s = parseFloat(parts[1].replace('%','')) / 100;
+        const l = parseFloat(parts[2].replace('%','')) / 100;
+        return new THREE.Color().setHSL(h, s, l);
     }
 
     const primaryThreeColor = getThreeColor('--primary');
@@ -144,7 +149,7 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ type }) => {
         raycaster.setFromCamera(mouse, camera);
 
         const positionAttribute = object.geometry.getAttribute('position');
-        const originalPositionAttribute = object.geometry.getAttribute('originalPosition') || positionAttribute; // Fallback
+        const originalPositions = (object.geometry.getAttribute('originalPosition') as THREE.BufferAttribute);
         
         for (let i = 0; i < positionAttribute.count; i++) {
             const i3 = i * 3;
@@ -152,9 +157,9 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ type }) => {
             const y = positionAttribute.getY(i);
             const z = positionAttribute.getZ(i);
 
-            const ox = originalPositionAttribute.getX(i);
-            const oy = originalPositionAttribute.getY(i);
-            const oz = originalPositionAttribute.getZ(i);
+            const ox = originalPositions.getX(i);
+            const oy = originalPositions.getY(i);
+            const oz = originalPositions.getZ(i);
 
             const mouseDistance = new THREE.Vector3(x,y,z).distanceTo(new THREE.Vector3(mouse.x*7, mouse.y*7, 0));
 
@@ -176,6 +181,19 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ type }) => {
       } else if(object) {
           group.rotation.x += 0.005;
           group.rotation.y += 0.005;
+
+          if(type === 'sphere') {
+            // Animate agents
+            group.children.forEach((child, index) => {
+                if (index > 0) { // skip main sphere
+                    const angle = (index - 1) / 5 * Math.PI * 2 + elapsedTime * 0.5;
+                    const radius = 1.8;
+                    child.position.x = Math.cos(angle) * radius;
+                    child.position.z = Math.sin(angle) * radius;
+                    child.position.y = Math.sin(elapsedTime * 2 + index) * 0.3;
+                }
+            })
+          }
       }
       renderer.render(scene, camera);
     };
@@ -202,7 +220,10 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ type }) => {
         window.removeEventListener('mousemove', handleMouseMove);
       }
       if (currentMount) {
-        currentMount.removeChild(renderer.domElement);
+        // Check if renderer.domElement is a child of currentMount before removing
+        if (renderer.domElement.parentNode === currentMount) {
+          currentMount.removeChild(renderer.domElement);
+        }
       }
       scene.traverse(obj => {
         if (obj instanceof THREE.Mesh || obj instanceof THREE.Points) {
