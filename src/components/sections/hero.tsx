@@ -74,12 +74,22 @@ export default function Hero() {
                                 variants={FADE_UP_ANIMATION_VARIANTS}
                                 className="md:col-span-5 relative flex justify-center items-center h-full group"
                             >
-                                <img
-                                    src="/profile.png.png"
-                                    alt="Profile picture of Abhilash"
-                                    data-ai-hint="profile photo"
-                                    className="max-h-[70vh] h-auto object-contain relative z-10"
-                                />
+                                <motion.div
+                                    className="relative overflow-hidden rounded-full"
+                                    initial={{ clipPath: 'circle(0% at 50% 50%)' }}
+                                    animate={{ clipPath: 'circle(75% at 50% 50%)' }}
+                                    transition={{ duration: 1, ease: [0.76, 0, 0.24, 1], delay: 0.5 }}
+                                >
+                                    <motion.img
+                                        src="/profile.png.png"
+                                        alt="Profile picture of Abhilash"
+                                        data-ai-hint="profile photo"
+                                        className="max-h-[70vh] h-auto object-contain relative z-10"
+                                        initial={{ scale: 1.2, y: "10%" }}
+                                        animate={{ scale: 1, y: "0%" }}
+                                        transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1], delay: 0.6 }}
+                                    />
+                                </motion.div>
                             </motion.div>
                         </div>
                     </div>
