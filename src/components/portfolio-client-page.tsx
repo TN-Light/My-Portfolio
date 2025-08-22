@@ -145,12 +145,11 @@ export default function PortfolioClientPage() {
         <>
           <main className="flex-grow">
             <Hero />
-            <About skills={portfolioData.skills} />
+            <About skills={portfolioData.skills} certifications={portfolioData.certifications} />
             <Projects projects={portfolioData.projects} />
             <ResearchToReality implementations={portfolioData.researchImplementations || []} />
             <Experience 
               experiences={portfolioData.experiences}
-              certifications={portfolioData.certifications}
             />
             <Achievements achievements={portfolioData.achievements || []} />
             <Contact />
