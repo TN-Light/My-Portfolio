@@ -21,9 +21,6 @@ const SuggestPaletteInputSchema = z.object({
   backgroundColor: z
     .string()
     .describe('The background color of the website in hex format (e.g. #222222).'),
-  accentColor: z
-    .string()
-    .describe('The accent color of the website in hex format (e.g. #34D1C8).'),
 });
 export type SuggestPaletteInput = z.infer<typeof SuggestPaletteInputSchema>;
 
@@ -37,9 +34,6 @@ const SuggestPaletteOutputSchema = z.object({
         backgroundColor: z
           .string()
           .describe('A suggested background color in hex format.'),
-        accentColor: z
-          .string()
-          .describe('A suggested accent color in hex format.'),
         description: z
           .string()
           .optional()
@@ -58,24 +52,22 @@ const prompt = ai.definePrompt({
   name: 'suggestPalettePrompt',
   input: {schema: SuggestPaletteInputSchema},
   output: {schema: SuggestPaletteOutputSchema},
-  prompt: `You are an expert UI/UX designer and color theorist specializing in creating beautiful, harmonious, and accessible color palettes for modern web applications.
+  prompt: `You are an expert UI/UX designer and color theorist specializing in creating beautiful, harmonious, and accessible two-color palettes for modern web applications.
 
-Your task is to suggest three alternative color palettes based on the user's current colors. The palettes should be suitable for a high-end, professional portfolio for an AI developer. One of these palettes **must** be a "Cyberpunk" theme.
+Your task is to suggest three alternative two-color palettes based on the user's current colors. The palettes should be suitable for a high-end, professional portfolio for an AI developer. One of these palettes **must** be a "Cyberpunk" theme.
 
 **Key Principles to Follow:**
 
-1.  **Harmony & Contrast:** The colors within each palette must work well together. This is critical. Ensure there is sufficient contrast between the background color and the primary/accent colors for accessibility and readability. The colors should not clash. Use your knowledge of color theory (complementary, analogous, triadic schemes) to create palettes that are visually appealing and professional.
+1.  **Harmony & Contrast:** The two colors in each palette must work well together. This is critical. Ensure there is sufficient contrast between the background color and the primary color for accessibility and readability. The colors should not clash.
 2.  **Professionalism & Personality:** The palettes should feel modern and sophisticated, but also have character. They should be appropriate for a technology professional's portfolio.
-3.  **Visual Hierarchy:** The colors should create a clear visual hierarchy. \`primaryColor\` for main interactive elements, \`accentColor\` for highlights, and \`backgroundColor\` for the main canvas. The accent color should complement the primary color, not fight it.
-4.  **Cyberpunk Palette:** For the Cyberpunk theme, think high-contrast, vibrant neons (like electric pink, cyan, or lime green) against a very dark, deep background. This palette should feel futuristic, edgy, and digital. The accent color should be a secondary neon that works well with the primary one.
+3.  **Cyberpunk Palette:** For the Cyberpunk theme, think high-contrast, a vibrant neon (like electric green, cyan, or magenta) against a very dark, deep background. This palette should feel futuristic, edgy, and digital.
 
 **User's Current Palette:**
 - Primary: {{{primaryColor}}}
 - Background: {{{backgroundColor}}}
-- Accent: {{{accentColor}}}
 
 **Your Task:**
-Generate three distinct and professional color palettes. For each, provide a primary color, background color, and accent color in hex format, and a short, descriptive name. Ensure the palettes are harmonious and follow the principles above.
+Generate three distinct and professional two-color palettes. For each, provide a primary color and a background color in hex format, and a short, descriptive name. Ensure the palettes are harmonious and follow the principles above.
 
 **Example Palette Names:**
 - "Cyberpunk Neon"

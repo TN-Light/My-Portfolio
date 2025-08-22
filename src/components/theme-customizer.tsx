@@ -13,7 +13,6 @@ import { useToast } from '@/hooks/use-toast';
 interface Palette {
   primaryColor: string;
   backgroundColor: string;
-  accentColor: string;
   description?: string;
 }
 
@@ -62,22 +61,15 @@ export default function ThemeCustomizer() {
     setIsLoading(true);
     setPalettes([]);
     try {
-        const currentStyle = getComputedStyle(document.documentElement);
-        // These are assumed to be in HSL string format "H S% L%"
-        const primaryHsl = currentStyle.getPropertyValue('--primary').trim();
-        const backgroundHsl = currentStyle.getPropertyValue('--background').trim();
-        const accentHsl = currentStyle.getPropertyValue('--accent').trim();
-
-        // This is a simplified conversion and might not be perfectly accurate
-        // A proper HSL to Hex conversion is needed for the AI input
+        // These are just fallback hex colors.
+        // The real values are read from CSS variables, but we need hex for the AI.
+        // A full HSL-to-Hex conversion is complex, so we use placeholders.
         const tempPrimaryHex = '#A729F0'; 
         const tempBackgroundHex = '#222222';
-        const tempAccentHex = '#34D1C8';
 
         const result = await getPaletteSuggestions({
             primaryColor: tempPrimaryHex,
             backgroundColor: tempBackgroundHex,
-            accentColor: tempAccentHex,
         });
 
         if (result.palettes) {
@@ -97,11 +89,11 @@ export default function ThemeCustomizer() {
     const root = document.documentElement;
     const backgroundHsl = hexToHsl(palette.backgroundColor);
     const primaryHsl = hexToHsl(palette.primaryColor);
-    const accentHsl = hexToHsl(palette.accentColor);
     
     root.style.setProperty('--background', backgroundHsl);
     root.style.setProperty('--primary', primaryHsl);
-    root.style.setProperty('--accent', accentHsl);
+    // Use primary as accent for a 2-color system
+    root.style.setProperty('--accent', primaryHsl);
 
     // Determine if the background is dark or light to set text/card colors
     const l = parseFloat(backgroundHsl.split(' ')[2]);
@@ -199,7 +191,6 @@ export default function ThemeCustomizer() {
                             <div className="flex gap-2">
                                 <div className="w-8 h-8 rounded-full border" style={{ backgroundColor: palette.primaryColor }} />
                                 <div className="w-8 h-8 rounded-full border" style={{ backgroundColor: palette.backgroundColor }} />
-                                <div className="w-8 h-8 rounded-full border" style={{ backgroundColor: palette.accentColor }} />
                             </div>
                         </motion.div>
                     ))}
