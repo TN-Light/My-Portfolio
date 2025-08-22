@@ -18,7 +18,7 @@ import { AnimatePresence } from 'framer-motion';
 type PortfolioData = z.infer<typeof portfolioSchema>;
 
 // Hardcoded fallback data in case database fails
-const fallbackData: PortfolioData = {
+const portfolioData: PortfolioData = {
   skills: [
     'LangChain', 'LangGraph', 'CrewAI', 'AutoGen', 'OpenAI API', 'Hugging Face', 'RAG', 'HyDE', 'Query Decomposition',
     'Multi-agent orchestration', 'Tool-calling patterns', 'Self-reflective RAG', 'Chain-of-thought reasoning',
@@ -124,15 +124,9 @@ const fallbackData: PortfolioData = {
   ],
 };
 
-interface PortfolioClientPageProps {
-  portfolioDataResult: { success: boolean; data?: PortfolioData; error?: string };
-}
-
-export default function PortfolioClientPage({ portfolioDataResult }: PortfolioClientPageProps) {
+export default function PortfolioClientPage() {
   const [loading, setLoading] = useState(true);
   
-  const portfolioData = portfolioDataResult.success ? portfolioDataResult.data! : fallbackData;
-
   useEffect(() => {
     // Keep the loading screen for at least a moment
     const timer = setTimeout(() => {
