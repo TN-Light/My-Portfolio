@@ -43,7 +43,7 @@ const SuggestPaletteOutputSchema = z.object({
         description: z
           .string()
           .optional()
-          .describe('A short description of the color palette.'),
+          .describe('A short, descriptive name for the color palette.'),
       })
     )
     .describe('An array of suggested color palettes.'),
@@ -60,14 +60,14 @@ const prompt = ai.definePrompt({
   output: {schema: SuggestPaletteOutputSchema},
   prompt: `You are an expert UI/UX designer and color theorist specializing in creating beautiful, harmonious, and accessible color palettes for modern web applications.
 
-Your task is to suggest three alternative color palettes based on the user's current colors. The palettes should be suitable for a high-end, professional portfolio for an AI developer.
+Your task is to suggest three alternative color palettes based on the user's current colors. The palettes should be suitable for a high-end, professional portfolio for an AI developer. One of these palettes **must** be a "Cyberpunk" theme.
 
 **Key Principles to Follow:**
 
-1.  **Harmony:** The colors within each palette must work well together. Use established color harmony rules (e.g., analogous, complementary, triadic, monochromatic) to ensure a pleasing result. The relationship between the colors should be intentional.
-2.  **Contrast & Accessibility:** Ensure there is sufficient contrast between the background color and the primary/accent colors to ensure text is readable. The palettes should be visually clear and accessible.
-3.  **Professionalism:** The suggested palettes should feel modern, sophisticated, and appropriate for a technology professional's portfolio. Avoid overly jarring or chaotic combinations.
-4.  **Visual Hierarchy:** The colors should naturally create a visual hierarchy. The \`primaryColor\` should be suitable for main interactive elements like buttons, the \`accentColor\` for highlights and secondary elements, and the \`backgroundColor\` for the main canvas.
+1.  **Harmony & Contrast:** The colors within each palette must work well together. Ensure there is sufficient contrast between the background color and the primary/accent colors for accessibility and readability.
+2.  **Professionalism & Personality:** The palettes should feel modern and sophisticated, but also have character. They should be appropriate for a technology professional's portfolio.
+3.  **Visual Hierarchy:** The colors should create a clear visual hierarchy. \`primaryColor\` for main interactive elements, \`accentColor\` for highlights, and \`backgroundColor\` for the main canvas.
+4.  **Cyberpunk Palette:** For the Cyberpunk theme, think high-contrast, vibrant neons (like electric pink, cyan, or lime green) against a very dark, deep background. This palette should feel futuristic, edgy, and digital.
 
 **User's Current Palette:**
 - Primary: {{{primaryColor}}}
@@ -75,7 +75,14 @@ Your task is to suggest three alternative color palettes based on the user's cur
 - Accent: {{{accentColor}}}
 
 **Your Task:**
-Based on the principles above, generate three distinct and professional color palettes. For each palette, provide a primary color, a background color, and an accent color in hex format. Also include a short, descriptive name or theme for each palette (e.g., "Deep Ocean", "Modern Professional", "Vibrant Tech").`,
+Generate three distinct and professional color palettes. For each, provide a primary color, background color, and accent color in hex format, and a short, descriptive name.
+
+**Example Palette Names:**
+- "Cyberpunk Neon"
+- "Modern Professional"
+- "Deep Ocean"
+- "Vibrant Tech"
+`,
 });
 
 const suggestPaletteFlow = ai.defineFlow(
