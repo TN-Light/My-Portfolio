@@ -17,6 +17,14 @@ export default function About({ skills = [], certifications = [] }: AboutProps) 
   return (
     <section id="about" className="bg-secondary">
       <div className="container mx-auto px-6">
+        <div className="text-left mb-16">
+            <h2 className="text-3xl md:text-4xl font-headline font-bold mb-4">
+              About Me
+            </h2>
+            <p className="text-muted-foreground text-lg max-w-4xl">
+              AI-native Computer Science student with deep expertise in multi-agent orchestration, advanced RAG systems, and LLM application development. Daily user of AI tools for coding, debugging, and rapid prototyping.
+            </p>
+        </div>
         <div className="grid md:grid-cols-5 gap-16 items-start">
             <motion.div
               initial={{ opacity: 0, x: -50 }}
@@ -25,15 +33,6 @@ export default function About({ skills = [], certifications = [] }: AboutProps) 
               transition={{ duration: 0.8 }}
               className="md:col-span-3 space-y-12"
             >
-              <div>
-                <h2 className="text-3xl md:text-4xl font-headline font-bold mb-4">
-                  About Me
-                </h2>
-                <p className="text-muted-foreground text-lg">
-                  AI-native Computer Science student with deep expertise in multi-agent orchestration, advanced RAG systems, and LLM application development. Daily user of AI tools for coding, debugging, and rapid prototyping.
-                </p>
-              </div>
-
               <div>
                 <h3 className="text-2xl font-headline font-semibold mb-6">Education</h3>
                 <div className="flex items-start gap-4 text-left">
@@ -73,7 +72,7 @@ export default function About({ skills = [], certifications = [] }: AboutProps) 
               className="md:col-span-2"
             >
               <h3 className="text-2xl font-headline font-semibold mb-6 text-left">Technical Skills</h3>
-              <div className="flex flex-wrap gap-3 justify-start">
+              <div className="flex flex-wrap gap-3 justify-start text-left">
                 {skills.map((skill) => (
                   <motion.div 
                     key={skill} 
