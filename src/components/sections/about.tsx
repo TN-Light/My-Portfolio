@@ -20,14 +20,14 @@ export default function About({ skills = [] }: AboutProps) {
           <h2 className="text-3xl md:text-4xl font-headline font-bold text-center mb-4">
             About Me
           </h2>
-          <p className="text-center max-w-3xl mx-auto text-muted-foreground mb-16 text-lg">
+          <p className="text-center max-w-4xl mx-auto text-muted-foreground mb-16 text-lg">
             AI-native Computer Science student with deep expertise in multi-agent orchestration, advanced RAG systems, and LLM application development. Daily user of AI tools for coding, debugging, and rapid prototyping.
           </p>
         </motion.div>
 
-        <div className="max-w-4xl mx-auto">
-          <h3 className="text-2xl font-headline font-semibold mb-6">Education</h3>
-          <div className="flex items-start gap-4 mb-8">
+        <div className="max-w-6xl mx-auto">
+          <h3 className="text-2xl font-headline font-semibold mb-6 text-center">Education</h3>
+          <div className="flex items-center justify-center gap-4 mb-12 text-center">
             <div className="mt-1 p-2 bg-primary/10 rounded-full">
               <GraduationCap className="w-6 h-6 text-primary"/>
             </div>
@@ -38,12 +38,12 @@ export default function About({ skills = [] }: AboutProps) {
             </div>
           </div>
           
-          <h3 className="text-2xl font-headline font-semibold mb-6">Technical Skills</h3>
-          <div className="flex flex-wrap gap-2">
+          <h3 className="text-2xl font-headline font-semibold mb-8 text-center">Technical Skills</h3>
+          <div className="flex flex-wrap gap-3 justify-center">
             {skills.map((skill) => (
               <motion.div 
                 key={skill} 
-                className="px-3 py-1.5 bg-background border rounded-full text-sm font-medium"
+                className="px-4 py-2 bg-background border rounded-full text-sm font-medium"
                 whileHover={{ 
                   scale: 1.08, 
                   backgroundColor: 'hsl(var(--primary))', 
