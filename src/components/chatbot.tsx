@@ -10,6 +10,7 @@ import { cn } from '@/lib/utils';
 import { getChatbotResponse } from '@/app/actions';
 import type { portfolioSchema } from '@/lib/schemas';
 import type { z } from 'zod';
+import ThreeScene from './three-scene';
 
 type PortfolioData = z.infer<typeof portfolioSchema>;
 
@@ -39,7 +40,7 @@ export default function Chatbot({ portfolioData }: ChatbotProps) {
             setIsLoading(false);
         }, 1000);
     }
-  }, [isOpen]);
+  }, [isOpen, messages.length]);
 
   useEffect(() => {
     if (scrollAreaRef.current) {
@@ -159,7 +160,7 @@ export default function Chatbot({ portfolioData }: ChatbotProps) {
           className="w-12 h-12 rounded-full shadow-lg"
           onClick={() => setIsOpen(!isOpen)}
         >
-          {isOpen ? <X className="w-6 h-6" /> : <MessageCircle className="w-6 h-6" />}
+          {isOpen ? <X className="w-6 h-6" /> : <div className="w-10 h-10"><ThreeScene type="avatar" /></div>}
         </Button>
       </motion.div>
     </>
