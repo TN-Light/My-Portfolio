@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useRef, useEffect } from 'react';
@@ -24,6 +25,7 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ type }) => {
     cameraRef.current = camera;
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     rendererRef.current = renderer;
+    renderer.setClearAlpha(0); // Ensure transparent background
     renderer.setSize(currentMount.clientWidth, currentMount.clientHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
     currentMount.appendChild(renderer.domElement);
@@ -130,8 +132,8 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ type }) => {
                   break;
                 case 'torus': geometry = new THREE.TorusGeometry(0.8, 0.3, 16, 100); break;
                 case 'avatar': 
-                  geometry = new THREE.IcosahedronGeometry(1.2, 0); 
-                  camera.position.z = 2.5;
+                  geometry = new THREE.IcosahedronGeometry(1, 0); 
+                  camera.position.z = 2;
                   break;
                 case 'torusKnot': geometry = new THREE.TorusKnotGeometry(0.8, 0.25, 100, 16); break;
                 case 'octahedron': geometry = new THREE.OctahedronGeometry(1.2, 0); break;

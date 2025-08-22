@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useRef, useEffect, type FormEvent } from 'react';
@@ -157,7 +158,7 @@ export default function Chatbot({ portfolioData }: ChatbotProps) {
       >
         <Button
           size="icon"
-          className="w-12 h-12 rounded-full shadow-lg overflow-hidden"
+          className="w-14 h-14 rounded-full shadow-lg bg-secondary/80 backdrop-blur-sm border"
           onClick={() => setIsOpen(!isOpen)}
         >
           {isOpen ? <X className="w-6 h-6" /> : <ThreeScene type="avatar" />}
