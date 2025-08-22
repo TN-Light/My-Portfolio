@@ -33,11 +33,12 @@ export default function Achievements({ achievements = [] }: AchievementsProps) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.8 }}
+            className="max-w-4xl"
         >
-          <h2 className="text-3xl md:text-4xl font-headline font-bold text-center mb-4">
+          <h2 className="text-3xl md:text-4xl font-headline font-bold text-left mb-4">
             Key Achievements
           </h2>
-          <p className="text-center max-w-3xl mx-auto text-muted-foreground mb-16 text-lg">
+          <p className="text-left text-muted-foreground mb-16 text-lg">
             A snapshot of my competitive successes and recognitions in the tech field.
           </p>
         </motion.div>

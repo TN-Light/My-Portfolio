@@ -1,3 +1,4 @@
+
 'use client';
 
 import { motion } from 'framer-motion';
@@ -22,8 +23,9 @@ export default function Experience({ experiences = [], certifications = [] }: Ex
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.8 }}
+          className="max-w-4xl"
         >
-          <h2 className="text-3xl md:text-4xl font-headline font-bold text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-headline font-bold mb-16 text-left">
             Experience & Certifications
           </h2>
         </motion.div>
