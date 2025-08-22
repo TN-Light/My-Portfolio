@@ -56,7 +56,7 @@ export default function ResearchToReality({ implementations = [] }: ResearchToRe
                 transition={{ delay: index * 0.1 }}
                 whileHover={{ y: -8, transition: { type: 'spring', stiffness: 300 } }}
                 >
-                <Card className="h-full flex flex-col bg-card border overflow-hidden group transition-all duration-300 hover:border-primary hover:shadow-lg">
+                <Card className="h-full flex flex-col bg-card border overflow-hidden group transition-all duration-300 hover:border-primary hover:shadow-lg relative">
                     <CardHeader className="flex-row gap-4 items-center">
                         <div className="p-3 bg-secondary rounded-lg">
                             <Icon className="w-6 h-6 text-primary"/>
@@ -70,19 +70,28 @@ export default function ResearchToReality({ implementations = [] }: ResearchToRe
                         <div className="flex flex-wrap gap-2">
                             {item.tags.map(tag => <Badge key={tag} variant="secondary">{tag}</Badge>)}
                         </div>
-                        <Button asChild variant="link" className="p-0 h-auto text-primary group/link">
-                            <a href={item.githubUrl} target="_blank" rel="noopener noreferrer">
-                                <Github className="mr-2 h-4 w-4" />
-                                View on GitHub
-                                <motion.div 
-                                  whileHover={{ x: 2, y: -2 }}
-                                  transition={{ type: 'spring', stiffness: 300 }}
-                                >
-                                  <ArrowUpRight className="ml-1 h-4 w-4" />
-                                </motion.div>
-                            </a>
-                        </Button>
                     </CardFooter>
+                    <motion.div 
+                      className="absolute bottom-4 right-4"
+                      initial={{ opacity: 0, y: 10 }}
+                      whileHover={{ opacity: 1 }}
+                      animate={{ opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <Button asChild variant="link" size="sm" className="p-0 h-auto text-primary group/link">
+                          <a href={item.githubUrl} target="_blank" rel="noopener noreferrer">
+                              <Github className="mr-2 h-4 w-4" />
+                              View on GitHub
+                              <motion.div 
+                                className="inline-block"
+                                whileHover={{ x: 2, y: -2 }}
+                                transition={{ type: 'spring', stiffness: 300 }}
+                              >
+                                <ArrowUpRight className="ml-1 h-4 w-4" />
+                              </motion.div>
+                          </a>
+                      </Button>
+                    </motion.div>
                 </Card>
                 </motion.div>
             )

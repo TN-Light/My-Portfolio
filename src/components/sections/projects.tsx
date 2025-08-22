@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '../ui/button';
-import { ArrowUpRight, BookCheck } from 'lucide-react';
+import { ArrowUpRight, BookCheck, Eye } from 'lucide-react';
 import type { projectSchema } from '@/lib/schemas';
 import type { z } from 'zod';
 import ThreeScene from '../three-scene';
@@ -46,8 +46,9 @@ export default function Projects({ projects = [] }: ProjectsProps) {
               whileInView="visible"
               viewport={{ once: true, amount: 0.2 }}
               transition={{ delay: index * 0.1 }}
+              whileHover={{ y: -8, transition: { type: 'spring', stiffness: 300 } }}
             >
-              <Card className="h-full flex flex-col bg-card border overflow-hidden group transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10">
+              <Card className="h-full flex flex-col bg-card border overflow-hidden group transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 relative">
                  <CardContent className="pt-6 h-48">
                    <ThreeScene type={project.threeSceneType} />
                  </CardContent>
@@ -72,6 +73,17 @@ export default function Projects({ projects = [] }: ProjectsProps) {
                       {project.tags.map(tag => <Badge key={tag} variant="secondary">{tag}</Badge>)}
                     </div>
                   </CardFooter>
+                   <motion.div 
+                    className="absolute bottom-4 right-4"
+                    initial={{ opacity: 0, y: 10 }}
+                    whileHover={{ opacity: 1 }}
+                    animate={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                   >
+                     <Button size="sm" className="group/btn">
+                       <Eye className="mr-2 h-4 w-4" /> View Project
+                     </Button>
+                   </motion.div>
               </Card>
             </motion.div>
           ))}
