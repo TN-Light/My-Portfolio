@@ -123,7 +123,7 @@ export default function ThemeCustomizer() {
         <motion.div
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
-            className="fixed bottom-36 right-6 z-50"
+            className="fixed bottom-24 right-6 z-50"
         >
             <TooltipProvider>
               <Tooltip>
@@ -151,7 +151,7 @@ export default function ThemeCustomizer() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 50, scale: 0.9 }}
             transition={{ type: 'spring', stiffness: 200, damping: 25 }}
-            className="fixed bottom-[200px] right-6 w-full max-w-sm bg-card border rounded-xl shadow-2xl flex flex-col z-50"
+            className="fixed bottom-[152px] right-6 w-full max-w-sm bg-card border rounded-xl shadow-2xl flex flex-col z-50"
           >
             <CardHeader>
                 <CardTitle className="flex items-center gap-2">
