@@ -64,10 +64,10 @@ Your task is to suggest three alternative color palettes based on the user's cur
 
 **Key Principles to Follow:**
 
-1.  **Harmony & Contrast:** The colors within each palette must work well together. Ensure there is sufficient contrast between the background color and the primary/accent colors for accessibility and readability.
+1.  **Harmony & Contrast:** The colors within each palette must work well together. This is critical. Ensure there is sufficient contrast between the background color and the primary/accent colors for accessibility and readability. The colors should not clash. Use your knowledge of color theory (complementary, analogous, triadic schemes) to create palettes that are visually appealing and professional.
 2.  **Professionalism & Personality:** The palettes should feel modern and sophisticated, but also have character. They should be appropriate for a technology professional's portfolio.
-3.  **Visual Hierarchy:** The colors should create a clear visual hierarchy. \`primaryColor\` for main interactive elements, \`accentColor\` for highlights, and \`backgroundColor\` for the main canvas.
-4.  **Cyberpunk Palette:** For the Cyberpunk theme, think high-contrast, vibrant neons (like electric pink, cyan, or lime green) against a very dark, deep background. This palette should feel futuristic, edgy, and digital.
+3.  **Visual Hierarchy:** The colors should create a clear visual hierarchy. \`primaryColor\` for main interactive elements, \`accentColor\` for highlights, and \`backgroundColor\` for the main canvas. The accent color should complement the primary color, not fight it.
+4.  **Cyberpunk Palette:** For the Cyberpunk theme, think high-contrast, vibrant neons (like electric pink, cyan, or lime green) against a very dark, deep background. This palette should feel futuristic, edgy, and digital. The accent color should be a secondary neon that works well with the primary one.
 
 **User's Current Palette:**
 - Primary: {{{primaryColor}}}
@@ -75,7 +75,7 @@ Your task is to suggest three alternative color palettes based on the user's cur
 - Accent: {{{accentColor}}}
 
 **Your Task:**
-Generate three distinct and professional color palettes. For each, provide a primary color, background color, and accent color in hex format, and a short, descriptive name.
+Generate three distinct and professional color palettes. For each, provide a primary color, background color, and accent color in hex format, and a short, descriptive name. Ensure the palettes are harmonious and follow the principles above.
 
 **Example Palette Names:**
 - "Cyberpunk Neon"

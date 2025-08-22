@@ -95,24 +95,44 @@ export default function ThemeCustomizer() {
   
   const applyPalette = (palette: Palette) => {
     const root = document.documentElement;
-    root.style.setProperty('--primary', hexToHsl(palette.primaryColor));
-    root.style.setProperty('--background', hexToHsl(palette.backgroundColor));
-    // For simplicity, we might derive other colors or just set the main ones
-    root.style.setProperty('--secondary', hexToHsl(palette.accentColor)); // Example: mapping accent to secondary
-    root.style.setProperty('--accent', hexToHsl(palette.accentColor));
+    const backgroundHsl = hexToHsl(palette.backgroundColor);
+    const primaryHsl = hexToHsl(palette.primaryColor);
+    const accentHsl = hexToHsl(palette.accentColor);
     
-    // We need to decide how to handle light vs dark mode consistently
-    const isDark = (hexToHsl(palette.backgroundColor).split(' ')[2].replace('%','')) < '50';
-    if(isDark) {
-        root.classList.add('dark');
-        root.style.setProperty('--foreground', '0 0% 98%');
-        root.style.setProperty('--primary-foreground', '240 5.9% 10%');
-        root.style.setProperty('--card', '240 10% 3.9%');
+    root.style.setProperty('--background', backgroundHsl);
+    root.style.setProperty('--primary', primaryHsl);
+    root.style.setProperty('--accent', accentHsl);
+
+    // Determine if the background is dark or light to set text/card colors
+    const l = parseFloat(backgroundHsl.split(' ')[2]);
+    const isDark = l < 50;
+
+    if (isDark) {
+      root.classList.add('dark');
+      root.style.setProperty('--foreground', '0 0% 98%');
+      root.style.setProperty('--primary-foreground', '240 5.9% 10%');
+      root.style.setProperty('--card', '240 10% 3.9%');
+      root.style.setProperty('--card-foreground', '0 0% 98%');
+      root.style.setProperty('--secondary', '240 3.7% 15.9%');
+      root.style.setProperty('--secondary-foreground', '0 0% 98%');
+      root.style.setProperty('--muted', '240 3.7% 15.9%');
+      root.style.setProperty('--muted-foreground', '240 5% 64.9%');
+      root.style.setProperty('--border', '240 3.7% 15.9%');
+      root.style.setProperty('--input', '240 3.7% 15.9%');
+      root.style.setProperty('--ring', '0 0% 98%');
     } else {
-        root.classList.remove('dark');
-        root.style.setProperty('--foreground', '0 0% 3.9%');
-        root.style.setProperty('--primary-foreground', '0 0% 98%');
-        root.style.setProperty('--card', '0 0% 100%');
+      root.classList.remove('dark');
+      root.style.setProperty('--foreground', '0 0% 3.9%');
+      root.style.setProperty('--primary-foreground', '0 0% 98%');
+      root.style.setProperty('--card', '0 0% 100%');
+      root.style.setProperty('--card-foreground', '0 0% 3.9%');
+      root.style.setProperty('--secondary', '0 0% 96.1%');
+      root.style.setProperty('--secondary-foreground', '0 0% 9%');
+      root.style.setProperty('--muted', '0 0% 96.1%');
+      root.style.setProperty('--muted-foreground', '0 0% 45.1%');
+      root.style.setProperty('--border', '0 0% 89.8%');
+      root.style.setProperty('--input', '0 0% 89.8%');
+      root.style.setProperty('--ring', '0 0% 3.9%');
     }
 
     toast({ title: "Theme Applied!", description: palette.description || "The new color palette has been applied." });
