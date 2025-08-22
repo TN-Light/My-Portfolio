@@ -125,11 +125,13 @@ const fallbackData: PortfolioData = {
 };
 
 interface PortfolioClientPageProps {
-  portfolioData: PortfolioData;
+  portfolioDataResult: { success: boolean; data?: PortfolioData; error?: string };
 }
 
-export default function PortfolioClientPage({ portfolioData }: PortfolioClientPageProps) {
+export default function PortfolioClientPage({ portfolioDataResult }: PortfolioClientPageProps) {
   const [loading, setLoading] = useState(true);
+  
+  const portfolioData = portfolioDataResult.success ? portfolioDataResult.data! : fallbackData;
 
   useEffect(() => {
     // Keep the loading screen for at least a moment
