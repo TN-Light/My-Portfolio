@@ -11,6 +11,23 @@ export default function Hero() {
         show: { opacity: 1, y: 0, transition: { type: 'spring', duration: 0.8 } },
     };
 
+    const staggeredFadeUp = {
+        hidden: { opacity: 0, y: 10, filter: "blur(4px)" },
+        show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { type: 'spring', duration: 0.8 } },
+    };
+
+    const heroTextContainer = {
+        hidden: {},
+        show: {
+            transition: {
+                staggerChildren: 0.05,
+            },
+        },
+    };
+
+    const helloText = "Hello".split("");
+    const nameText = "— I'm Abhilash.".split("");
+
     return (
         <section id="hero" className="relative min-h-screen flex items-center bg-background overflow-hidden">
             <div className="absolute inset-0 z-0">
@@ -42,15 +59,25 @@ export default function Hero() {
                                     <div>
                                         <motion.h1
                                             className="text-6xl md:text-7xl lg:text-8xl font-headline font-bold tracking-tighter"
-                                            variants={FADE_UP_ANIMATION_VARIANTS}
+                                            variants={heroTextContainer}
+                                            aria-label="Hello"
                                         >
-                                            Hello
+                                            {helloText.map((char, index) => (
+                                                <motion.span key={index} variants={staggeredFadeUp} className="inline-block">
+                                                    {char === " " ? "\u00A0" : char}
+                                                </motion.span>
+                                            ))}
                                         </motion.h1>
                                         <motion.p
                                             className="mt-2 text-3xl md:text-4xl text-muted-foreground"
-                                            variants={FADE_UP_ANIMATION_VARIANTS}
+                                            variants={heroTextContainer}
+                                            aria-label="— I'm Abhilash."
                                         >
-                                            — I'm Abhilash.
+                                            {nameText.map((char, index) => (
+                                                <motion.span key={index} variants={staggeredFadeUp} className="inline-block">
+                                                    {char === " " ? "\u00A0" : char}
+                                                </motion.span>
+                                            ))}
                                         </motion.p>
                                     </div>
                                 </div>

@@ -1,3 +1,4 @@
+
 'use client';
 
 import { motion } from 'framer-motion';
@@ -18,7 +19,16 @@ interface ProjectsProps {
 export default function Projects({ projects = [] }: ProjectsProps) {
   const cardVariants = {
     hidden: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+    visible: { opacity: 1, y: 0 }
+  };
+
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
   };
 
   return (
@@ -37,15 +47,18 @@ export default function Projects({ projects = [] }: ProjectsProps) {
             A selection of projects where I've translated cutting-edge AI research into production-ready systems.
           </p>
         </motion.div>
-        <div className="grid md:grid-cols-1 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
+        <motion.div 
+            className="grid md:grid-cols-1 lg:grid-cols-3 gap-8"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+        >
+          {projects.map((project) => (
             <motion.div
               key={project.title}
               variants={cardVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ delay: index * 0.1 }}
+              transition={{ duration: 0.5, ease: 'easeOut' }}
               whileHover={{ y: -8, transition: { type: 'spring', stiffness: 300 } }}
             >
               <Card className="h-full flex flex-col bg-card border overflow-hidden group transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 relative">
@@ -87,7 +100,7 @@ export default function Projects({ projects = [] }: ProjectsProps) {
               </Card>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
         <div className="text-center mt-16">
             <Button asChild variant="outline" size="lg" className="group">
                 <a href="https://github.com/TN-Light?tab=repositories&q=awesome" target="_blank" rel="noopener noreferrer">
