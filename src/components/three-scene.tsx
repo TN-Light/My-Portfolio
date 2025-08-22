@@ -129,7 +129,10 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ type }) => {
                   geometry = sphereGeom; 
                   break;
                 case 'torus': geometry = new THREE.TorusGeometry(0.8, 0.3, 16, 100); break;
-                case 'avatar': geometry = new THREE.IcosahedronGeometry(1.2, 0); break;
+                case 'avatar': 
+                  geometry = new THREE.IcosahedronGeometry(1.2, 0); 
+                  camera.position.z = 2.5;
+                  break;
                 case 'torusKnot': geometry = new THREE.TorusKnotGeometry(0.8, 0.25, 100, 16); break;
                 case 'octahedron': geometry = new THREE.OctahedronGeometry(1.2, 0); break;
                 default: geometry = new THREE.BoxGeometry(1, 1, 1);
@@ -139,7 +142,9 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ type }) => {
             object = new THREE.Mesh(geometry, material);
             group.add(object);
           }
-          camera.position.z = 4;
+          if (type !== 'avatar') {
+            camera.position.z = 4;
+          }
         }
 
         const clock = new THREE.Clock();

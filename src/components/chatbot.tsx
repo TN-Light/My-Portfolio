@@ -157,10 +157,10 @@ export default function Chatbot({ portfolioData }: ChatbotProps) {
       >
         <Button
           size="icon"
-          className="w-12 h-12 rounded-full shadow-lg"
+          className="w-12 h-12 rounded-full shadow-lg overflow-hidden"
           onClick={() => setIsOpen(!isOpen)}
         >
-          {isOpen ? <X className="w-6 h-6" /> : <div className="w-10 h-10"><ThreeScene type="avatar" /></div>}
+          {isOpen ? <X className="w-6 h-6" /> : <ThreeScene type="avatar" />}
         </Button>
       </motion.div>
     </>
