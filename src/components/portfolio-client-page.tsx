@@ -14,6 +14,9 @@ import type { portfolioSchema } from '@/lib/schemas';
 import type { z } from 'zod';
 import LoadingScreen from '@/components/loading-screen';
 import { AnimatePresence } from 'framer-motion';
+import Header from './layout/header';
+import Footer from './layout/footer';
+import ThemeCustomizer from './theme-customizer';
 
 type PortfolioData = z.infer<typeof portfolioSchema>;
 
@@ -136,13 +139,14 @@ export default function PortfolioClientPage() {
   }, []);
 
   return (
-    <>
+    <div className="flex flex-col min-h-screen bg-background">
       <AnimatePresence>
           {loading && <LoadingScreen />}
       </AnimatePresence>
 
       {!loading && (
         <>
+          <Header />
           <main className="flex-grow">
             <Hero />
             <About skills={portfolioData.skills} certifications={portfolioData.certifications} />
@@ -154,9 +158,11 @@ export default function PortfolioClientPage() {
             <Achievements achievements={portfolioData.achievements || []} />
             <Contact />
           </main>
+          <Footer />
           <Chatbot portfolioData={portfolioData} />
+          <ThemeCustomizer />
         </>
       )}
-    </>
+    </div>
   );
 }
