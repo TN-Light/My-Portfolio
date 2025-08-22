@@ -58,23 +58,24 @@ const prompt = ai.definePrompt({
   name: 'suggestPalettePrompt',
   input: {schema: SuggestPaletteInputSchema},
   output: {schema: SuggestPaletteOutputSchema},
-  prompt: `You are an experienced web designer with an eye for modern and appealing color palettes.
+  prompt: `You are an expert UI/UX designer and color theorist specializing in creating beautiful, harmonious, and accessible color palettes for modern web applications.
 
-  Based on the current color scheme of a website, suggest three alternative color palettes that would be suitable for a modern portfolio website with a focus on 3D graphics and animation.
+Your task is to suggest three alternative color palettes based on the user's current colors. The palettes should be suitable for a high-end, professional portfolio for an AI developer.
 
-  The current color scheme is as follows:
-  - Primary color: {{{primaryColor}}}
-  - Background color: {{{backgroundColor}}}
-  - Accent color: {{{accentColor}}}
+**Key Principles to Follow:**
 
-  Consider the following when suggesting palettes:
-  - The website has a dark theme with vibrant neon accents.
-  - The website uses 'Space Grotesk' and 'Inter' fonts.
-  - The website features a modern, asymmetrical layout.
-  - The website incorporates subtle animations and 3D effects.
+1.  **Harmony:** The colors within each palette must work well together. Use established color harmony rules (e.g., analogous, complementary, triadic, monochromatic) to ensure a pleasing result. The relationship between the colors should be intentional.
+2.  **Contrast & Accessibility:** Ensure there is sufficient contrast between the background color and the primary/accent colors to ensure text is readable. The palettes should be visually clear and accessible.
+3.  **Professionalism:** The suggested palettes should feel modern, sophisticated, and appropriate for a technology professional's portfolio. Avoid overly jarring or chaotic combinations.
+4.  **Visual Hierarchy:** The colors should naturally create a visual hierarchy. The \`primaryColor\` should be suitable for main interactive elements like buttons, the \`accentColor\` for highlights and secondary elements, and the \`backgroundColor\` for the main canvas.
 
-  Your response should be an array of three color palettes, each containing a primary color, background color, and accent color in hex format. Provide a short description of each palette.
-  `,
+**User's Current Palette:**
+- Primary: {{{primaryColor}}}
+- Background: {{{backgroundColor}}}
+- Accent: {{{accentColor}}}
+
+**Your Task:**
+Based on the principles above, generate three distinct and professional color palettes. For each palette, provide a primary color, a background color, and an accent color in hex format. Also include a short, descriptive name or theme for each palette (e.g., "Deep Ocean", "Modern Professional", "Vibrant Tech").`,
 });
 
 const suggestPaletteFlow = ai.defineFlow(
