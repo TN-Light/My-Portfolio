@@ -14,7 +14,19 @@ interface Palette {
   primaryColor: string;
   backgroundColor: string;
   description?: string;
+  accentColor?: string;
 }
+
+// Predefined palettes
+const predefinedPalettes: Palette[] = [
+  {
+    description: 'Cyberpunk',
+    primaryColor: '#39FF14', // Neon Green
+    backgroundColor: '#000000', // Black
+    accentColor: '#39FF14',
+  },
+];
+
 
 // Function to convert hex to HSL string
 function hexToHsl(hex: string): string {
@@ -87,13 +99,20 @@ export default function ThemeCustomizer() {
   
   const applyPalette = (palette: Palette) => {
     const root = document.documentElement;
+    root.classList.remove('theme-cyberpunk');
+  
     const backgroundHsl = hexToHsl(palette.backgroundColor);
     const primaryHsl = hexToHsl(palette.primaryColor);
+    const accentHsl = palette.accentColor ? hexToHsl(palette.accentColor) : primaryHsl;
     
     root.style.setProperty('--background', backgroundHsl);
     root.style.setProperty('--primary', primaryHsl);
-    // Use primary as accent for a 2-color system
-    root.style.setProperty('--accent', primaryHsl);
+    root.style.setProperty('--accent', accentHsl);
+
+    // Add theme-specific class
+    if (palette.description === 'Cyberpunk') {
+      root.classList.add('theme-cyberpunk');
+    }
 
     // Determine if the background is dark or light to set text/card colors
     const l = parseFloat(backgroundHsl.split(' ')[2]);
@@ -129,6 +148,8 @@ export default function ThemeCustomizer() {
 
     toast({ title: "Theme Applied!", description: palette.description || "The new color palette has been applied." });
   }
+
+  const allPalettes = [...predefinedPalettes, ...palettes];
 
   return (
     <>
@@ -178,7 +199,7 @@ export default function ThemeCustomizer() {
                 </Button>
                 
                 <div className="space-y-4">
-                    {palettes.map((palette, index) => (
+                    {allPalettes.map((palette, index) => (
                         <motion.div
                             key={index}
                             initial={{ opacity: 0, y: 20 }}
@@ -190,6 +211,7 @@ export default function ThemeCustomizer() {
                             <p className="font-semibold text-sm mb-2">{palette.description}</p>
                             <div className="flex gap-2">
                                 <div className="w-8 h-8 rounded-full border" style={{ backgroundColor: palette.primaryColor }} />
+                                {palette.accentColor && palette.accentColor !== palette.primaryColor && <div className="w-8 h-8 rounded-full border" style={{ backgroundColor: palette.accentColor }} />}
                                 <div className="w-8 h-8 rounded-full border" style={{ backgroundColor: palette.backgroundColor }} />
                             </div>
                         </motion.div>
