@@ -7,13 +7,15 @@ import { z } from 'zod';
 import { contactFormSchema, portfolioSchema, type PortfolioChatInput, type PortfolioChatOutput, DayInTheLifeInputSchema, DayInTheLifeOutputSchema, type DayInTheLifeInput, type DayInTheLifeOutput } from '@/lib/schemas';
 import { db } from '@/lib/firebase';
 import { collection, addDoc, serverTimestamp, doc, getDoc } from 'firebase/firestore';
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 
 export async function submitContactForm(data: z.infer<typeof contactFormSchema>) {
   const parsed = contactFormSchema.safeParse(data);
   if (!parsed.success) {
     return { success: false, message: "Invalid form data." };
   }
+
+  const resend = new Resend(process.env.RESEND_API_KEY);
 
   try {
     // 1. Save to Firestore
@@ -22,28 +24,18 @@ export async function submitContactForm(data: z.infer<typeof contactFormSchema>)
       submittedAt: serverTimestamp(),
     });
 
-    // 2. Send email notification
-    const transporter = nodemailer.createTransport({
-        host: "smtp.gmail.com",
-        port: 465,
-        secure: true,
-        auth: {
-            user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PASS,
-        },
-    });
-
-    await transporter.sendMail({
-        from: `"Portfolio Site" <${process.env.EMAIL_USER}>`,
-        to: process.env.EMAIL_USER,
-        subject: `New Contact Form Submission from ${parsed.data.name}`,
-        html: `
-            <h1>New Contact Submission</h1>
-            <p><strong>Name:</strong> ${parsed.data.name}</p>
-            <p><strong>Email:</strong> ${parsed.data.email}</p>
-            <p><strong>Message:</strong></p>
-            <p>${parsed.data.message}</p>
-        `,
+    // 2. Send email notification via Resend
+    await resend.emails.send({
+      from: 'onboarding@resend.dev', // Must be a verified domain in Resend
+      to: 'venkatabhilash432004@gmail.com', // Your personal email
+      subject: `New Contact Form Submission from ${parsed.data.name}`,
+      html: `
+          <h1>New Contact Submission</h1>
+          <p><strong>Name:</strong> ${parsed.data.name}</p>
+          <p><strong>Email:</strong> ${parsed.data.email}</p>
+          <p><strong>Message:</strong></p>
+          <p>${parsed.data.message}</p>
+      `,
     });
 
 
