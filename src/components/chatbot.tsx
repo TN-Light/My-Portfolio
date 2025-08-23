@@ -158,7 +158,7 @@ export default function Chatbot({ portfolioData }: ChatbotProps) {
       >
         <Button
           size="icon"
-          className="w-14 h-14 rounded-full shadow-lg bg-secondary/80 backdrop-blur-sm border"
+          className="w-14 h-14 rounded-full shadow-lg bg-primary text-primary-foreground backdrop-blur-sm border"
           onClick={() => setIsOpen(!isOpen)}
         >
           {isOpen ? <X className="w-6 h-6" /> : <ThreeScene type="avatar" />}
