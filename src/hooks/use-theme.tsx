@@ -50,9 +50,9 @@ interface ThemeContextType {
 }
 
 const defaultTheme: Theme = {
-    primary: '#FAFAFA',
-    background: '#09090B',
-    description: 'Original Dark',
+    primary: '#171717',
+    background: '#FFFFFF',
+    description: 'Original Light',
 }
 
 const ThemeContext = createContext<ThemeContextType>({
@@ -122,5 +122,3 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
         </ThemeContext.Provider>
     );
 };
-
-    
