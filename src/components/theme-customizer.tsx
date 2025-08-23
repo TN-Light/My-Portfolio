@@ -9,6 +9,7 @@ import { getPaletteSuggestions } from '@/app/actions';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './ui/tooltip';
 import { useToast } from '@/hooks/use-toast';
+import type { SuggestPaletteOutput, SuggestPaletteInput } from '@/lib/schemas';
 
 interface Palette {
   primaryColor: string;
@@ -73,9 +74,6 @@ export default function ThemeCustomizer() {
     setIsLoading(true);
     setPalettes([]);
     try {
-        // These are just fallback hex colors.
-        // The real values are read from CSS variables, but we need hex for the AI.
-        // A full HSL-to-Hex conversion is complex, so we use placeholders.
         const tempPrimaryHex = '#A729F0'; 
         const tempBackgroundHex = '#222222';
 
@@ -114,7 +112,6 @@ export default function ThemeCustomizer() {
       root.classList.add('theme-cyberpunk');
     }
 
-    // Determine if the background is dark or light to set text/card colors
     const l = parseFloat(backgroundHsl.split(' ')[2]);
     const isDark = l < 50;
 
@@ -145,8 +142,6 @@ export default function ThemeCustomizer() {
       root.style.setProperty('--input', '0 0% 89.8%');
       root.style.setProperty('--ring', '0 0% 3.9%');
     }
-
-    toast({ title: "Theme Applied!", description: palette.description || "The new color palette has been applied." });
   }
 
   const allPalettes = [...predefinedPalettes, ...palettes];
@@ -156,7 +151,7 @@ export default function ThemeCustomizer() {
         <motion.div
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
-            className="fixed bottom-24 right-6 z-50"
+            className="fixed bottom-6 left-6 z-50"
         >
             <TooltipProvider>
               <Tooltip>
@@ -184,7 +179,7 @@ export default function ThemeCustomizer() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 50, scale: 0.9 }}
             transition={{ type: 'spring', stiffness: 200, damping: 25 }}
-            className="fixed bottom-[152px] right-6 w-full max-w-sm bg-card border rounded-xl shadow-2xl flex flex-col z-50"
+            className="fixed bottom-24 left-6 w-full max-w-sm bg-card border rounded-xl shadow-2xl flex flex-col z-50"
           >
             <CardHeader>
                 <CardTitle className="flex items-center gap-2">
