@@ -7,11 +7,12 @@
  */
 
 import { ai } from '@/ai/genkit';
-import { DayInTheLifeInputSchema, DayInTheLifeOutputSchema, type DayInTheLifeInput, type DayInTheLifeOutput } from '@/lib/schemas';
+import { DayInTheLifeInputSchema, DayInTheLifeOutputSchema, type DayInTheLifeOutput } from '@/lib/schemas';
+import { z } from 'genkit';
 
 
-export async function dayInTheLife(input: DayInTheLifeInput): Promise<DayInTheLifeOutput> {
-  return dayInTheLifeFlow(input);
+export async function dayInTheLife(topic: string): Promise<DayInTheLifeOutput> {
+  return dayInTheLifeFlow(topic);
 }
 
 const prompt = ai.definePrompt({
@@ -44,11 +45,11 @@ Now, generate a narrative for the topic provided by the user, following these in
 const dayInTheLifeFlow = ai.defineFlow(
   {
     name: 'dayInTheLifeFlow',
-    inputSchema: DayInTheLifeInputSchema,
+    inputSchema: z.string(),
     outputSchema: DayInTheLifeOutputSchema,
   },
-  async (input) => {
-    const { output } = await prompt(input);
+  async (topic) => {
+    const { output } = await prompt({ topic });
     return output!;
   }
 );

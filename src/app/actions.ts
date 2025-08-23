@@ -54,8 +54,8 @@ export async function getChatbotResponse(input: PortfolioChatInput): Promise<Por
   return await portfolioChatFlow(input);
 }
 
-export async function getDayInTheLifeStory(input: DayInTheLifeInput): Promise<DayInTheLifeOutput> {
-  return await dayInTheLifeFlow(input);
+export async function getDayInTheLifeStory(topic: string): Promise<DayInTheLifeOutput> {
+  return await dayInTheLifeFlow(topic);
 }
 
 export async function getPortfolioData() {

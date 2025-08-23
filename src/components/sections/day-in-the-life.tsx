@@ -32,7 +32,7 @@ export default function DayInTheLife() {
     setStory('');
 
     try {
-      const result = await getDayInTheLifeStory({ topic });
+      const result = await getDayInTheLifeStory(topic);
       if (result.story) {
         setStory(result.story);
       } else {
