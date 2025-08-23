@@ -1,7 +1,7 @@
 
 'use client';
 
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useLayoutEffect } from 'react';
 import * as THREE from 'three';
 
 interface ThreeSceneProps {
@@ -15,9 +15,43 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ type }) => {
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
   const animationFrameIdRef = useRef<number | null>(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!mountRef.current) return;
 
+    // Cleanup function to run before re-initializing or on unmount
+    const cleanup = () => {
+        if (animationFrameIdRef.current) {
+            cancelAnimationFrame(animationFrameIdRef.current);
+        }
+        
+        if (sceneRef.current) {
+            sceneRef.current.traverse(obj => {
+                if (obj instanceof THREE.Mesh || obj instanceof THREE.Points) {
+                    obj.geometry?.dispose();
+                    if (Array.isArray(obj.material)) {
+                        obj.material.forEach(mat => mat.dispose());
+                    } else if (obj.material) {
+                        obj.material.dispose();
+                    }
+                }
+            });
+            sceneRef.current.clear();
+        }
+
+        if (rendererRef.current) {
+            rendererRef.current.dispose();
+            mountRef.current?.removeChild(rendererRef.current.domElement);
+        }
+        
+        rendererRef.current = null;
+        sceneRef.current = null;
+        cameraRef.current = null;
+        animationFrameIdRef.current = null;
+    };
+
+    cleanup();
+
+    // Re-initialization logic
     const currentMount = mountRef.current;
     const scene = new THREE.Scene();
     sceneRef.current = scene;
@@ -39,14 +73,19 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ type }) => {
     const initializeScene = () => {
         function getThreeColor(cssVar: string) {
             if (typeof window === 'undefined') return new THREE.Color(0xffffff);
-            const colorStr = getComputedStyle(document.documentElement).getPropertyValue(cssVar).trim();
-            if (!colorStr) return new THREE.Color(0xffffff);
-            const parts = colorStr.split(" ");
-            if (parts.length < 3) return new THREE.Color(0xffffff);
-            const h = parseFloat(parts[0]) / 360;
-            const s = parseFloat(parts[1].replace('%','')) / 100;
-            const l = parseFloat(parts[2].replace('%','')) / 100;
-            return new THREE.Color().setHSL(h, s, l);
+            const colorValue = getComputedStyle(document.documentElement).getPropertyValue(cssVar).trim();
+            
+            // Handle HSL string like "240 10% 3.9%"
+            if (colorValue.includes(' ')) {
+                const parts = colorValue.split(" ");
+                if (parts.length < 3) return new THREE.Color(0xffffff);
+                const h = parseFloat(parts[0]) / 360;
+                const s = parseFloat(parts[1].replace('%','')) / 100;
+                const l = parseFloat(parts[2].replace('%','')) / 100;
+                return new THREE.Color().setHSL(h, s, l);
+            }
+            // Handle hex string
+            return new THREE.Color(colorValue);
         }
 
         const primaryThreeColor = getThreeColor('--primary');
@@ -206,7 +245,9 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ type }) => {
                 })
               }
           }
-          renderer.render(scene, camera);
+          if (rendererRef.current && sceneRef.current && cameraRef.current) {
+            rendererRef.current.render(sceneRef.current, cameraRef.current);
+          }
         };
 
         if (type === 'particles' && object instanceof THREE.Points) {
@@ -227,31 +268,11 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ type }) => {
     window.addEventListener('resize', handleResize);
 
     return () => {
-      if (animationFrameIdRef.current) {
-        cancelAnimationFrame(animationFrameIdRef.current);
-      }
       window.removeEventListener('resize', handleResize);
       if (handleMouseMove) {
         window.removeEventListener('mousemove', handleMouseMove);
       }
-      
-      sceneRef.current?.traverse(obj => {
-        if (obj instanceof THREE.Mesh || obj instanceof THREE.Points) {
-            obj.geometry.dispose();
-            if (Array.isArray(obj.material)) {
-              obj.material.forEach(mat => mat.dispose());
-            } else {
-              obj.material.dispose();
-            }
-        }
-      });
-      sceneRef.current?.clear();
-      
-      rendererRef.current?.dispose();
-      
-      if (rendererRef.current?.domElement.parentNode === currentMount) {
-        currentMount.removeChild(rendererRef.current.domElement);
-      }
+      cleanup();
     };
   }, [type]);
 
