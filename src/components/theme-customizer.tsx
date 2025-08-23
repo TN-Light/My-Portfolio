@@ -67,7 +67,7 @@ function hexToHsl(hex: string): string {
 export default function ThemeCustomizer() {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [palettes, setPalettes] = useState<Palette[]>([]);
+  const [palettes, setPalettes] = useState<SuggestPaletteOutput['palettes']>([]);
   const { toast } = useToast();
 
   const handleGeneratePalettes = async () => {
@@ -95,21 +95,24 @@ export default function ThemeCustomizer() {
     }
   };
   
-  const applyPalette = (palette: Palette) => {
+  const applyPalette = (palette: SuggestPaletteOutput['palettes'][number]) => {
     const root = document.documentElement;
     root.classList.remove('theme-cyberpunk');
   
     const backgroundHsl = hexToHsl(palette.backgroundColor);
     const primaryHsl = hexToHsl(palette.primaryColor);
-    const accentHsl = palette.accentColor ? hexToHsl(palette.accentColor) : primaryHsl;
     
     root.style.setProperty('--background', backgroundHsl);
     root.style.setProperty('--primary', primaryHsl);
-    root.style.setProperty('--accent', accentHsl);
-
-    // Add theme-specific class
-    if (palette.description === 'Cyberpunk') {
+    
+    // Add theme-specific class and accent
+    if (palette.description?.toLowerCase().includes('cyberpunk')) {
       root.classList.add('theme-cyberpunk');
+      const accentHsl = palette.primaryColor ? hexToHsl(palette.primaryColor) : primaryHsl;
+      root.style.setProperty('--accent', accentHsl);
+    } else {
+      const accentHsl = primaryHsl; // Default accent
+      root.style.setProperty('--accent', accentHsl);
     }
 
     const l = parseFloat(backgroundHsl.split(' ')[2]);
@@ -206,7 +209,6 @@ export default function ThemeCustomizer() {
                             <p className="font-semibold text-sm mb-2">{palette.description}</p>
                             <div className="flex gap-2">
                                 <div className="w-8 h-8 rounded-full border" style={{ backgroundColor: palette.primaryColor }} />
-                                {palette.accentColor && palette.accentColor !== palette.primaryColor && <div className="w-8 h-8 rounded-full border" style={{ backgroundColor: palette.accentColor }} />}
                                 <div className="w-8 h-8 rounded-full border" style={{ backgroundColor: palette.backgroundColor }} />
                             </div>
                         </motion.div>
@@ -219,3 +221,5 @@ export default function ThemeCustomizer() {
     </>
   );
 }
+
+    
