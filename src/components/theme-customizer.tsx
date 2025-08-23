@@ -158,7 +158,7 @@ export default function ThemeCustomizer() {
                 <TooltipTrigger asChild>
                     <Button
                     size="icon"
-                    className="w-14 h-14 rounded-full shadow-lg bg-primary text-primary-foreground backdrop-blur-sm border"
+                    className="w-14 h-14 rounded-full shadow-lg bg-background text-primary backdrop-blur-sm border"
                     onClick={() => setIsOpen(!isOpen)}
                     aria-label="Customize Theme"
                     >
