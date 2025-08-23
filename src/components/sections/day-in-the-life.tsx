@@ -1,13 +1,15 @@
 'use client';
 
 import { useState, type FormEvent } from 'react';
-import { motion } from 'framer-motion';
-import { Sparkles, Loader2, Wand2 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Sparkles, Loader2, Wand2, Coffee, Code, BookOpen } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 import { getDayInTheLifeStory } from '@/app/actions';
 import { Card, CardContent } from '../ui/card';
+
+const icons = [Coffee, Code, BookOpen];
 
 export default function DayInTheLife() {
   const { toast } = useToast();
@@ -51,6 +53,8 @@ export default function DayInTheLife() {
       setIsLoading(false);
     }
   }
+
+  const storyParts = story.split('---').map(part => part.trim()).filter(part => part);
 
   return (
     <section id="simulation" className="py-24 bg-background">
@@ -98,23 +102,39 @@ export default function DayInTheLife() {
              </div>
           )}
 
-          {story && (
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-            >
-                <Card className="bg-secondary/50 border-dashed">
-                    <CardContent className="p-6">
-                        <div className="prose prose-neutral dark:prose-invert max-w-none text-left">
-                            {story.split('\n').map((paragraph, index) => (
-                                <p key={index}>{paragraph}</p>
-                            ))}
-                        </div>
-                    </CardContent>
-                </Card>
-            </motion.div>
-          )}
-
+          <AnimatePresence>
+            {storyParts.length > 0 && (
+              <div className="space-y-8">
+                {storyParts.map((part, index) => {
+                  const [title, ...content] = part.split(':');
+                  const Icon = icons[index % icons.length];
+                  
+                  return (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, x: -30 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.3, type: 'spring', stiffness: 100 }}
+                    >
+                      <Card className="bg-secondary/50 border-dashed overflow-hidden">
+                        <CardContent className="p-6">
+                          <div className="flex items-start gap-4">
+                            <div className="p-2 bg-primary/10 rounded-full mt-1">
+                                <Icon className="w-6 h-6 text-primary" />
+                            </div>
+                            <div className="flex-1">
+                              <h3 className="text-xl font-headline font-semibold mb-2">{title}</h3>
+                              <p className="text-muted-foreground">{content.join(':').trim()}</p>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
+                  )
+                })}
+              </div>
+            )}
+          </AnimatePresence>
         </motion.div>
       </div>
     </section>
