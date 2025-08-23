@@ -66,3 +66,15 @@ export const PortfolioChatOutputSchema = z.object({
   content: z.string().describe("The AI's response to the user."),
 });
 export type PortfolioChatOutput = z.infer<typeof PortfolioChatOutputSchema>;
+
+
+// Day in the Life Schemas
+export const DayInTheLifeInputSchema = z.object({
+  topic: z.string().describe("The user's question or topic for the simulation, e.g., 'building multi-agent systems'."),
+});
+export type DayInTheLifeInput = z.infer<typeof DayInTheLifeInputSchema>;
+
+export const DayInTheLifeOutputSchema = z.object({
+  story: z.string().describe("The AI-generated narrative of a day in the life."),
+});
+export type DayInTheLifeOutput = z.infer<typeof DayInTheLifeOutputSchema>;

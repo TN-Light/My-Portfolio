@@ -9,6 +9,7 @@ import Contact from '@/components/sections/contact';
 import Experience from '@/components/sections/experience';
 import ResearchToReality from '@/components/sections/research-to-reality';
 import Achievements from '@/components/sections/achievements';
+import DayInTheLife from '@/components/sections/day-in-the-life';
 import Chatbot from '@/components/chatbot';
 import type { portfolioSchema } from '@/lib/schemas';
 import type { z } from 'zod';
@@ -155,6 +156,7 @@ export default function PortfolioClientPage() {
             <Experience 
               experiences={portfolioData.experiences}
             />
+            <DayInTheLife />
             <Achievements achievements={portfolioData.achievements || []} />
             <Contact />
           </main>

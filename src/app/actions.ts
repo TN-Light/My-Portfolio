@@ -2,8 +2,9 @@
 
 import { suggestPalette as suggestPaletteFlow, type SuggestPaletteInput, type SuggestPaletteOutput } from '@/ai/flows/suggest-palette';
 import { portfolioChat as portfolioChatFlow } from '@/ai/flows/portfolio-chat';
+import { dayInTheLife as dayInTheLifeFlow } from '@/ai/flows/day-in-the-life';
 import { z } from 'zod';
-import { contactFormSchema, portfolioSchema, type PortfolioChatInput, type PortfolioChatOutput } from '@/lib/schemas';
+import { contactFormSchema, portfolioSchema, type PortfolioChatInput, type PortfolioChatOutput, DayInTheLifeInputSchema, DayInTheLifeOutputSchema, type DayInTheLifeInput, type DayInTheLifeOutput } from '@/lib/schemas';
 import { db } from '@/lib/firebase';
 import { collection, addDoc, serverTimestamp, doc, getDoc } from 'firebase/firestore';
 import nodemailer from 'nodemailer';
@@ -58,6 +59,10 @@ export async function getPaletteSuggestions(input: SuggestPaletteInput): Promise
 
 export async function getChatbotResponse(input: PortfolioChatInput): Promise<PortfolioChatOutput> {
   return await portfolioChatFlow(input);
+}
+
+export async function getDayInTheLifeStory(input: DayInTheLifeInput): Promise<DayInTheLifeOutput> {
+  return await dayInTheLifeFlow(input);
 }
 
 export async function getPortfolioData() {
