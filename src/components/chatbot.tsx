@@ -154,7 +154,7 @@ export default function Chatbot({ portfolioData }: ChatbotProps) {
       <motion.div
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
-        className="fixed bottom-8 right-6 z-50"
+        className="fixed bottom-8 right-8 z-50"
       >
         <Button
           size="icon"
