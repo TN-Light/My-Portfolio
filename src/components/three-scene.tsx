@@ -1,8 +1,9 @@
 
 'use client';
 
-import React, { useRef, useEffect, useLayoutEffect } from 'react';
+import React, { useRef, useLayoutEffect } from 'react';
 import * as THREE from 'three';
+import { useTheme } from '@/hooks/use-theme';
 
 interface ThreeSceneProps {
   type: 'particles' | 'cube' | 'sphere' | 'torus' | 'avatar' | 'torusKnot' | 'octahedron';
@@ -14,6 +15,7 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ type }) => {
   const sceneRef = useRef<THREE.Scene | null>(null);
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
   const animationFrameIdRef = useRef<number | null>(null);
+  const { theme } = useTheme();
 
   useLayoutEffect(() => {
     if (!mountRef.current) return;
@@ -40,7 +42,9 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ type }) => {
 
         if (rendererRef.current) {
             rendererRef.current.dispose();
-            mountRef.current?.removeChild(rendererRef.current.domElement);
+            if (mountRef.current && mountRef.current.contains(rendererRef.current.domElement)) {
+              mountRef.current.removeChild(rendererRef.current.domElement);
+            }
         }
         
         rendererRef.current = null;
@@ -274,9 +278,11 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ type }) => {
       }
       cleanup();
     };
-  }, [type]);
+  }, [type, theme]); // Rerun effect if type or theme changes
 
   return <div ref={mountRef} className="w-full h-full" />;
 };
 
 export default ThreeScene;
+
+    

@@ -18,6 +18,7 @@ import { AnimatePresence } from 'framer-motion';
 import Header from './layout/header';
 import Footer from './layout/footer';
 import ThemeCustomizer from './theme-customizer';
+import { ThemeProvider } from '@/hooks/use-theme';
 
 type PortfolioData = z.infer<typeof portfolioSchema>;
 
@@ -140,31 +141,35 @@ export default function PortfolioClientPage() {
   }, []);
 
   return (
-    <div className="flex flex-col min-h-screen bg-background">
-      <AnimatePresence>
-          {loading && <LoadingScreen />}
-      </AnimatePresence>
+    <ThemeProvider>
+      <div className="flex flex-col min-h-screen bg-background">
+        <AnimatePresence>
+            {loading && <LoadingScreen />}
+        </AnimatePresence>
 
-      {!loading && (
-        <>
-          <Header />
-          <main className="flex-grow">
-            <Hero />
-            <About skills={portfolioData.skills} certifications={portfolioData.certifications} />
-            <Projects projects={portfolioData.projects} />
-            <ResearchToReality implementations={portfolioData.researchImplementations || []} />
-            <Experience 
-              experiences={portfolioData.experiences}
-            />
-            <DayInTheLife />
-            <Achievements achievements={portfolioData.achievements || []} />
-            <Contact />
-          </main>
-          <Footer />
-          <Chatbot portfolioData={portfolioData} />
-          <ThemeCustomizer />
-        </>
-      )}
-    </div>
+        {!loading && (
+          <>
+            <Header />
+            <main className="flex-grow">
+              <Hero />
+              <About skills={portfolioData.skills} certifications={portfolioData.certifications} />
+              <Projects projects={portfolioData.projects} />
+              <ResearchToReality implementations={portfolioData.researchImplementations || []} />
+              <Experience 
+                experiences={portfolioData.experiences}
+              />
+              <DayInTheLife />
+              <Achievements achievements={portfolioData.achievements || []} />
+              <Contact />
+            </main>
+            <Footer />
+            <Chatbot portfolioData={portfolioData} />
+            <ThemeCustomizer />
+          </>
+        )}
+      </div>
+    </ThemeProvider>
   );
 }
+
+    
