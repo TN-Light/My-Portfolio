@@ -8,8 +8,7 @@ import { Button } from './ui/button';
 import { getPaletteSuggestions } from '@/app/actions';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './ui/tooltip';
-import { useToast } from '@/hooks/use-toast';
-import type { SuggestPaletteOutput, SuggestPaletteInput } from '@/lib/schemas';
+import type { SuggestPaletteOutput } from '@/lib/schemas';
 
 interface Palette {
   primaryColor: string;
@@ -68,7 +67,6 @@ export default function ThemeCustomizer() {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [palettes, setPalettes] = useState<SuggestPaletteOutput['palettes']>([]);
-  const { toast } = useToast();
 
   const handleGeneratePalettes = async () => {
     setIsLoading(true);
@@ -85,11 +83,10 @@ export default function ThemeCustomizer() {
         if (result.palettes) {
             setPalettes(result.palettes);
         } else {
-             toast({ variant: 'destructive', title: 'Error', description: 'Could not generate palettes.' });
+             // You can add a toast notification here if you have one
         }
     } catch (error) {
         console.error('Failed to generate palettes:', error);
-        toast({ variant: 'destructive', title: 'Error', description: 'An unexpected error occurred.' });
     } finally {
         setIsLoading(false);
     }
@@ -161,7 +158,7 @@ export default function ThemeCustomizer() {
                 <TooltipTrigger asChild>
                     <Button
                     size="icon"
-                    className="w-14 h-14 rounded-full shadow-lg bg-secondary/80 backdrop-blur-sm border"
+                    className="w-14 h-14 rounded-full shadow-lg bg-primary text-primary-foreground backdrop-blur-sm border"
                     onClick={() => setIsOpen(!isOpen)}
                     aria-label="Customize Theme"
                     >
