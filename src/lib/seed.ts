@@ -52,7 +52,7 @@ const portfolioData = {
       role: 'Founder & Project Lead',
       company: 'Shrink (MSME Registered, University Incubator)',
       date: 'Oct 2023 - Jan 2025',
-      description: 'Developed a retractable water bottle prototype; advanced to EDII-TN Voucher A final round. Managed ₹10,000 budget and coordinated 3D design, manufacturing, and testing teams. Directed multi-department daily stand-ups and prepared technical documentation. Gained hands-on experience in product lifecycle management and cross-functional teamwork. Note: Undertaken for skill-building; discontinued post-Jan 2025'
+      description: 'Developed a modular, space-efficient container prototype; advanced to EDII-TN Voucher A final round. Managed ₹10,000 budget and coordinated 3D design, manufacturing, and testing teams. Directed multi-department daily stand-ups and prepared technical documentation. Gained hands-on experience in product lifecycle management and cross-functional teamwork. Note: Undertaken for skill-building; discontinued post-Jan 2025'
     }
   ],
   certifications: [
@@ -94,7 +94,7 @@ const portfolioData = {
     }
   ],
   achievements: [
-    { 
+    {
       title: '2nd Place - MLCS Hackathon',
       description: 'Won a cash prize for developing a high-performance machine learning model in a competitive hackathon.',
       icon: 'Trophy'
@@ -106,7 +106,7 @@ const portfolioData = {
     },
     {
       title: 'University Innovation Grant',
-      description: 'Awarded cash funding to develop the retractable water bottle prototype (Project Shrink).',
+      description: 'Awarded cash funding to develop the collapsible container system prototype (Project Shrink).',
       icon: 'Rocket'
     }
   ],
