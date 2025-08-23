@@ -95,18 +95,18 @@ const portfolioData = {
   ],
   achievements: [
     { 
-      title: '1st Place - National-Level Hackathon 2024',
-      description: 'Led a team to victory in a 48-hour coding competition, developing an AI-powered solution for sustainable urban planning.',
+      title: '2nd Place - MLCS Hackathon',
+      description: 'Won a cash prize for developing a high-performance machine learning model in a competitive hackathon.',
       icon: 'Trophy'
     },
     {
-      title: 'Top 5% - Kaggle Data Science Challenge',
-      description: 'Achieved a top-tier ranking in a global competition by building a predictive model for financial market analysis.',
+      title: 'EDII-TN Voucher A Finalist',
+      description: 'Advanced to the final round for a prestigious entrepreneurship development grant with the Shrink project.',
       icon: 'TrendingUp'
     },
     {
-      title: 'University Innovation Grant Recipient',
-      description: 'Awarded grant funding for proposing a novel multi-agent system for decentralized logistics management (Project Shrink).',
+      title: 'University Innovation Grant',
+      description: 'Awarded cash funding to develop a novel multi-agent system for decentralized logistics management (Project Shrink).',
       icon: 'Rocket'
     }
   ],
