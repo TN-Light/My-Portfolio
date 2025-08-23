@@ -20,6 +20,12 @@ interface Palette {
 // Predefined palettes
 const predefinedPalettes: Palette[] = [
     {
+        description: 'Cyberpunk',
+        primaryColor: '#39FF14', // Neon Green
+        backgroundColor: '#000000', // Black
+        accentColor: '#39FF14',
+    },
+    {
         description: 'Original Light',
         primaryColor: '#171717', // hsl(0 0% 9%)
         backgroundColor: '#FFFFFF', // hsl(0 0% 100%)
@@ -28,12 +34,6 @@ const predefinedPalettes: Palette[] = [
         description: 'Original Dark',
         primaryColor: '#FAFAFA', // hsl(0 0% 98%)
         backgroundColor: '#09090B', // hsl(240 10% 3.9%)
-    },
-    {
-        description: 'Cyberpunk',
-        primaryColor: '#39FF14', // Neon Green
-        backgroundColor: '#000000', // Black
-        accentColor: '#39FF14',
     },
 ];
 
