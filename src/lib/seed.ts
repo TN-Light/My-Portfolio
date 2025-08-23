@@ -106,7 +106,7 @@ const portfolioData = {
     },
     {
       title: 'University Innovation Grant',
-      description: 'Awarded cash funding to develop a novel multi-agent system for decentralized logistics management (Project Shrink).',
+      description: 'Awarded cash funding to develop the retractable water bottle prototype (Project Shrink).',
       icon: 'Rocket'
     }
   ],
