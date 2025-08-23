@@ -151,7 +151,7 @@ export default function ThemeCustomizer() {
         <motion.div
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
-            className="fixed bottom-6 right-24 z-50"
+            className="fixed bottom-8 right-24 z-50"
         >
             <TooltipProvider>
               <Tooltip>
