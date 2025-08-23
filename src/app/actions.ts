@@ -7,6 +7,7 @@ import { z } from 'zod';
 import { contactFormSchema, portfolioSchema, type PortfolioChatInput, type PortfolioChatOutput, DayInTheLifeInputSchema, DayInTheLifeOutputSchema, type DayInTheLifeInput, type DayInTheLifeOutput } from '@/lib/schemas';
 import { db } from '@/lib/firebase';
 import { collection, addDoc, serverTimestamp, doc, getDoc } from 'firebase/firestore';
+import nodemailer from 'nodemailer';
 
 export async function submitContactForm(data: z.infer<typeof contactFormSchema>) {
   const parsed = contactFormSchema.safeParse(data);
@@ -15,10 +16,36 @@ export async function submitContactForm(data: z.infer<typeof contactFormSchema>)
   }
 
   try {
+    // 1. Save to Firestore
     await addDoc(collection(db, "contactSubmissions"), {
       ...parsed.data,
       submittedAt: serverTimestamp(),
     });
+
+    // 2. Send email notification
+    const transporter = nodemailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 465,
+        secure: true,
+        auth: {
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS,
+        },
+    });
+
+    await transporter.sendMail({
+        from: `"Portfolio Site" <${process.env.EMAIL_USER}>`,
+        to: process.env.EMAIL_USER,
+        subject: `New Contact Form Submission from ${parsed.data.name}`,
+        html: `
+            <h1>New Contact Submission</h1>
+            <p><strong>Name:</strong> ${parsed.data.name}</p>
+            <p><strong>Email:</strong> ${parsed.data.email}</p>
+            <p><strong>Message:</strong></p>
+            <p>${parsed.data.message}</p>
+        `,
+    });
+
 
     return { success: true, message: "Thank you for your message! I'll get back to you soon." };
   } catch (error) {
