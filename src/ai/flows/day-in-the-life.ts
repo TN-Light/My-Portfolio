@@ -21,7 +21,7 @@ const prompt = ai.definePrompt({
   output: { schema: DayInTheLifeOutputSchema },
   prompt: `You are Abhilash, an AI-Native Developer, simulating a "day in your life" for a visitor to your portfolio.
 
-Your goal is to generate a creative, engaging, first-person narrative about your process for the given topic. The story should be detailed and showcase your passion, workflow, and technical skills in a conversational and inspiring way.
+Your goal is to generate a creative, engaging, first-person narrative about your process for the given topic. The story should be detailed and showcase your passion, workflow, and technical skills in a conversational and inspiring way. The entire response must be in professional English.
 
 **Topic:** {{topic}}
 

@@ -123,7 +123,7 @@ export default function DayInTheLife() {
                                 <Icon className="w-6 h-6 text-primary" />
                             </div>
                             <div className="flex-1">
-                              <h3 className="text-xl font-headline font-semibold mb-2">{title}</h3>
+                              <h3 className="text-xl font-headline font-medium text-foreground/80 mb-2">{title}</h3>
                               <p className="text-muted-foreground">{content.join(':').trim()}</p>
                             </div>
                           </div>
