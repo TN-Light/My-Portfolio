@@ -7,42 +7,11 @@
  * @fileOverview An AI agent that suggests alternative color palettes for a website.
  * 
  * - suggestPalette - A function that suggests alternative color palettes.
- * - SuggestPaletteInput - The input type for the suggestPalette function.
- * - SuggestPaletteOutput - The return type for the suggestPalette function.
  */
 
 import {ai} from '@/ai/genkit';
-import {z} from 'genkit';
+import { SuggestPaletteInputSchema, SuggestPaletteOutputSchema, type SuggestPaletteInput, type SuggestPaletteOutput } from '@/lib/schemas';
 
-const SuggestPaletteInputSchema = z.object({
-  primaryColor: z
-    .string()
-    .describe('The primary color of the website in hex format (e.g. #A729F0).'),
-  backgroundColor: z
-    .string()
-    .describe('The background color of the website in hex format (e.g. #222222).'),
-});
-export type SuggestPaletteInput = z.infer<typeof SuggestPaletteInputSchema>;
-
-const SuggestPaletteOutputSchema = z.object({
-  palettes: z
-    .array(
-      z.object({
-        primaryColor: z
-          .string()
-          .describe('A suggested primary color in hex format.'),
-        backgroundColor: z
-          .string()
-          .describe('A suggested background color in hex format.'),
-        description: z
-          .string()
-          .optional()
-          .describe('A short, descriptive name for the color palette.'),
-      })
-    )
-    .describe('An array of suggested color palettes.'),
-});
-export type SuggestPaletteOutput = z.infer<typeof SuggestPaletteOutputSchema>;
 
 export async function suggestPalette(input: SuggestPaletteInput): Promise<SuggestPaletteOutput> {
   return suggestPaletteFlow(input);

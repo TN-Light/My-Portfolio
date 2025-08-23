@@ -4,8 +4,6 @@
  * @fileOverview An AI agent that can answer questions about Abhilash's portfolio.
  * 
  * - portfolioChat - A function that handles the chat interaction.
- * - PortfolioChatInput - The input type for the portfolioChat function.
- * - PortfolioChatOutput - The return type for the portfolioChat function.
  */
 
 import { ai } from '@/ai/genkit';
