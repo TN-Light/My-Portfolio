@@ -4,8 +4,11 @@
 import { motion } from 'framer-motion';
 import { ArrowDown } from 'lucide-react';
 import ThreeScene from '../three-scene';
+import { useTheme } from '@/hooks/use-theme';
 
 export default function Hero() {
+    const { primaryHsl, accentHsl } = useTheme();
+
     const FADE_UP_ANIMATION_VARIANTS = {
         hidden: { opacity: 0, y: 10 },
         show: { opacity: 1, y: 0, transition: { type: 'spring', duration: 0.8 } },
@@ -31,7 +34,7 @@ export default function Hero() {
     return (
         <section id="hero" className="relative min-h-screen flex items-center bg-background overflow-hidden">
             <div className="absolute inset-0 z-0">
-                 <ThreeScene type='particles' />
+                 <ThreeScene type='particles' primaryColor={primaryHsl} accentColor={accentHsl} />
             </div>
             <div className="container mx-auto px-6 relative z-10">
                 <motion.div
