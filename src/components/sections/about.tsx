@@ -40,13 +40,9 @@ const skillItemVariants = {
 
 export default function About({ skills = [], certifications = [] }: AboutProps) {
   return (
-    <motion.section 
+    <section 
         id="about" 
         className="py-24 bg-secondary"
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
     >
       <div className="container mx-auto px-6">
         <div className="text-left mb-16">
@@ -69,7 +65,13 @@ export default function About({ skills = [], certifications = [] }: AboutProps) 
               AI-native Computer Science student with deep expertise in multi-agent orchestration, advanced RAG systems, and LLM application development. Daily user of AI tools for coding, debugging, and rapid prototyping.
             </motion.p>
         </div>
-        <div className="grid md:grid-cols-5 gap-16 items-start">
+        <motion.div 
+            className="grid md:grid-cols-5 gap-16 items-start"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+        >
             <motion.div
               variants={columnVariants}
               className="md:col-span-3 space-y-12"
@@ -133,8 +135,8 @@ export default function About({ skills = [], certifications = [] }: AboutProps) 
                 ))}
               </motion.div>
             </motion.div>
-        </div>
+        </motion.div>
       </div>
-    </motion.section>
+    </section>
   );
 }
