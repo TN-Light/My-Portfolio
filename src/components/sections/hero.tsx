@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { ArrowDown } from 'lucide-react';
 import ThreeScene from '../three-scene';
 import { useTheme } from '@/hooks/use-theme';
+import { BrushStroke1, BrushStroke2, BrushStroke3 } from '../icons';
 
 export default function Hero() {
     const { primaryHsl, accentHsl } = useTheme();
@@ -13,7 +14,7 @@ export default function Hero() {
         hidden: { opacity: 0, y: 10 },
         show: { opacity: 1, y: 0, transition: { type: 'spring', duration: 0.8 } },
     };
-
+    
     const staggeredFadeUp = {
         hidden: { opacity: 0, y: 10, filter: "blur(4px)" },
         show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { type: 'spring', duration: 0.8 } },
@@ -30,6 +31,18 @@ export default function Hero() {
 
     const helloText = "Hello".split("");
     const nameText = "— I'm Abhilash.".split("");
+
+    const brushStrokeContainer = {
+        hidden: { opacity: 0 },
+        show: { 
+            opacity: 1,
+            transition: { 
+                staggerChildren: 0.2,
+                delayChildren: 0.7,
+                duration: 0.5
+            }
+        },
+    }
 
     return (
         <section id="hero" className="relative min-h-screen flex items-center bg-background overflow-hidden py-24">
@@ -100,20 +113,52 @@ export default function Hero() {
                                 </motion.div>
                             </div>
 
-                            <motion.div
-                                variants={FADE_UP_ANIMATION_VARIANTS}
-                                className="md:col-span-5 relative flex justify-center items-center h-full group"
+                             <motion.div
+                                variants={brushStrokeContainer}
+                                className="md:col-span-5 relative flex justify-center items-center h-[50vh] w-full group"
                             >
-                                <motion.img
-                                    src="/profile.png.png"
-                                    alt="Profile picture of Abhilash"
-                                    data-ai-hint="profile photo"
-                                    className="w-[40vh] h-[40vh] md:w-[50vh] md:h-[50vh] rounded-full object-contain bg-secondary/50 p-2"
-                                    initial={{ scale: 0 }}
-                                    animate={{ scale: 1 }}
-                                    whileHover={{ scale: 1.05 }}
-                                    transition={{ duration: 1, ease: [0.76, 0, 0.24, 1], delay: 0.5 }}
-                                />
+                                <motion.div 
+                                    className="absolute inset-0 w-full h-full"
+                                    style={{
+                                        maskImage: 'url(#brush-stroke-1)',
+                                        maskSize: 'cover',
+                                        maskRepeat: 'no-repeat',
+                                    }}
+                                    variants={{
+                                        hidden: { x: '-100%', opacity: 0 },
+                                        show: { x: 0, opacity: 1, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
+                                    }}
+                                >
+                                    <img src="/profile.png.png" alt="Profile of Abhilash" className="w-full h-full object-cover"/>
+                                </motion.div>
+                                <motion.div 
+                                    className="absolute inset-0 w-full h-full"
+                                     style={{
+                                        maskImage: 'url(#brush-stroke-2)',
+                                        maskSize: 'cover',
+                                        maskRepeat: 'no-repeat',
+                                    }}
+                                    variants={{
+                                        hidden: { y: '100%', opacity: 0 },
+                                        show: { y: 0, opacity: 1, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
+                                    }}
+                                >
+                                    <img src="/profile.png.png" alt="Profile of Abhilash" className="w-full h-full object-cover"/>
+                                </motion.div>
+                                <motion.div 
+                                    className="absolute inset-0 w-full h-full"
+                                    style={{
+                                        maskImage: 'url(#brush-stroke-3)',
+                                        maskSize: 'cover',
+                                        maskRepeat: 'no-repeat',
+                                    }}
+                                     variants={{
+                                        hidden: { scale: 1.5, opacity: 0 },
+                                        show: { scale: 1, opacity: 1, transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] } }
+                                    }}
+                                >
+                                    <img src="/profile.png.png" alt="Profile of Abhilash" className="w-full h-full object-cover"/>
+                                </motion.div>
                             </motion.div>
                         </div>
                     </div>

@@ -1,3 +1,4 @@
+
 import type { SVGProps } from 'react';
 
 export const LogoIcon = (props: SVGProps<SVGSVGElement>) => (
@@ -70,5 +71,45 @@ export const LinkedinIcon = (props: SVGProps<SVGSVGElement>) => (
     <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
     <rect x="2" y="9" width="4" height="12" />
     <circle cx="4" cy="4" r="2" />
+  </svg>
+);
+
+const BrushStroke = (props: SVGProps<SVGSVGElement> & { id: string, path: string }) => (
+    <svg width="0" height="0" {...props}>
+        <defs>
+            <mask id={props.id} maskUnits="objectBoundingBox" x="0" y="0" width="1" height="1">
+                 <path d={props.path} fill="white"/>
+            </mask>
+        </defs>
+    </svg>
+)
+
+export const BrushStroke1 = (props: SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 386 386" fill="none" xmlns="http://www.w3.org/2000/svg" {...props} style={{ position: 'absolute', width: 0, height: 0 }}>
+    <defs>
+      <mask id="brush-stroke-1">
+          <path d="M381 333.5C315.333 365.667 131 409 -2 381C-2 254 -2 136.5 -2 0.5C139 10.1667 259.5 24 381 110.5C381 192.333 381 254.5 381 333.5Z" fill="white"/>
+      </mask>
+    </defs>
+  </svg>
+);
+
+export const BrushStroke2 = (props: SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 460 460" fill="none" xmlns="http://www.w3.org/2000/svg" {...props} style={{ position: 'absolute', width: 0, height: 0 }}>
+    <defs>
+        <mask id="brush-stroke-2">
+            <path d="M459.5 455.5C459.5 303.833 459.5 152 459.5 0C307.833 0 156 0 4.5 0C4.5 130.333 4.5 251.5 4.5 363.5C148.667 368.333 286.5 373 459.5 455.5Z" fill="white"/>
+        </mask>
+    </defs>
+  </svg>
+);
+
+export const BrushStroke3 = (props: SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 422 422" fill="none" xmlns="http://www.w3.org/2000/svg" {...props} style={{ position: 'absolute', width: 0, height: 0 }}>
+      <defs>
+        <mask id="brush-stroke-3">
+            <path d="M422 422C281.333 422 141 422 0 422C0 281.333 0 141 0 0C140.667 0 281 0 422 0C422 140.667 422 281 422 422Z" fill="white"/>
+        </mask>
+      </defs>
   </svg>
 );
