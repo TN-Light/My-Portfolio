@@ -170,8 +170,10 @@ export default function PortfolioClientPage() {
 
             </main>
             <Footer />
-            <Chatbot portfolioData={portfolioData} />
-            <ThemeCustomizer />
+            <div className="fixed bottom-8 right-8 z-50 flex items-center gap-4">
+              <ThemeCustomizer />
+              <Chatbot portfolioData={portfolioData} />
+            </div>
           </>
         )}
       </div>
