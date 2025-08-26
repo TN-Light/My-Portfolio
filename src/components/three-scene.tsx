@@ -111,12 +111,11 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ type, primaryColor, accentColor
 
     const animate = () => {
         animationFrameId = requestAnimationFrame(animate);
-        group.rotation.y += 0.002;
 
         if (type === 'particles' && clock) {
             const elapsedTime = clock.getElapsedTime();
-            group.rotation.x = mouse.y * 0.2;
-            group.rotation.y = mouse.x * 0.2 + (elapsedTime * 0.1);
+            group.rotation.x = mouse.y * 0.1;
+            group.rotation.y = mouse.x * 0.1 + (elapsedTime * 0.05);
         } else {
             group.rotation.x += 0.005;
             group.rotation.y += 0.005;
