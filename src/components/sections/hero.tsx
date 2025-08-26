@@ -1,3 +1,4 @@
+
 'use client';
 
 import { motion } from 'framer-motion';
@@ -132,7 +133,7 @@ export default function Hero() {
                                     variants={imageReveal}
                                 >
                                     <motion.img 
-                                        src="/profile.png"
+                                        src="/profile.png.png"
                                         alt="Profile of Abhilash"
                                         data-ai-hint="profile"
                                         width={400}
