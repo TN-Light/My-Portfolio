@@ -111,7 +111,6 @@ export default function Hero() {
                                     alt="Profile of Abhilash"
                                     data-ai-hint="profile"
                                     className="w-auto h-auto object-contain"
-                                    whileHover={{ scale: 1.05 }}
                                     transition={{ type: 'spring', stiffness: 300 }}
                                 />
                             </motion.div>
