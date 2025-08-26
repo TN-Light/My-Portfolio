@@ -32,7 +32,7 @@ export default function Hero() {
     const nameText = "— I'm Abhilash.".split("");
 
     return (
-        <section id="hero" className="relative min-h-screen flex items-center bg-background overflow-hidden">
+        <section id="hero" className="relative min-h-screen flex items-center bg-background overflow-hidden py-24">
             <div className="absolute inset-0 z-0">
                  <ThreeScene type='particles' primaryColor={primaryHsl} accentColor={accentHsl} />
             </div>
@@ -108,11 +108,10 @@ export default function Hero() {
                                     src="/profile.png.png"
                                     alt="Profile picture of Abhilash"
                                     data-ai-hint="profile photo"
-                                    className="w-[40vh] h-[45vh] md:w-[50vh] md:h-[55vh] object-cover object-top bg-secondary"
-                                    style={{ borderRadius: '35% 65% 60% 40% / 40% 35% 65% 60%' }}
+                                    className="w-[40vh] h-[40vh] md:w-[50vh] md:h-[50vh] rounded-full object-contain bg-secondary/50 p-2"
                                     initial={{ scale: 0 }}
                                     animate={{ scale: 1 }}
-                                    whileHover={{ scale: 1.05, borderRadius: '40% 60% 55% 45% / 45% 40% 60% 55%' }}
+                                    whileHover={{ scale: 1.05 }}
                                     transition={{ duration: 1, ease: [0.76, 0, 0.24, 1], delay: 0.5 }}
                                 />
                             </motion.div>
