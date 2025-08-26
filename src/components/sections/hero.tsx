@@ -138,7 +138,7 @@ export default function Hero() {
                                         data-ai-hint="profile"
                                         width={400}
                                         height={400}
-                                        className="w-full h-full object-contain rounded-full shadow-2xl"
+                                        className="w-full h-full object-contain rounded-lg shadow-2xl"
                                         whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
                                     />
                                 </motion.div>
