@@ -73,7 +73,3 @@ export const LinkedinIcon = (props: SVGProps<SVGSVGElement>) => (
     <circle cx="4" cy="4" r="2" />
   </svg>
 );
-
-// Removed BrushStroke SVGs as they are no longer used.
-
-

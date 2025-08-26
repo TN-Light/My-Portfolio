@@ -1,4 +1,3 @@
-
 'use client';
 
 import { motion } from 'framer-motion';
@@ -132,11 +131,12 @@ export default function Hero() {
                                     className="relative w-72 h-72 md:w-96 md:h-96"
                                     variants={imageReveal}
                                 >
-                                    <img 
+                                    <motion.img 
                                         src="https://picsum.photos/400/400"
                                         alt="Profile of Abhilash"
                                         data-ai-hint="profile"
                                         className="w-full h-full object-cover rounded-full shadow-2xl"
+                                        whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
                                     />
                                 </motion.div>
                             </motion.div>
