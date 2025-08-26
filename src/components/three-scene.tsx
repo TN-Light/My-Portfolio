@@ -284,5 +284,3 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ type }) => {
 };
 
 export default ThreeScene;
-
-    
