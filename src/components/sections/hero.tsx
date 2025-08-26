@@ -131,15 +131,17 @@ export default function Hero() {
                                 <motion.div
                                     className="relative w-72 h-72 md:w-96 md:h-96"
                                     variants={imageReveal}
+                                    whileHover={{ scale: 1.05 }}
+                                    transition={{ type: 'spring', stiffness: 300 }}
                                 >
+                                    <div className="absolute inset-0 bg-card border-2 border-primary/20 rounded-xl -rotate-3 transition-transform duration-300 group-hover:rotate-0"></div>
                                     <motion.img 
                                         src="/profile.png.png"
                                         alt="Profile of Abhilash"
                                         data-ai-hint="profile"
                                         width={400}
                                         height={400}
-                                        className="w-full h-full object-contain rounded-lg shadow-2xl"
-                                        whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
+                                        className="relative w-full h-full object-cover rounded-lg shadow-2xl shadow-primary/20"
                                     />
                                 </motion.div>
                             </motion.div>
