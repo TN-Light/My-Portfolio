@@ -13,14 +13,16 @@ function getThreeColor(cssVar: string): THREE.Color {
     if (typeof window === 'undefined') return new THREE.Color(0x000000);
     const colorValue = getComputedStyle(document.documentElement).getPropertyValue(cssVar).trim();
     
+    // Check if HSL
     if (colorValue.includes(' ')) {
         const parts = colorValue.split(" ");
-        if (parts.length < 3) return new THREE.Color(0x000000);
+        if (parts.length < 3) return new THREE.Color(0x000000); // Invalid HSL
         const h = parseFloat(parts[0]) / 360;
         const s = parseFloat(parts[1].replace('%','')) / 100;
         const l = parseFloat(parts[2].replace('%','')) / 100;
         return new THREE.Color().setHSL(h, s, l);
     }
+    // Assume hex
     return new THREE.Color(colorValue);
 }
 
@@ -32,12 +34,35 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ type }) => {
   const cameraRef = useRef<THREE.PerspectiveCamera>();
   const rendererRef = useRef<THREE.WebGLRenderer>();
   const groupRef = useRef<THREE.Group>();
+  const pointLightRef = useRef<THREE.PointLight>();
   const animationFrameIdRef = useRef<number>();
-  const mouseRef = useRef(new THREE.Vector2(-10, -10));
 
   useLayoutEffect(() => {
     const currentMount = mountRef.current;
     if (!currentMount) return;
+
+    // --- Cleanup logic from previous render ---
+    if (rendererRef.current) {
+        const oldCanvas = rendererRef.current.domElement;
+        if (currentMount.contains(oldCanvas)) {
+            currentMount.removeChild(oldCanvas);
+        }
+        rendererRef.current.dispose();
+    }
+    if (sceneRef.current) {
+        sceneRef.current.traverse(child => {
+            if (child instanceof THREE.Mesh) {
+                child.geometry.dispose();
+                child.material.dispose();
+            }
+        });
+        sceneRef.current.clear();
+    }
+    if (animationFrameIdRef.current) {
+        cancelAnimationFrame(animationFrameIdRef.current);
+    }
+    // --- End cleanup ---
+
 
     // Core scene setup
     const scene = new THREE.Scene();
@@ -56,13 +81,10 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ type }) => {
     scene.add(group);
 
     // Initial object creation
-    let object: THREE.Object3D;
     const primaryThreeColor = getThreeColor('--primary');
-    const accentThreeColor = getThreeColor('--accent');
 
     if (type === 'particles') {
-        // Omitting particle logic for brevity as it's not the focus of the bug
-        object = new THREE.Points(new THREE.BufferGeometry(), new THREE.PointsMaterial()); // Placeholder
+        // Omitting particle logic for brevity
         camera.position.z = 5;
     } else {
         const material = new THREE.MeshStandardMaterial({
@@ -72,8 +94,11 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ type }) => {
 
         const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
         scene.add(ambientLight);
-        const pointLight = new THREE.PointLight(accentThreeColor, 5, 10);
+        
+        // Use primary color for the glow
+        const pointLight = new THREE.PointLight(primaryThreeColor, 5, 10);
         pointLight.position.set(2, 3, 4);
+        pointLightRef.current = pointLight;
         scene.add(pointLight);
 
         let geometry: THREE.BufferGeometry;
@@ -87,16 +112,13 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ type }) => {
             default: geometry = new THREE.BoxGeometry(1, 1, 1);
         }
 
-        object = new THREE.Mesh(geometry, material);
+        const object = new THREE.Mesh(geometry, material);
         group.add(object);
         camera.position.z = type === 'avatar' ? 2 : 4;
     }
 
-    const clock = new THREE.Clock();
-
     const animate = () => {
         animationFrameIdRef.current = requestAnimationFrame(animate);
-        const elapsedTime = clock.getElapsedTime();
         
         if (groupRef.current) {
             groupRef.current.rotation.x += 0.005;
@@ -117,33 +139,16 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ type }) => {
     };
     window.addEventListener('resize', handleResize);
 
-    // Cleanup function
     return () => {
       window.removeEventListener('resize', handleResize);
-      if (animationFrameIdRef.current) cancelAnimationFrame(animationFrameIdRef.current);
-
-      group.traverse(child => {
-        if (child instanceof THREE.Mesh) {
-          child.geometry.dispose();
-          child.material.dispose();
-        }
-      });
-      scene.clear();
-      group.clear();
-      
-      if (renderer.domElement && currentMount.contains(renderer.domElement)) {
-        currentMount.removeChild(renderer.domElement);
-      }
-      renderer.dispose();
     };
-  }, [type]); // Re-run ONLY when the type of scene changes.
+  }, [type, theme]);
 
-  // This effect runs whenever the theme changes, specifically to update colors.
+  // This effect updates colors when the theme changes.
   useEffect(() => {
-    if (!groupRef.current) return;
+    if (!groupRef.current || !pointLightRef.current) return;
 
     const primaryColor = getThreeColor('--primary');
-    const accentColor = getThreeColor('--accent');
 
     groupRef.current.traverse(child => {
         if (child instanceof THREE.Mesh) {
@@ -152,16 +157,10 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ type }) => {
             }
         }
     });
-    
-    if(sceneRef.current) {
-        sceneRef.current.traverse(light => {
-            if(light instanceof THREE.PointLight) {
-                light.color.set(accentColor);
-            }
-        });
-    }
 
-  }, [theme]); // Re-run ONLY when theme object changes.
+    pointLightRef.current.color.set(primaryColor);
+
+  }, [theme]);
 
   return <div ref={mountRef} className="w-full h-full" />;
 };
