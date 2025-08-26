@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, type FormEvent } from 'react';
@@ -10,6 +11,25 @@ import { getDayInTheLifeStory } from '@/app/actions';
 import { Card, CardContent } from '../ui/card';
 
 const icons = [Coffee, Code, BookOpen];
+
+const sectionVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut",
+        staggerChildren: 0.2
+      }
+    }
+};
+
+const storyCardVariants = {
+    hidden: { opacity: 0, x: -30 },
+    visible: { opacity: 1, x: 0, transition: { type: 'spring', stiffness: 100 } }
+};
+
 
 export default function DayInTheLife() {
   const { toast } = useToast();
@@ -57,13 +77,16 @@ export default function DayInTheLife() {
   const storyParts = story.split('---').map(part => part.trim()).filter(part => part);
 
   return (
-    <section id="simulation" className="py-24 bg-background">
+    <motion.section 
+        id="simulation" 
+        className="py-24 bg-background"
+        variants={sectionVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+    >
       <div className="container mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.8 }}
+        <div
           className="text-center"
         >
           <h2 className="text-3xl md:text-4xl font-headline font-bold mb-4 flex items-center justify-center gap-3">
@@ -73,13 +96,9 @@ export default function DayInTheLife() {
           <p className="max-w-3xl mx-auto text-muted-foreground mb-12 text-lg">
             Curious about my process? Ask the AI to simulate my day working on a specific topic.
           </p>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.8 }}
+        <div
           className="max-w-3xl mx-auto"
         >
           <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 mb-8">
@@ -104,7 +123,12 @@ export default function DayInTheLife() {
 
           <AnimatePresence>
             {storyParts.length > 0 && (
-              <div className="space-y-8">
+              <motion.div 
+                className="space-y-8"
+                variants={sectionVariants}
+                initial="hidden"
+                animate="visible"
+              >
                 {storyParts.map((part, index) => {
                   const [title, ...content] = part.split(':');
                   const Icon = icons[index % icons.length];
@@ -112,9 +136,7 @@ export default function DayInTheLife() {
                   return (
                     <motion.div
                       key={index}
-                      initial={{ opacity: 0, x: -30 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.3, type: 'spring', stiffness: 100 }}
+                      variants={storyCardVariants}
                     >
                       <Card className="bg-secondary/50 border-dashed overflow-hidden">
                         <CardContent className="p-6">
@@ -132,11 +154,11 @@ export default function DayInTheLife() {
                     </motion.div>
                   )
                 })}
-              </div>
+              </motion.div>
             )}
           </AnimatePresence>
-        </motion.div>
+        </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

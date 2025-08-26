@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useForm } from 'react-hook-form';
@@ -13,6 +14,19 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { useToast } from '@/hooks/use-toast';
 import { submitContactForm } from '@/app/actions';
 import { contactFormSchema } from '@/lib/schemas';
+
+const sectionVariants = {
+  hidden: { opacity: 0, y: 50 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut"
+    }
+  }
+};
+
 
 export default function Contact() {
   const { toast } = useToast();
@@ -46,27 +60,25 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="py-24 bg-background">
+    <motion.section 
+        id="contact" 
+        className="py-24 bg-background"
+        variants={sectionVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+    >
       <div className="container mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.8 }}
-        >
+        <div>
           <h2 className="text-3xl md:text-4xl font-headline font-bold text-center mb-4">
             Get In Touch
           </h2>
           <p className="text-center max-w-3xl mx-auto text-muted-foreground mb-12 text-lg">
             Have a project in mind or just want to say hello? Drop me a line at <a href="mailto:venkatabhilash432004@gmail.com" className="text-primary underline">venkatabhilash432004@gmail.com</a> or use the form below.
           </p>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.8 }}
+        <div
           className="max-w-2xl mx-auto"
         >
           <Form {...form}>
@@ -117,8 +129,8 @@ export default function Contact() {
               </div>
             </form>
           </Form>
-        </motion.div>
+        </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

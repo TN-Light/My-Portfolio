@@ -19,12 +19,23 @@ const iconMap: { [key: string]: LucideIcon } = {
   Rocket,
 };
 
-export default function Achievements({ achievements = [] }: AchievementsProps) {
-  const cardVariants = {
-    hidden: { opacity: 0, scale: 0.95 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } }
-  };
+const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+};
 
+const cardVariants = {
+    hidden: { opacity: 0, scale: 0.9 },
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.5, ease: 'easeOut' } }
+};
+
+
+export default function Achievements({ achievements = [] }: AchievementsProps) {
   return (
     <section id="achievements" className="bg-background">
       <div className="container mx-auto px-6">
@@ -42,18 +53,20 @@ export default function Achievements({ achievements = [] }: AchievementsProps) {
             A snapshot of my competitive successes and recognitions in the tech field.
           </p>
         </motion.div>
-        <div className="grid md:grid-cols-1 lg:grid-cols-3 gap-8">
-          {achievements.map((item, index) => {
+        <motion.div 
+            className="grid md:grid-cols-1 lg:grid-cols-3 gap-8"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+        >
+          {achievements.map((item) => {
             const Icon = iconMap[item.icon] || Trophy;
 
             return (
                 <motion.div
                     key={item.title}
                     variants={cardVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.2 }}
-                    transition={{ delay: index * 0.1 }}
                 >
                     <Card className="h-full flex flex-col bg-card border overflow-hidden group transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 text-center">
                         <CardHeader className="items-center">
@@ -69,7 +82,7 @@ export default function Achievements({ achievements = [] }: AchievementsProps) {
                 </motion.div>
             )
           })}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

@@ -19,11 +19,7 @@ interface ProjectsProps {
 
 export default function Projects({ projects = [] }: ProjectsProps) {
   const { primaryHsl, accentHsl } = useTheme();
-  const cardVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: 0 }
-  };
-
+  
   const containerVariants = {
     hidden: {},
     visible: {
@@ -32,6 +28,12 @@ export default function Projects({ projects = [] }: ProjectsProps) {
       },
     },
   };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } }
+  };
+
 
   return (
     <section id="projects" className="bg-background">
@@ -60,7 +62,6 @@ export default function Projects({ projects = [] }: ProjectsProps) {
             <motion.div
               key={project.title}
               variants={cardVariants}
-              transition={{ duration: 0.5, ease: 'easeOut' }}
               whileHover={{ y: -8, transition: { type: 'spring', stiffness: 300 } }}
             >
               <Card className="h-full flex flex-col bg-card border overflow-hidden group transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 relative">
