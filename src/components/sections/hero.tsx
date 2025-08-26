@@ -128,26 +128,17 @@ export default function Hero() {
                                 variants={imageRevealContainer}
                                 className="md:col-span-5 relative flex justify-center items-center h-[50vh] w-full group"
                             >
-                                <div
-                                    className="absolute inset-0 w-full h-full"
-                                    style={{
-                                        maskImage: 'url(/brush-mask.png)',
-                                        maskSize: 'contain',
-                                        maskRepeat: 'no-repeat',
-                                        maskPosition: 'center',
-                                        WebkitMaskImage: 'url(/brush-mask.png)',
-                                        WebkitMaskSize: 'contain',
-                                        WebkitMaskRepeat: 'no-repeat',
-                                        WebkitMaskPosition: 'center',
-                                    }}
+                                <motion.div
+                                    className="relative w-72 h-72 md:w-96 md:h-96"
+                                    variants={imageReveal}
                                 >
-                                    <motion.img 
-                                        src="/profile.png" 
-                                        alt="Profile of Abhilash" 
-                                        className="w-full h-full object-cover"
-                                        variants={imageReveal}
+                                    <img 
+                                        src="https://picsum.photos/400/400"
+                                        alt="Profile of Abhilash"
+                                        data-ai-hint="profile"
+                                        className="w-full h-full object-cover rounded-full shadow-2xl"
                                     />
-                                </div>
+                                </motion.div>
                             </motion.div>
                         </div>
                     </div>
