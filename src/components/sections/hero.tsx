@@ -34,7 +34,7 @@ export default function Hero() {
     return (
         <section id="hero" className="relative min-h-screen flex items-center bg-background overflow-hidden">
             <div className="absolute inset-0 z-0">
-                 <ThreeScene type='particles' primaryColor={primaryHsl} accentColor={accentHsl} />
+                 <ThreeScene type='particles' />
             </div>
             <div className="container mx-auto px-6 relative z-10">
                 <motion.div
@@ -105,18 +105,19 @@ export default function Hero() {
                                 className="md:col-span-5 relative flex justify-center items-center h-full group"
                             >
                                 <motion.div
-                                    className="relative overflow-hidden rounded-full w-[40vh] h-[40vh] md:w-[50vh] md:h-[50vh] bg-secondary"
-                                    initial={{ clipPath: 'circle(0% at 50% 50%)' }}
-                                    animate={{ clipPath: 'circle(75% at 50% 50%)' }}
+                                    className="relative overflow-hidden w-[40vh] h-[45vh] md:w-[50vh] md:h-[55vh] bg-secondary"
+                                    style={{ clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)' }}
+                                    initial={{ scale: 0 }}
+                                    animate={{ scale: 1 }}
                                     transition={{ duration: 1, ease: [0.76, 0, 0.24, 1], delay: 0.5 }}
                                 >
                                     <motion.img
                                         src="/profile.png.png"
                                         alt="Profile picture of Abhilash"
                                         data-ai-hint="profile photo"
-                                        className="w-full h-full object-contain relative z-10"
-                                        initial={{ scale: 1.2, y: "10%" }}
-                                        animate={{ scale: 1, y: "0%" }}
+                                        className="w-full h-full object-cover relative z-10"
+                                        initial={{ scale: 1.2 }}
+                                        animate={{ scale: 1 }}
                                         transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1], delay: 0.6 }}
                                     />
                                 </motion.div>
