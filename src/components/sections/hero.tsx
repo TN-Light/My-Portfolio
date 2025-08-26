@@ -108,7 +108,7 @@ export default function Hero() {
                                     src="/profile.png.png"
                                     alt="Profile picture of Abhilash"
                                     data-ai-hint="profile photo"
-                                    className="w-[40vh] h-[45vh] md:w-[50vh] md:h-[55vh] object-cover bg-secondary"
+                                    className="w-[40vh] h-[45vh] md:w-[50vh] md:h-[55vh] object-cover object-top bg-secondary"
                                     style={{ borderRadius: '35% 65% 60% 40% / 40% 35% 65% 60%' }}
                                     initial={{ scale: 0 }}
                                     animate={{ scale: 1 }}
