@@ -74,42 +74,21 @@ export const LinkedinIcon = (props: SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-const BrushStroke = (props: SVGProps<SVGSVGElement> & { id: string, path: string }) => (
-    <svg width="0" height="0" {...props}>
-        <defs>
-            <mask id={props.id} maskUnits="objectBoundingBox" x="0" y="0" width="1" height="1">
-                 <path d={props.path} fill="white"/>
-            </mask>
-        </defs>
-    </svg>
-)
-
 export const BrushStroke1 = (props: SVGProps<SVGSVGElement>) => (
-  <svg viewBox="0 0 386 386" fill="none" xmlns="http://www.w3.org/2000/svg" {...props} style={{ position: 'absolute', width: 0, height: 0 }}>
+  <svg viewBox="0 0 422 422" fill="none" xmlns="http://www.w3.org/2000/svg" {...props} style={{ position: 'absolute', width: 0, height: 0 }}>
     <defs>
       <mask id="brush-stroke-1">
-          <path d="M381 333.5C315.333 365.667 131 409 -2 381C-2 254 -2 136.5 -2 0.5C139 10.1667 259.5 24 381 110.5C381 192.333 381 254.5 381 333.5Z" fill="white"/>
+          <path d="M306.999 415.999C293.999 423.999 240.5 423.5 203.5 420.5C146.5 415.5 82.4999 409 31 386.5C-20.5 364 -1.00007 319.5 -0.500067 277.5C0.499933 193.5 -1.00007 131.5 4.99993 84.4999C10.9999 37.4999 31 1 31 1C102.5 1.00001 133 1 203.5 1C274 1 315.5 1.00001 386 16C456.5 31 422.5 95.5 418.5 137.5C414.5 179.5 419.5 246 418 299C416.5 352 402.5 397 375 410.5C347.5 424 320 407.999 306.999 415.999Z" fill="white"/>
       </mask>
     </defs>
   </svg>
 );
 
+// Remove unused brush strokes
 export const BrushStroke2 = (props: SVGProps<SVGSVGElement>) => (
-  <svg viewBox="0 0 460 460" fill="none" xmlns="http://www.w3.org/2000/svg" {...props} style={{ position: 'absolute', width: 0, height: 0 }}>
-    <defs>
-        <mask id="brush-stroke-2">
-            <path d="M459.5 455.5C459.5 303.833 459.5 152 459.5 0C307.833 0 156 0 4.5 0C4.5 130.333 4.5 251.5 4.5 363.5C148.667 368.333 286.5 373 459.5 455.5Z" fill="white"/>
-        </mask>
-    </defs>
-  </svg>
+  <svg width="0" height="0" {...props} />
 );
 
 export const BrushStroke3 = (props: SVGProps<SVGSVGElement>) => (
-  <svg viewBox="0 0 422 422" fill="none" xmlns="http://www.w3.org/2000/svg" {...props} style={{ position: 'absolute', width: 0, height: 0 }}>
-      <defs>
-        <mask id="brush-stroke-3">
-            <path d="M422 422C281.333 422 141 422 0 422C0 281.333 0 141 0 0C140.667 0 281 0 422 0C422 140.667 422 281 422 422Z" fill="white"/>
-        </mask>
-      </defs>
-  </svg>
+ <svg width="0" height="0" {...props} />
 );
