@@ -86,8 +86,9 @@ export default function DayInTheLife() {
         viewport={{ once: true, amount: 0.2 }}
     >
       <div className="container mx-auto px-6">
-        <div
+        <motion.div
           className="text-center"
+          variants={sectionVariants}
         >
           <h2 className="text-3xl md:text-4xl font-headline font-bold mb-4 flex items-center justify-center gap-3">
             <Sparkles className="w-8 h-8 text-primary" />
@@ -96,17 +97,18 @@ export default function DayInTheLife() {
           <p className="max-w-3xl mx-auto text-muted-foreground mb-12 text-lg">
             Curious about my process? Ask the AI to simulate my day working on a specific topic.
           </p>
-        </div>
+        </motion.div>
 
-        <div
+        <motion.div
           className="max-w-3xl mx-auto"
+          variants={sectionVariants}
         >
           <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 mb-8">
             <Input 
               value={topic}
               onChange={(e) => setTopic(e.target.value)}
               placeholder="e.g., 'optimizing a RAG pipeline'" 
-              className="flex-grow"
+              className="flex-grow bg-background"
               disabled={isLoading}
             />
             <Button type="submit" size="lg" className="w-full sm:w-auto" disabled={isLoading}>
@@ -157,7 +159,7 @@ export default function DayInTheLife() {
               </motion.div>
             )}
           </AnimatePresence>
-        </div>
+        </motion.div>
       </div>
     </motion.section>
   );
