@@ -104,7 +104,7 @@ export default function Hero() {
                                 initial={{ opacity: 0, scale: 0.8 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                                className="md:col-span-5 relative flex justify-center items-center group"
+                                className="md:col-span-5 relative flex justify-center items-center group w-80 h-80 mx-auto"
                             >
                                 <motion.img 
                                     src="/profile.png.png"
