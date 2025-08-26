@@ -18,6 +18,11 @@ function parseHsl(hsl: string): [number, number, number] {
 
 const ThreeScene: React.FC<ThreeSceneProps> = ({ type, primaryColor, accentColor }) => {
   const mountRef = useRef<HTMLDivElement>(null);
+  const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
+  const sceneRef = useRef<THREE.Scene | null>(null);
+  const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
+  const objectRef = useRef<THREE.Group | THREE.Points | null>(null);
+  const clockRef = useRef<THREE.Clock | null>(null);
 
   useLayoutEffect(() => {
     const currentMount = mountRef.current;
@@ -27,8 +32,13 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ type, primaryColor, accentColor
     const accentThreeColor = new THREE.Color().setHSL(...parseHsl(accentColor));
 
     const scene = new THREE.Scene();
+    sceneRef.current = scene;
+
     const camera = new THREE.PerspectiveCamera(75, currentMount.clientWidth / currentMount.clientHeight, 0.1, 1000);
+    cameraRef.current = camera;
+    
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    rendererRef.current = renderer;
     
     renderer.setClearAlpha(0);
     renderer.setSize(currentMount.clientWidth, currentMount.clientHeight);
@@ -39,13 +49,12 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ type, primaryColor, accentColor
     scene.add(group);
     
     let object: THREE.Mesh | THREE.Points | null = null;
-    let clock: THREE.Clock | null = null;
     
     if (type === 'particles') {
+        clockRef.current = new THREE.Clock();
         const particlesCount = 5000;
         const positions = new Float32Array(particlesCount * 3);
         const colors = new Float32Array(particlesCount * 3);
-        clock = new THREE.Clock();
 
         for (let i = 0; i < positions.length; i += 3) {
             positions[i] = (Math.random() - 0.5) * 10;
@@ -98,26 +107,35 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ type, primaryColor, accentColor
         group.add(object);
         camera.position.z = type === 'avatar' ? 2 : 4;
     }
+    objectRef.current = group;
+
 
     let animationFrameId: number;
-    
     const animate = () => {
         animationFrameId = requestAnimationFrame(animate);
+        const clock = clockRef.current;
+        const obj = objectRef.current;
+        const rend = rendererRef.current;
+        const sc = sceneRef.current;
+        const cam = cameraRef.current;
 
-        if (type === 'particles' && clock) {
-            const elapsedTime = clock.getElapsedTime();
-            group.rotation.y = elapsedTime * 0.1;
+        if (!clock || !obj || !rend || !sc || !cam) return;
+        
+        const elapsedTime = clock.getElapsedTime();
+
+        if (type === 'particles') {
+            obj.rotation.y = elapsedTime * 0.05;
         } else {
-            group.rotation.x += 0.005;
-            group.rotation.y += 0.005;
+            obj.rotation.x += 0.002;
+            obj.rotation.y += 0.002;
         }
 
-        renderer.render(scene, camera);
+        rend.render(sc, cam);
     };
     animate();
 
     const handleResize = () => {
-        if (!currentMount) return;
+        if (!currentMount || !renderer || !camera) return;
         camera.aspect = currentMount.clientWidth / currentMount.clientHeight;
         camera.updateProjectionMatrix();
         renderer.setSize(currentMount.clientWidth, currentMount.clientHeight);
@@ -137,8 +155,12 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ type, primaryColor, accentColor
               }
           }
       });
-      renderer.dispose();
-      currentMount.removeChild(renderer.domElement);
+      if (renderer) {
+        renderer.dispose();
+        if(renderer.domElement.parentElement) {
+            renderer.domElement.parentElement.removeChild(renderer.domElement);
+        }
+      }
     };
   }, [type, primaryColor, accentColor]);
 
