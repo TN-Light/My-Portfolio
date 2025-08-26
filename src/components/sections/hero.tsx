@@ -110,7 +110,7 @@ export default function Hero() {
                                     src="/profile.png.png"
                                     alt="Profile of Abhilash"
                                     data-ai-hint="profile"
-                                    className="w-80 h-80 object-cover object-top rounded-full border-4 border-secondary shadow-lg p-4"
+                                    className="w-auto h-auto object-contain"
                                     whileHover={{ scale: 1.05 }}
                                     transition={{ type: 'spring', stiffness: 300 }}
                                 />
