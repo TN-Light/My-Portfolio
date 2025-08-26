@@ -1,7 +1,7 @@
 
 'use client';
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode, useMemo } from 'react';
 
 // Function to convert hex to HSL string
 function hexToHsl(hex: string): string {
@@ -47,6 +47,9 @@ interface Theme {
 interface ThemeContextType {
     theme: Theme;
     setTheme: (theme: Theme) => void;
+    primaryHsl: string;
+    backgroundHsl: string;
+    accentHsl: string;
 }
 
 const defaultTheme: Theme = {
@@ -58,6 +61,9 @@ const defaultTheme: Theme = {
 const ThemeContext = createContext<ThemeContextType>({
     theme: defaultTheme,
     setTheme: () => {},
+    primaryHsl: hexToHsl(defaultTheme.primary),
+    backgroundHsl: hexToHsl(defaultTheme.background),
+    accentHsl: hexToHsl(defaultTheme.primary),
 });
 
 export const useTheme = () => useContext(ThemeContext);
@@ -65,25 +71,26 @@ export const useTheme = () => useContext(ThemeContext);
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     const [theme, setTheme] = useState<Theme>(defaultTheme);
 
+    const primaryHsl = useMemo(() => hexToHsl(theme.primary), [theme.primary]);
+    const backgroundHsl = useMemo(() => hexToHsl(theme.background), [theme.background]);
+    
+    const isCyberpunk = useMemo(() => theme.description?.toLowerCase().includes('cyberpunk'), [theme.description]);
+    const accentHsl = useMemo(() => isCyberpunk ? primaryHsl : primaryHsl, [isCyberpunk, primaryHsl]);
+
+
     useEffect(() => {
         const root = document.documentElement;
-        root.classList.remove('theme-cyberpunk');
-
-        const backgroundHsl = hexToHsl(theme.background);
-        const primaryHsl = hexToHsl(theme.primary);
         
         root.style.setProperty('--background', backgroundHsl);
         root.style.setProperty('--primary', primaryHsl);
-        
-        if (theme.description?.toLowerCase().includes('cyberpunk')) {
-            root.classList.add('theme-cyberpunk');
-            const accentHsl = theme.primary ? hexToHsl(theme.primary) : primaryHsl;
-            root.style.setProperty('--accent', accentHsl);
-        } else {
-            const accentHsl = primaryHsl; 
-            root.style.setProperty('--accent', accentHsl);
-        }
+        root.style.setProperty('--accent', accentHsl);
 
+        if (isCyberpunk) {
+            root.classList.add('theme-cyberpunk');
+        } else {
+            root.classList.remove('theme-cyberpunk');
+        }
+        
         const l = parseFloat(backgroundHsl.split(' ')[2]);
         const isDark = l < 50;
 
@@ -114,10 +121,18 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
             root.style.setProperty('--input', '0 0% 89.8%');
             root.style.setProperty('--ring', '0 0% 3.9%');
         }
-    }, [theme]);
+    }, [theme, primaryHsl, backgroundHsl, accentHsl, isCyberpunk]);
+
+    const value = useMemo(() => ({
+        theme, 
+        setTheme, 
+        primaryHsl, 
+        backgroundHsl, 
+        accentHsl
+    }), [theme, primaryHsl, backgroundHsl, accentHsl]);
 
     return (
-        <ThemeContext.Provider value={{ theme, setTheme }}>
+        <ThemeContext.Provider value={value}>
             {children}
         </ThemeContext.Provider>
     );

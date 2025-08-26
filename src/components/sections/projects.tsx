@@ -9,6 +9,7 @@ import { ArrowUpRight, BookCheck, Eye } from 'lucide-react';
 import type { projectSchema } from '@/lib/schemas';
 import type { z } from 'zod';
 import ThreeScene from '../three-scene';
+import { useTheme } from '@/hooks/use-theme';
 
 type Project = z.infer<typeof projectSchema>;
 
@@ -17,6 +18,7 @@ interface ProjectsProps {
 }
 
 export default function Projects({ projects = [] }: ProjectsProps) {
+  const { primaryHsl, accentHsl } = useTheme();
   const cardVariants = {
     hidden: { opacity: 0, y: 50 },
     visible: { opacity: 1, y: 0 }
@@ -63,7 +65,7 @@ export default function Projects({ projects = [] }: ProjectsProps) {
             >
               <Card className="h-full flex flex-col bg-card border overflow-hidden group transition-all duration-300 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10 relative">
                  <CardContent className="pt-6 h-48">
-                   <ThreeScene type={project.threeSceneType} />
+                   <ThreeScene type={project.threeSceneType} primaryColor={primaryHsl} accentColor={accentHsl} />
                  </CardContent>
                 <CardHeader>
                   <CardTitle className="font-headline text-xl tracking-tight">{project.title}</CardTitle>

@@ -12,6 +12,7 @@ import { getChatbotResponse } from '@/app/actions';
 import type { portfolioSchema } from '@/lib/schemas';
 import type { z } from 'zod';
 import ThreeScene from './three-scene';
+import { useTheme } from '@/hooks/use-theme';
 
 type PortfolioData = z.infer<typeof portfolioSchema>;
 
@@ -30,6 +31,8 @@ export default function Chatbot({ portfolioData }: ChatbotProps) {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
+  const { theme, primaryHsl, accentHsl } = useTheme();
+
 
   useEffect(() => {
     if (isOpen && messages.length === 0) {
@@ -161,7 +164,11 @@ export default function Chatbot({ portfolioData }: ChatbotProps) {
           className="w-14 h-14 rounded-full shadow-lg bg-background text-primary backdrop-blur-sm border hover:bg-background"
           onClick={() => setIsOpen(!isOpen)}
         >
-          {isOpen ? <X className="w-6 h-6" /> : <ThreeScene type="avatar" />}
+          {isOpen ? (
+             <X className="w-6 h-6" /> 
+             ) : (
+             <ThreeScene type="avatar" primaryColor={primaryHsl} accentColor={accentHsl} />
+          )}
         </Button>
       </motion.div>
     </>
