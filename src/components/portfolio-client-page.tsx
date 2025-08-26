@@ -14,7 +14,7 @@ import Chatbot from '@/components/chatbot';
 import type { portfolioSchema } from '@/lib/schemas';
 import type { z } from 'zod';
 import LoadingScreen from '@/components/loading-screen';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import Header from './layout/header';
 import Footer from './layout/footer';
 import ThemeCustomizer from './theme-customizer';
@@ -129,6 +129,19 @@ const portfolioData: PortfolioData = {
   ],
 };
 
+const sectionVariants = {
+  hidden: { opacity: 0, y: 50 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut"
+    }
+  }
+};
+
+
 export default function PortfolioClientPage() {
   const [loading, setLoading] = useState(true);
   
@@ -152,15 +165,72 @@ export default function PortfolioClientPage() {
             <Header />
             <main className="flex-grow">
               <Hero />
-              <About skills={portfolioData.skills} certifications={portfolioData.certifications} />
-              <Projects projects={portfolioData.projects} />
-              <ResearchToReality implementations={portfolioData.researchImplementations || []} />
-              <Experience 
-                experiences={portfolioData.experiences}
-              />
-              <DayInTheLife />
-              <Achievements achievements={portfolioData.achievements || []} />
-              <Contact />
+              
+              <motion.section
+                variants={sectionVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+              >
+                <About skills={portfolioData.skills} certifications={portfolioData.certifications} />
+              </motion.section>
+
+              <motion.section
+                variants={sectionVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+              >
+                <Projects projects={portfolioData.projects} />
+              </motion.section>
+              
+              <motion.section
+                variants={sectionVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+              >
+                <ResearchToReality implementations={portfolioData.researchImplementations || []} />
+              </motion.section>
+
+              <motion.section
+                variants={sectionVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+              >
+                 <Experience 
+                  experiences={portfolioData.experiences}
+                />
+              </motion.section>
+
+              <motion.section
+                variants={sectionVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+              >
+                <DayInTheLife />
+              </motion.section>
+
+              <motion.section
+                variants={sectionVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+              >
+                <Achievements achievements={portfolioData.achievements || []} />
+              </motion.section>
+              
+              <motion.section
+                variants={sectionVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+              >
+                <Contact />
+              </motion.section>
+
             </main>
             <Footer />
             <Chatbot portfolioData={portfolioData} />
