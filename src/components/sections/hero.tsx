@@ -132,9 +132,11 @@ export default function Hero() {
                                     variants={imageReveal}
                                 >
                                     <motion.img 
-                                        src="https://picsum.photos/400/400"
+                                        src="/profile.png"
                                         alt="Profile of Abhilash"
                                         data-ai-hint="profile"
+                                        width={400}
+                                        height={400}
                                         className="w-full h-full object-cover rounded-full shadow-2xl"
                                         whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
                                     />
