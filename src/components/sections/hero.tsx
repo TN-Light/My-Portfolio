@@ -31,14 +31,18 @@ export default function Hero() {
     const helloText = "Hello".split("");
     const nameText = "— I'm Abhilash.".split("");
 
+    const crazyShapeStyle = {
+      clipPath: 'url(#crazy-shape-path)',
+    };
+
     return (
         <section id="hero" className="relative min-h-screen flex items-center bg-background overflow-hidden py-24">
-             <svg className="absolute w-0 h-0">
-              <defs>
-                <clipPath id="crazy-shape" clipPathUnits="objectBoundingBox">
-                  <path d="M0.773,0.999 C0.855,0.999,0.893,0.893,0.94,0.812 C1,0.715,1.012,0.589,0.995,0.485 C0.975,0.366,0.923,0.267,0.85,0.183 C0.748,0.069,0.612,0.007,0.473,0.001 C0.322,-0.006,0.18,0.057,0.08,0.156 C-0.02,0.255,-0.027,0.407,0.065,0.509 C0.113,0.563,0.223,0.64,0.23,0.752 C0.237,0.86,0.16,0.957,0.246,0.983 C0.332,1.009,0.435,0.981,0.503,0.966 C0.57,0.951,0.69,0.999,0.773,0.999 Z"></path>
-                </clipPath>
-              </defs>
+            <svg className="absolute w-0 h-0">
+                <defs>
+                    <clipPath id="crazy-shape-path" clipPathUnits="objectBoundingBox">
+                        <path d="M0.773,0.999 C0.855,0.999,0.893,0.893,0.94,0.812 C1,0.715,1.012,0.589,0.995,0.485 C0.975,0.366,0.923,0.267,0.85,0.183 C0.748,0.069,0.612,0.007,0.473,0.001 C0.322,-0.006,0.18,0.057,0.08,0.156 C-0.02,0.255,-0.027,0.407,0.065,0.509 C0.113,0.563,0.223,0.64,0.23,0.752 C0.237,0.86,0.16,0.957,0.246,0.983 C0.332,1.009,0.435,0.981,0.503,0.966 C0.57,0.951,0.69,0.999,0.773,0.999 Z"></path>
+                    </clipPath>
+                </defs>
             </svg>
             <div className="absolute inset-0 z-0">
                  <ThreeScene type='particles' primaryColor={primaryHsl} accentColor={accentHsl} />
@@ -111,34 +115,63 @@ export default function Hero() {
                                 initial={{ opacity: 0, scale: 0.8 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                                className="md:col-span-5 relative flex justify-center items-center h-[50vh] w-full"
+                                className="md:col-span-5 relative flex justify-center items-center h-[50vh] w-full group"
                             >
-                                <div 
-                                    className="w-72 h-72 md:w-96 md:h-96"
-                                    style={{
-                                        clipPath: 'url(#crazy-shape)',
-                                        backgroundColor: 'hsl(var(--primary) / 0.1)',
-                                    }}
+                                <motion.div
+                                  className="absolute w-72 h-72 md:w-96 md:h-96"
+                                  style={crazyShapeStyle}
+                                  animate={{
+                                    scale: [1, 1.02, 1],
+                                    rotate: [0, 1, 0],
+                                  }}
+                                  transition={{
+                                    duration: 20,
+                                    ease: 'easeInOut',
+                                    repeat: Infinity,
+                                    repeatType: 'reverse',
+                                  }}
                                 >
-                                    <motion.img 
+                                  <img 
+                                      src="/profile.png.png"
+                                      alt="Profile of Abhilash"
+                                      width={400}
+                                      height={400}
+                                      className="relative w-full h-full object-contain blur-lg opacity-70"
+                                  />
+                                </motion.div>
+
+                                <motion.div
+                                  className="absolute w-72 h-72 md:w-96 md:h-96"
+                                  style={crazyShapeStyle}
+                                  animate={{
+                                    scale: [1, 1.03, 1],
+                                    rotate: [0, -2, 0],
+                                  }}
+                                  transition={{
+                                    duration: 15,
+                                    ease: 'easeInOut',
+                                    repeat: Infinity,
+                                    repeatType: 'reverse',
+                                    delay: 0.5
+                                  }}
+                                  whileHover={{
+                                    scale: 1.5,
+                                    rotate: -15,
+                                    x: 50,
+                                    y: -50,
+                                    skew: 10,
+                                    transition: { type: 'spring', stiffness: 200, damping: 15 }
+                                  }}
+                                >
+                                    <img 
                                         src="/profile.png.png"
                                         alt="Profile of Abhilash"
                                         data-ai-hint="profile"
                                         width={400}
                                         height={400}
                                         className="relative w-full h-full object-contain"
-                                        animate={{
-                                            scale: [1, 1.05, 1],
-                                            rotate: [0, 2, 0],
-                                        }}
-                                        transition={{
-                                            duration: 15,
-                                            ease: 'easeInOut',
-                                            repeat: Infinity,
-                                            repeatType: 'reverse',
-                                        }}
                                     />
-                                </div>
+                                </motion.div>
                             </motion.div>
                         </div>
                     </div>
