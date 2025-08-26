@@ -131,10 +131,14 @@ export default function Hero() {
                                 <div
                                     className="absolute inset-0 w-full h-full"
                                     style={{
-                                        maskImage: 'url(#brush-stroke-1)',
+                                        maskImage: 'url(/brush-mask.png)',
                                         maskSize: 'contain',
                                         maskRepeat: 'no-repeat',
                                         maskPosition: 'center',
+                                        WebkitMaskImage: 'url(/brush-mask.png)',
+                                        WebkitMaskSize: 'contain',
+                                        WebkitMaskRepeat: 'no-repeat',
+                                        WebkitMaskPosition: 'center',
                                     }}
                                 >
                                     <motion.img 
