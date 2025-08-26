@@ -37,7 +37,7 @@ const cardVariants = {
 
 export default function Achievements({ achievements = [] }: AchievementsProps) {
   return (
-    <section id="achievements" className="bg-background">
+    <section id="achievements" className="py-24 bg-background">
       <div className="container mx-auto px-6">
         <motion.div
             initial={{ opacity: 0, y: 20 }}

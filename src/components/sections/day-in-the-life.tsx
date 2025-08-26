@@ -79,7 +79,7 @@ export default function DayInTheLife() {
   return (
     <motion.section 
         id="simulation" 
-        className="py-24 bg-background"
+        className="py-24 bg-secondary"
         variants={sectionVariants}
         initial="hidden"
         whileInView="visible"
@@ -138,7 +138,7 @@ export default function DayInTheLife() {
                       key={index}
                       variants={storyCardVariants}
                     >
-                      <Card className="bg-secondary/50 border-dashed overflow-hidden">
+                      <Card className="bg-background/50 border-dashed overflow-hidden">
                         <CardContent className="p-6">
                           <div className="flex items-start gap-4">
                             <div className="p-2 bg-primary/10 rounded-full mt-1">

@@ -42,7 +42,7 @@ export default function About({ skills = [], certifications = [] }: AboutProps) 
   return (
     <motion.section 
         id="about" 
-        className="bg-secondary"
+        className="py-24 bg-secondary"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
