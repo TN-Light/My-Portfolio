@@ -40,8 +40,7 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ type, primaryColor, accentColor
     
     let object: THREE.Mesh | THREE.Points | null = null;
     let clock: THREE.Clock | null = null;
-    const mouse = new THREE.Vector2();
-
+    
     if (type === 'particles') {
         const particlesCount = 5000;
         const positions = new Float32Array(particlesCount * 3);
@@ -101,21 +100,13 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ type, primaryColor, accentColor
     }
 
     let animationFrameId: number;
-
-    const onMouseMove = (event: MouseEvent) => {
-        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-    }
-    window.addEventListener('mousemove', onMouseMove);
-
-
+    
     const animate = () => {
         animationFrameId = requestAnimationFrame(animate);
 
         if (type === 'particles' && clock) {
             const elapsedTime = clock.getElapsedTime();
-            group.rotation.x = mouse.y * 0.1;
-            group.rotation.y = mouse.x * 0.1 + (elapsedTime * 0.05);
+            group.rotation.y = elapsedTime * 0.1;
         } else {
             group.rotation.x += 0.005;
             group.rotation.y += 0.005;
@@ -126,6 +117,7 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ type, primaryColor, accentColor
     animate();
 
     const handleResize = () => {
+        if (!currentMount) return;
         camera.aspect = currentMount.clientWidth / currentMount.clientHeight;
         camera.updateProjectionMatrix();
         renderer.setSize(currentMount.clientWidth, currentMount.clientHeight);
@@ -134,7 +126,6 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ type, primaryColor, accentColor
 
     return () => {
       window.removeEventListener('resize', handleResize);
-      window.removeEventListener('mousemove', onMouseMove);
       cancelAnimationFrame(animationFrameId);
       scene.traverse(child => {
           if (child instanceof THREE.Mesh) {
