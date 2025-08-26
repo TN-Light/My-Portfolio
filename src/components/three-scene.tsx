@@ -39,11 +39,14 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ type, primaryColor, accentColor
     scene.add(group);
     
     let object: THREE.Mesh | THREE.Points | null = null;
+    let clock: THREE.Clock | null = null;
+    const mouse = new THREE.Vector2();
 
     if (type === 'particles') {
         const particlesCount = 5000;
         const positions = new Float32Array(particlesCount * 3);
         const colors = new Float32Array(particlesCount * 3);
+        clock = new THREE.Clock();
 
         for (let i = 0; i < positions.length; i += 3) {
             positions[i] = (Math.random() - 0.5) * 10;
@@ -63,6 +66,7 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ type, primaryColor, accentColor
             size: 0.02,
             vertexColors: true,
             blending: THREE.AdditiveBlending,
+            depthWrite: false,
         });
         object = new THREE.Points(particlesGeometry, particlesMaterial);
         group.add(object);
@@ -98,10 +102,26 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ type, primaryColor, accentColor
 
     let animationFrameId: number;
 
+    const onMouseMove = (event: MouseEvent) => {
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    }
+    window.addEventListener('mousemove', onMouseMove);
+
+
     const animate = () => {
         animationFrameId = requestAnimationFrame(animate);
-        group.rotation.x += 0.005;
-        group.rotation.y += 0.005;
+        group.rotation.y += 0.002;
+
+        if (type === 'particles' && clock) {
+            const elapsedTime = clock.getElapsedTime();
+            group.rotation.x = mouse.y * 0.2;
+            group.rotation.y = mouse.x * 0.2 + (elapsedTime * 0.1);
+        } else {
+            group.rotation.x += 0.005;
+            group.rotation.y += 0.005;
+        }
+
         renderer.render(scene, camera);
     };
     animate();
@@ -115,6 +135,7 @@ const ThreeScene: React.FC<ThreeSceneProps> = ({ type, primaryColor, accentColor
 
     return () => {
       window.removeEventListener('resize', handleResize);
+      window.removeEventListener('mousemove', onMouseMove);
       cancelAnimationFrame(animationFrameId);
       scene.traverse(child => {
           if (child instanceof THREE.Mesh) {
